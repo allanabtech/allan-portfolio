@@ -82,7 +82,7 @@ export default function Terminal() {
       setHistory((prev) => [
         ...prev,
         {
-          text: "1. AI-Powered Navigation Bot (Arduino, Autonomous Navigation)\n2. Robotics & Embedded Systems\n3. AI & Cloud Computing Projects\n4. Pothole Detection & Severity Analysis (Status: In Development)",
+          text: "1. AI-Powered Navigation Bot (Arduino, Autonomous Navigation)\n2. Robotics & Embedded Systems\n3. AI & Cloud Computing Projects\n4. Daily Operations & Interactive Milestones (Status: Active)",
           type: "output",
         },
       ]);
@@ -90,7 +90,7 @@ export default function Terminal() {
       setHistory((prev) => [
         ...prev,
         {
-          text: "Email: contact@allanabraham.dev\nGitHub: github.com/allan-abraham\nLinkedIn: linkedin.com/in/allan-abraham",
+          text: "Email: allanabraham271299@gmail.com\nGitHub: github.com/allanabtech\nLinkedIn: linkedin.com/in/abrahamallan",
           type: "output",
         },
       ]);
@@ -106,7 +106,7 @@ export default function Terminal() {
       setHistory((prev) => [
         ...prev,
         {
-          text: "Current Mission: Pothole Detection & Severity Analysis\nProgress: 75% complete\nObjective: Deploy OpenCV model to edge device and connect with AWS Cloud storage.",
+          text: "Current Mission: Daily Operations Command Center\nProgress: 100% Active\nObjective: Explore new concepts in the morning, deploy cloud and coding projects in the afternoon, and discover open-source or watch anime at night.",
           type: "output",
         },
       ]);

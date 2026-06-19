@@ -1,10 +1,41 @@
 "use client";
 
-import React from "react";
-import { ShieldCheck, Cpu, HardDrive, Compass, Activity, MapPin } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { ShieldCheck, Cpu, HardDrive, Compass, Activity, Coffee, Tv, Sparkles } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 
 export default function MissionSection() {
+  const [dayProgress, setDayProgress] = useState(75);
+  const [activePhase, setActivePhase] = useState<"morning" | "afternoon" | "evening">("afternoon");
+  const [currentTimeText, setCurrentTimeText] = useState("");
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const now = new Date();
+      const hrs = now.getHours();
+      const mins = now.getMinutes();
+      const totalMinutes = hrs * 60 + mins;
+      
+      const pct = Math.round((totalMinutes / 1440) * 100);
+      setDayProgress(pct);
+
+      const formattedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+      setCurrentTimeText(formattedTime);
+
+      if (hrs >= 8 && hrs < 12) {
+        setActivePhase("morning");
+      } else if (hrs >= 12 && hrs < 18) {
+        setActivePhase("afternoon");
+      } else {
+        setActivePhase("evening");
+      }
+    };
+
+    updateProgress();
+    const interval = setInterval(updateProgress, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   const telemetryVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -21,7 +52,7 @@ export default function MissionSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4 },
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
@@ -43,11 +74,11 @@ export default function MissionSection() {
         
         {/* Section Header */}
         <div className="flex items-center gap-4 mb-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-text">06. Current Mission Control</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-text">06. Daily Operations Command Center</h2>
           <div className="h-[1px] flex-1 bg-glass-border" />
         </div>
         <p className="text-sm text-muted mb-10 max-w-lg leading-relaxed">
-          Active mission telemetry. Tracking current objectives, design milestones, and deployment progress in real-time.
+          Active developer lifecycle telemetry. Tracking Allan's daily routine, coding pipelines, and research parameters in real-time.
         </p>
 
         {/* Mission Dashboard Container */}
@@ -55,28 +86,28 @@ export default function MissionSection() {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ type: "spring", stiffness: 80, damping: 15 }}
+          transition={{ type: "spring", stiffness: 22, damping: 20 }}
           className="glass-panel w-full rounded-2xl border-glass-border p-6 md:p-8 flex flex-col gap-8 shadow-2xl relative overflow-hidden bg-[#161B22]/80"
         >
           
           {/* Dashboard Header */}
           <div className="flex items-center justify-between flex-wrap gap-4 z-10 select-none">
             <div>
-              <span className="text-[10px] font-mono text-accent font-bold tracking-wider">PROJECT-MISSION // ACTIVE</span>
+              <span className="text-[10px] font-mono text-accent font-bold tracking-wider">ROUTINE-METRICS // DYNAMIC</span>
               <h3 className="text-lg md:text-xl font-extrabold text-text mt-1">
-                Pothole Detection & Severity Analysis
+                Developer Daily Life Control
               </h3>
             </div>
             <div className="flex items-center gap-4">
               <span className="flex items-center gap-1.5 text-xs text-green-400 bg-green-500/10 border border-green-500/20 px-3.5 py-1.5 rounded-full font-mono font-semibold animate-pulse">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-status-pulse" />
-                SYSTEM RUNNING
+                SYSTEM RUNNING // {currentTimeText || "LIVE"}
               </span>
             </div>
           </div>
 
           {/* Progress Bar & Details */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center z-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch z-10">
             
             {/* Progress Telemetry */}
             <div className="md:col-span-4 flex flex-col items-center justify-center text-center p-6 bg-[#0D1117]/80 rounded-xl border border-glass-border relative select-none">
@@ -99,57 +130,105 @@ export default function MissionSection() {
                     strokeWidth="8"
                     fill="transparent"
                     strokeDasharray={377}
-                    strokeDashoffset={377 * (1 - 0.75)}
+                    strokeDashoffset={377 * (1 - dayProgress / 100)}
                     strokeLinecap="round"
-                    className="accent-glow"
+                    className="accent-glow transition-all duration-1000 ease-out"
                   />
                 </svg>
                 {/* Inner Text */}
                 <div className="absolute flex flex-col items-center justify-center">
-                  <span className="text-3xl font-extrabold text-text font-mono">75%</span>
-                  <span className="text-[10px] text-muted tracking-widest uppercase mt-0.5">Progress</span>
+                  <span className="text-3xl font-extrabold text-text font-mono">{dayProgress}%</span>
+                  <span className="text-[10px] text-muted tracking-widest uppercase mt-0.5">Day Elapsed</span>
                 </div>
+              </div>
+              
+              <div className="mt-4 font-mono text-[10px] text-muted space-y-1">
+                <div>TIMEZONE: GMT+05:30</div>
+                <div className="uppercase">ACTIVE: PHASE {activePhase === "morning" ? "01" : activePhase === "afternoon" ? "02" : "03"}</div>
               </div>
             </div>
 
-            {/* Milestones Info */}
-            <div className="md:col-span-8 space-y-5">
-              <div className="bg-[#0D1117]/60 p-4 rounded-xl border border-glass-border/40">
-                <span className="text-[9px] uppercase font-bold text-accent tracking-wider flex items-center gap-1.5 mb-1.5 select-none">
-                  <ShieldCheck className="w-3.5 h-3.5" /> Current Milestone
-                </span>
+            {/* Daily Routine Phases List */}
+            <div className="md:col-span-8 space-y-4 flex flex-col justify-between">
+              
+              {/* Phase 1: Morning to Afternoon */}
+              <div className={`p-4 rounded-xl border transition-all duration-300 ${
+                activePhase === "morning"
+                  ? "bg-accent/10 border-accent shadow-[0_0_15px_rgba(88,166,255,0.15)]"
+                  : "bg-[#0D1117]/60 border-glass-border/40 hover:border-glass-border"
+              }`}>
+                <div className="flex items-center justify-between mb-1.5 select-none">
+                  <span className="text-[9px] uppercase font-bold text-accent tracking-wider flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5" /> Phase 01 // 08:00 - 12:00
+                  </span>
+                  {activePhase === "morning" && (
+                    <span className="text-[9px] px-2 py-0.5 rounded bg-accent/20 border border-accent/30 font-mono text-accent font-bold animate-pulse">ACTIVE NOW</span>
+                  )}
+                </div>
                 <p className="text-sm font-semibold text-text leading-relaxed">
-                  Model Porting & Inference Optimization
+                  Ideation, Concepts & Architecture R&D
                 </p>
-                <p className="text-xs text-muted mt-1.5">
-                  Porting neural models into Raspberry Pi hardware, configuring PyTorch Mobile dependencies, and benchmarking hardware accelerators.
+                <p className="text-xs text-muted mt-1">
+                  Brainstorming algorithmic solutions, analyzing architecture whitepapers, drafting system flowcharts, and designing databases.
                 </p>
               </div>
 
-              {/* Coordinates Mappings (High Density detail) */}
-              <div className="bg-[#0D1117]/60 p-4 rounded-xl border border-glass-border/40 font-mono">
-                <span className="text-[9px] uppercase font-bold text-[#27C93F] tracking-wider flex items-center gap-1.5 mb-2 select-none">
-                  <MapPin className="w-3.5 h-3.5" /> ACTIVE GPS GEOMETRY
-                </span>
-                <div className="flex flex-wrap justify-between text-[10px] text-muted gap-2">
-                  <span>LAT: 12.9716° N</span>
-                  <span>LNG: 77.5946° E</span>
-                  <span>HEADING: 184° S</span>
-                  <span>DEV-ADDR: 0x7E-FF</span>
+              {/* Phase 2: Afternoon to Evening */}
+              <div className={`p-4 rounded-xl border transition-all duration-300 ${
+                activePhase === "afternoon"
+                  ? "bg-[#27C93F]/10 border-[#27C93F] shadow-[0_0_15px_rgba(39,201,63,0.15)]"
+                  : "bg-[#0D1117]/60 border-glass-border/40 hover:border-glass-border"
+              }`}>
+                <div className="flex items-center justify-between mb-1.5 select-none">
+                  <span className="text-[9px] uppercase font-bold text-[#27C93F] tracking-wider flex items-center gap-1.5">
+                    <Activity className="w-3.5 h-3.5" /> Phase 02 // 12:00 - 18:00
+                  </span>
+                  {activePhase === "afternoon" && (
+                    <span className="text-[9px] px-2 py-0.5 rounded bg-[#27C93F]/20 border border-[#27C93F]/30 font-mono text-[#27C93F] font-bold animate-pulse">ACTIVE NOW</span>
+                  )}
+                </div>
+                <p className="text-sm font-semibold text-text leading-relaxed">
+                  Deployment, Coding & CI/CD Pipelines
+                </p>
+                <p className="text-xs text-muted mt-1">
+                  Writing Python and JavaScript modules, containerizing services with Docker, deploying serverless configurations to AWS cloud storage, and testing payloads.
+                </p>
+              </div>
+
+              {/* Phase 3: Evening to Night */}
+              <div className={`p-4 rounded-xl border transition-all duration-300 ${
+                activePhase === "evening"
+                  ? "bg-purple-500/10 border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.15)]"
+                  : "bg-[#0D1117]/60 border-glass-border/40 hover:border-glass-border"
+              }`}>
+                <div className="flex items-center justify-between mb-1.5 select-none">
+                  <span className="text-[9px] uppercase font-bold text-purple-400 tracking-wider flex items-center gap-1.5">
+                    <Tv className="w-3.5 h-3.5" /> Phase 03 // 18:00 - 23:00+
+                  </span>
+                  {activePhase === "evening" && (
+                    <span className="text-[9px] px-2 py-0.5 rounded bg-purple-500/20 border border-purple-500/30 font-mono text-purple-400 font-bold animate-pulse">ACTIVE NOW</span>
+                  )}
+                </div>
+                <p className="text-sm font-semibold text-text leading-relaxed">
+                  Rest, Anime & Open-Source Discoveries
+                </p>
+                <p className="text-xs text-muted mt-1">
+                  Catching up on unwatched anime series, researching trending repositories on GitHub, auditing open-source packages, and winding down.
+                </p>
+                
+                {/* Cyberpunk/Anime Workstation Picture Embedded */}
+                <div className="mt-3 overflow-hidden rounded-lg border border-glass-border/40 relative group/pic">
+                  <img 
+                    src="/assets/anime_workstation.png" 
+                    alt="Cyberpunk Anime Developer Workstation" 
+                    className="h-28 w-full object-cover rounded-lg transform hover:scale-105 transition-transform duration-500 ease-out" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2 select-none">
+                    <span className="text-[9px] font-mono text-white/80 font-bold">ALLAN'S TERMINAL RETREAT // DUSK</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="bg-[#0D1117]/60 p-4 rounded-xl border border-glass-border/40">
-                <span className="text-[9px] uppercase font-bold text-[#FFBD2E] tracking-wider flex items-center gap-1.5 mb-1.5 select-none">
-                  <Compass className="w-3.5 h-3.5" /> Next Objective
-                </span>
-                <p className="text-sm font-semibold text-text leading-relaxed">
-                  GPS coordinate tagging & Cloud Upload Pipeline
-                </p>
-                <p className="text-xs text-muted mt-1.5">
-                  Adding coordinate mapping layers using GPS shields, packing severity payload logs, and automating background upload syncing to secure cloud buckets.
-                </p>
-              </div>
             </div>
 
           </div>
@@ -163,27 +242,27 @@ export default function MissionSection() {
             className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-glass-border/40 z-10 font-mono"
           >
             <motion.div variants={itemVariants} className="bg-[#0D1117]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
-              <span className="text-[9px] text-muted font-bold">CPU TEMP</span>
+              <span className="text-[9px] text-muted font-bold">FOCUS INDEX</span>
               <span className="text-xs font-bold text-text mt-1 flex items-center gap-1">
-                <Cpu className="w-3.5 h-3.5 text-[#FF5F56]" /> 42°C
+                <Cpu className="w-3.5 h-3.5 text-accent animate-pulse" /> 92%
               </span>
             </motion.div>
             <motion.div variants={itemVariants} className="bg-[#0D1117]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
-              <span className="text-[9px] text-muted font-bold">INFERENCE LATENCY</span>
+              <span className="text-[9px] text-muted font-bold">COFFEE INTAKE</span>
               <span className="text-xs font-bold text-text mt-1 flex items-center gap-1">
-                <Activity className="w-3.5 h-3.5 text-[#FFBD2E]" /> 35ms
+                <Coffee className="w-3.5 h-3.5 text-[#FFBD2E]" /> 2.0 Cups
               </span>
             </motion.div>
             <motion.div variants={itemVariants} className="bg-[#0D1117]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
-              <span className="text-[9px] text-muted font-bold">STORAGE CAPACITY</span>
+              <span className="text-[9px] text-muted font-bold">ANIME QUEUE</span>
               <span className="text-xs font-bold text-text mt-1 flex items-center gap-1">
-                <HardDrive className="w-3.5 h-3.5 text-accent" /> 14.8 GB Free
+                <Tv className="w-3.5 h-3.5 text-[#FF5F56]" /> 4 Unwatched
               </span>
             </motion.div>
             <motion.div variants={itemVariants} className="bg-[#0D1117]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
-              <span className="text-[9px] text-muted font-bold">TPU CORE LOAD</span>
+              <span className="text-[9px] text-muted font-bold">ENERGY LEVEL</span>
               <span className="text-xs font-bold text-[#27C93F] mt-1 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#27C93F] animate-status-pulse" /> 84% ACTIVE
+                <span className="w-1.5 h-1.5 rounded-full bg-[#27C93F] animate-status-pulse" /> 78% ACTIVE
               </span>
             </motion.div>
           </motion.div>

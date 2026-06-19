@@ -29,7 +29,7 @@ export default function SectionWrapper({ children, id, className = "" }: Section
       id={id}
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1] }}
       className={`relative w-full ${className}`}
     >
       {children}

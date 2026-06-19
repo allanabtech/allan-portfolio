@@ -28,7 +28,7 @@ export default function ContactSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring", stiffness: 90, damping: 15 },
+      transition: { type: "spring", stiffness: 22, damping: 20 },
     },
   };
 
@@ -83,7 +83,7 @@ export default function ContactSection() {
             
             <motion.a
               variants={itemVariants}
-              href="mailto:contact@allanabraham.dev"
+              href="mailto:allanabraham271299@gmail.com"
               onClick={triggerViewContact}
               className="glass-panel border-glass-border/60 hover:border-accent/40 bg-[#161B22]/50 hover:bg-[#161B22]/90 p-6 rounded-2xl flex flex-col items-center justify-center text-center gap-3 transition-all duration-300 hover:scale-[1.03] active:scale-95 group shadow-md hover:shadow-accent/5"
             >
@@ -92,14 +92,14 @@ export default function ContactSection() {
               </div>
               <div className="space-y-1">
                 <h4 className="text-xs font-bold text-text uppercase tracking-wider">Email Me</h4>
-                <p className="text-[11px] text-muted truncate max-w-[160px] font-mono">contact@allanabraham.dev</p>
+                <p className="text-[11px] text-muted truncate max-w-[160px] font-mono">allanabraham271299@gmail.com</p>
               </div>
               <ArrowUpRight className="w-4 h-4 text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-1" />
             </motion.a>
 
             <motion.a
               variants={itemVariants}
-              href="https://linkedin.com/in/allan-abraham"
+              href="https://www.linkedin.com/in/abrahamallan"
               target="_blank"
               rel="noopener noreferrer"
               onClick={triggerViewContact}
@@ -114,14 +114,14 @@ export default function ContactSection() {
               </div>
               <div className="space-y-1">
                 <h4 className="text-xs font-bold text-text uppercase tracking-wider">LinkedIn</h4>
-                <p className="text-[11px] text-muted font-mono">/in/allan-abraham</p>
+                <p className="text-[11px] text-muted font-mono">/in/abrahamallan</p>
               </div>
               <ArrowUpRight className="w-4 h-4 text-muted group-hover:text-[#27C93F] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-1" />
             </motion.a>
 
             <motion.a
               variants={itemVariants}
-              href="https://github.com/allan-abraham"
+              href="https://github.com/allanabtech"
               target="_blank"
               rel="noopener noreferrer"
               onClick={triggerViewContact}
@@ -134,7 +134,7 @@ export default function ContactSection() {
               </div>
               <div className="space-y-1">
                 <h4 className="text-xs font-bold text-text uppercase tracking-wider">GitHub</h4>
-                <p className="text-[11px] text-muted font-mono">/allan-abraham</p>
+                <p className="text-[11px] text-muted font-mono">/allanabtech</p>
               </div>
               <ArrowUpRight className="w-4 h-4 text-muted group-hover:text-[#FFBD2E] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-1" />
             </motion.a>
