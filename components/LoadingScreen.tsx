@@ -62,7 +62,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.45, ease: "easeInOut" }}
-        className="fixed inset-0 bg-[#0D1117] z-50 flex items-center justify-center font-mono text-xs md:text-sm p-6 select-none"
+        className="fixed inset-0 bg-[#0D1017] z-50 flex items-center justify-center font-mono text-xs md:text-sm p-6 select-none"
       >
         <div className="w-full max-w-sm space-y-2 text-left">
           {/* Simulated Terminal Header */}
@@ -74,7 +74,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
           </div>
 
           {/* Loading Logs */}
-          <div className="space-y-1 bg-[#161B22]/40 border border-glass-border/30 rounded-lg p-5 min-h-[290px] flex flex-col justify-center">
+          <div className="space-y-1 bg-[#0D1017]/40 border border-glass-border/30 rounded-lg p-5 min-h-[290px] flex flex-col justify-center">
             {lines.map((line, idx) => (
               <motion.div
                 key={idx}

@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0D1117;
-  --foreground: #E6EDF3;
+  --background: #0D1017;
+  --foreground: #F3F4F6;
 }
 
 @theme {
-  --color-background: #0D1117;
-  --color-surface: #161B22;
-  --color-accent: #58A6FF;
-  --color-accent-hover: #388bfd;
-  --color-text: #E6EDF3;
-  --color-muted: #8B949E;
-  --color-glass-bg: rgba(22, 27, 34, 0.65);
-  --color-glass-border: rgba(240, 246, 252, 0.08);
+  --color-background: #0D1017;
+  --color-surface: #0D1017;
+  --color-accent: #00F0FF;
+  --color-accent-hover: #38BDF8;
+  --color-text: #F3F4F6;
+  --color-muted: #9CA3AF;
+  --color-glass-bg: rgba(13, 16, 23, 0.7);
+  --color-glass-border: rgba(0, 240, 255, 0.1);
   
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
@@ -26,59 +26,80 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0D1117;
+  background: #0D1017;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #161B22;
-  border: 1px solid rgba(240, 246, 252, 0.1);
+  background: #0D1017;
+  border: 1px solid rgba(0, 240, 255, 0.12);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #388bfd;
+  background: #38BDF8;
 }
 
 html {
+  background-color: #0D1017;
+  color: #F3F4F6;
   scroll-behavior: smooth;
-  background-color: #0D1117;
-  color: #E6EDF3;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
 }
 
 body {
-  background-color: #0D1117;
-  color: #E6EDF3;
+  background-color: #0D1017;
+  color: #F3F4F6;
   overflow-x: hidden;
 }
 
 /* Glassmorphism card utility */
 .glass-panel {
-  background: rgba(22, 27, 34, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(240, 246, 252, 0.08);
+  background: rgba(13, 16, 23, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 240, 255, 0.1);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  /* Pre-promote to compositor layer — avoids mid-hover promotion stutter */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              background-color 0.25s ease;
+  will-change: transform;
 }
 
 .glass-panel-hover:hover {
-  background: rgba(22, 27, 34, 0.8);
-  border-color: rgba(88, 166, 255, 0.3);
-  box-shadow: 0 12px 40px 0 rgba(88, 166, 255, 0.05);
-  transform: translateY(-2px);
+  background: linear-gradient(rgba(13, 16, 23, 0.8), rgba(13, 16, 23, 0.8)) padding-box,
+              radial-gradient(
+                220px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px),
+                rgba(0, 240, 255, 0.4),
+                rgba(0, 240, 255, 0.1) 50%,
+                transparent 100%
+              ) border-box;
+  border-color: transparent;
+  transform: translate3d(0, -4px, 0);
+  box-shadow: 0 16px 40px 0 rgba(0, 240, 255, 0.08);
 }
 
 /* Custom glowing effects */
 .accent-glow {
-  box-shadow: 0 0 40px -5px rgba(88, 166, 255, 0.15);
+  box-shadow: 0 0 40px -5px rgba(0, 240, 255, 0.2);
 }
 
 .accent-glow-text {
-  text-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
 }
+
+.glow-text {
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+
 
 /* Animations */
 @keyframes pulse-slow {
@@ -173,4 +194,42 @@ body {
 
 .animate-matrix-fade {
   animation: matrix-fade 5s ease-in-out infinite;
+}
+
+/* Custom red/orange spotlight for Failure Log cards */
+.failure-spotlight:hover {
+  background: linear-gradient(rgba(13, 16, 23, 0.8), rgba(13, 16, 23, 0.8)) padding-box,
+              radial-gradient(
+                220px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px),
+                rgba(239, 68, 68, 0.45),
+                rgba(245, 158, 11, 0.25) 50%,
+                transparent 100%
+              ) border-box !important;
+  border-color: transparent !important;
+  box-shadow: 0 16px 40px 0 rgba(239, 68, 68, 0.08) !important;
+}
+
+/* ─── Performance & Accessibility ───────────────────────────────────────────── */
+
+/* Ensure all CSS keyframe animations run on the compositor thread */
+@keyframes pulse-slow-opt {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.6; }
+}
+
+/* Snap-free native smooth scroll \u2014 works alongside JS scroll managers */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Respect OS "reduce motion" setting \u2014 kills all animations for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

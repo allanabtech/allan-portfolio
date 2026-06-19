@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { X, Bot, Cpu, CloudLightning, Construction, HelpCircle, BookOpen } from "lucide-react";
+import SpotlightCard from "../SpotlightCard";
 
 interface Project {
   id: number;
@@ -132,6 +133,7 @@ export default function ProjectsSection() {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
+        delayChildren: 0.4,
       },
     },
   };
@@ -157,12 +159,6 @@ export default function ProjectsSection() {
       <div className="absolute bottom-10 left-10 w-52 h-52 rounded-full border border-accent/10 -z-10 pointer-events-none animate-sonar-wave" style={{ animationDelay: "3s" }} />
 
       <div className="max-w-4xl mx-auto relative z-10">
-        
-        {/* Section Header */}
-        <div className="flex items-center gap-4 mb-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-text">03. Featured Projects</h2>
-          <div className="h-[1px] flex-1 bg-glass-border" />
-        </div>
 
         {/* Telemetry Subtitle */}
         <div className="flex items-center gap-6 mb-10 text-[10px] text-muted font-mono select-none">
@@ -185,51 +181,51 @@ export default function ProjectsSection() {
             <motion.div
               key={proj.id}
               variants={cardVariants}
-              onClick={() => setSelectedProject(proj)}
-              className="glass-panel glass-panel-hover rounded-xl border-glass-border p-6 cursor-pointer flex flex-col justify-between group h-80 relative overflow-hidden"
             >
-              {/* Card Glow Border on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-b from-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-
-              {/* Graphic Illustration */}
-              <div className="w-full h-24 mb-4 bg-[#0D1117]/80 rounded-lg flex items-center justify-center border border-glass-border/40 overflow-hidden relative">
-                {proj.svgGraphic}
-                {proj.status && (
-                  <span className="absolute top-2 right-2 text-[9px] uppercase tracking-wider font-extrabold bg-[#FF5F56]/15 border border-[#FF5F56]/30 text-[#FF5F56] px-2 py-0.5 rounded-full">
-                    {proj.status}
-                  </span>
-                )}
-              </div>
-
-              <div>
-                {/* Meta details */}
-                <div className="flex items-center gap-2.5 mb-1.5">
-                  <div className="p-1.5 rounded-md bg-white/5 border border-glass-border">
-                    {proj.icon}
-                  </div>
-                  <h3 className="text-base font-bold text-text group-hover:text-accent transition-colors">
-                    {proj.title}
-                  </h3>
+              <SpotlightCard
+                onClick={() => setSelectedProject(proj)}
+                className="rounded-xl p-6 cursor-pointer flex flex-col justify-between group h-80 relative overflow-hidden"
+              >
+                {/* Graphic Illustration */}
+                <div className="w-full h-24 mb-4 bg-[#0D1017]/80 rounded-lg flex items-center justify-center border border-glass-border/40 overflow-hidden relative">
+                  {proj.svgGraphic}
+                  {proj.status && (
+                    <span className="absolute top-2 right-2 text-[9px] uppercase tracking-wider font-extrabold bg-[#FF5F56]/15 border border-[#FF5F56]/30 text-[#FF5F56] px-2 py-0.5 rounded-full">
+                      {proj.status}
+                    </span>
+                  )}
                 </div>
-                <p className="text-xs text-muted font-medium mb-4">{proj.subtitle}</p>
-              </div>
 
-              {/* Tech Tags */}
-              <div className="flex flex-wrap gap-1.5 mt-auto">
-                {proj.tech.slice(0, 3).map((tag, tIdx) => (
-                  <span
-                    key={tIdx}
-                    className="text-[10px] bg-white/5 border border-glass-border px-2 py-0.5 rounded text-muted font-medium"
-                  >
-                    {tag}
-                  </span>
-                ))}
-                {proj.tech.length > 3 && (
-                  <span className="text-[10px] text-accent font-semibold px-1 py-0.5">
-                    +{proj.tech.length - 3} more
-                  </span>
-                )}
-              </div>
+                <div>
+                  {/* Meta details */}
+                  <div className="flex items-center gap-2.5 mb-1.5">
+                    <div className="p-1.5 rounded-md bg-white/5 border border-glass-border">
+                      {proj.icon}
+                    </div>
+                    <h3 className="text-base font-bold text-text group-hover:text-accent transition-colors">
+                      {proj.title}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-muted font-medium mb-4">{proj.subtitle}</p>
+                </div>
+
+                {/* Tech Tags */}
+                <div className="flex flex-wrap gap-1.5 mt-auto">
+                  {proj.tech.slice(0, 3).map((tag, tIdx) => (
+                    <span
+                      key={tIdx}
+                      className="text-[10px] bg-white/5 border border-glass-border px-2 py-0.5 rounded text-muted font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  {proj.tech.length > 3 && (
+                    <span className="text-[10px] text-accent font-semibold px-1 py-0.5">
+                      +{proj.tech.length - 3} more
+                    </span>
+                  )}
+                </div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </motion.div>
@@ -244,7 +240,7 @@ export default function ProjectsSection() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setSelectedProject(null)}
-                className="absolute inset-0 bg-[#0D1117]/85 backdrop-blur-sm"
+                className="absolute inset-0 bg-[#0D1017]/90 backdrop-blur-sm"
               />
 
               {/* Modal Container */}
@@ -253,7 +249,7 @@ export default function ProjectsSection() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ type: "spring", damping: 25, stiffness: 350 }}
-                className="glass-panel w-full max-w-xl rounded-xl border-glass-border overflow-hidden relative shadow-2xl z-10 flex flex-col max-h-[85vh] bg-[#161B22]/95"
+                className="glass-panel w-full max-w-xl rounded-xl border-glass-border overflow-hidden relative shadow-2xl z-10 flex flex-col max-h-[85vh] bg-[#0D1017]/95"
               >
                 {/* Header */}
                 <div className="p-5 border-b border-glass-border/40 flex items-center justify-between">
@@ -285,7 +281,7 @@ export default function ProjectsSection() {
                   )}
 
                   {/* Telemetry Metrics Grid */}
-                  <div className="grid grid-cols-3 gap-3 bg-[#0D1117]/60 border border-glass-border/40 p-3.5 rounded-lg text-center font-mono select-none">
+                  <div className="grid grid-cols-3 gap-3 bg-[#0D1017]/60 border border-glass-border/40 p-3.5 rounded-lg text-center font-mono select-none">
                     <div>
                       <span className="block text-[9px] uppercase text-muted mb-0.5">Lines of Code</span>
                       <span className="text-xs font-bold text-accent">{selectedProject.metrics.loc}</span>
@@ -329,7 +325,7 @@ export default function ProjectsSection() {
                       {selectedProject.tech.map((tag, idx) => (
                         <span
                           key={idx}
-                          className="text-xs bg-[#0D1117] border border-glass-border px-3 py-1 rounded-md text-text font-medium"
+                          className="text-xs bg-[#0D1017] border border-glass-border px-3 py-1 rounded-md text-text font-medium"
                         >
                           {tag}
                         </span>

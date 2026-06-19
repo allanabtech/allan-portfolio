@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
+import LinkScrollManager from "@/components/LinkScrollManager";
 import SectionWrapper from "@/components/SectionWrapper";
-import SectionDivider from "@/components/SectionDivider";
 import LoadingScreen from "@/components/LoadingScreen";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
@@ -34,75 +34,56 @@ export default function Home() {
       
       {!isLoading && (
         <div className="flex flex-col min-h-screen">
+          <LinkScrollManager />
           <Navbar />
           
           <main className="flex-1 w-full relative">
-            <SectionWrapper id="hero">
+            <SectionWrapper id="hero" showDivider={true}>
               <HeroSection />
             </SectionWrapper>
 
-            <SectionDivider />
-
-            <SectionWrapper id="about">
+            <SectionWrapper id="about" title="01. About Me" showDivider={true}>
               <AboutSection />
             </SectionWrapper>
 
-            <SectionDivider />
-
-            <SectionWrapper id="skills">
+            <SectionWrapper id="skills" title="02. Skills & Expertise" showDivider={true}>
               <SkillsSection />
             </SectionWrapper>
 
-            <SectionDivider />
-
-            <SectionWrapper id="projects">
+            <SectionWrapper id="projects" title="03. Featured Projects" showDivider={true}>
               <ProjectsSection />
             </SectionWrapper>
 
-            <SectionDivider />
-
-            <SectionWrapper id="lab">
+            <SectionWrapper id="lab" title="04. Engineering Lab" showDivider={true}>
               <LabSection />
             </SectionWrapper>
 
-            <SectionDivider />
-
-            <SectionWrapper id="failures">
+            <SectionWrapper id="failures" title="05. Post-Mortem Failure Log" showDivider={true}>
               <FailureLogSection />
             </SectionWrapper>
 
-            <SectionDivider />
-
-            <SectionWrapper id="timeline">
+            <SectionWrapper id="timeline" title="08. Journey So Far" showDivider={true}>
               <TimelineSection />
             </SectionWrapper>
 
-            <SectionDivider />
-
-            <SectionWrapper id="mission">
+            <SectionWrapper id="mission" title="06. Daily Operations Command Center" showDivider={true}>
               <MissionSection />
             </SectionWrapper>
 
-            <SectionDivider />
-
-            <SectionWrapper id="certs">
+            <SectionWrapper id="certs" title="07. Certifications & Badges" showDivider={true}>
               <CertificationsSection />
             </SectionWrapper>
 
-            <SectionDivider />
-
-            <SectionWrapper id="playground">
+            <SectionWrapper id="playground" title="09. Engineering Playground" showDivider={true}>
               <PlaygroundSection />
             </SectionWrapper>
 
-            <SectionDivider />
-
-            <SectionWrapper id="contact">
+            <SectionWrapper id="contact" title="10. Establish Connection">
               <ContactSection />
             </SectionWrapper>
           </main>
 
-          <footer className="py-8 text-center text-[10px] text-muted border-t border-glass-border/30 font-mono bg-[#0D1117]/80">
+          <footer className="py-8 text-center text-[10px] text-muted border-t border-glass-border/30 font-mono bg-[#0D1017]/80">
             © {new Date().getFullYear()} Allan Abraham. Engineered with Next.js, Tailwind v4 & Framer Motion.
           </footer>
         </div>

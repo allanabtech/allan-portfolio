@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { ShieldCheck, Cpu, HardDrive, Compass, Activity, Coffee, Tv, Sparkles } from "lucide-react";
 import { motion, Variants } from "framer-motion";
+import SpotlightCard from "../SpotlightCard";
+import AnimeCarousel from "../AnimeCarousel";
 
 export default function MissionSection() {
   const [dayProgress, setDayProgress] = useState(75);
@@ -71,24 +73,16 @@ export default function MissionSection() {
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        
-        {/* Section Header */}
-        <div className="flex items-center gap-4 mb-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-text">06. Daily Operations Command Center</h2>
-          <div className="h-[1px] flex-1 bg-glass-border" />
-        </div>
-        <p className="text-sm text-muted mb-10 max-w-lg leading-relaxed">
-          Active developer lifecycle telemetry. Tracking Allan's daily routine, coding pipelines, and research parameters in real-time.
-        </p>
 
         {/* Mission Dashboard Container */}
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ type: "spring", stiffness: 22, damping: 20 }}
-          className="glass-panel w-full rounded-2xl border-glass-border p-6 md:p-8 flex flex-col gap-8 shadow-2xl relative overflow-hidden bg-[#161B22]/80"
+          transition={{ type: "spring", stiffness: 22, damping: 20, delay: 0.4 }}
+          className="w-full"
         >
+          <SpotlightCard className="w-full rounded-2xl p-6 md:p-8 flex flex-col gap-8 shadow-2xl relative overflow-hidden bg-[#0D1017]/80">
           
           {/* Dashboard Header */}
           <div className="flex items-center justify-between flex-wrap gap-4 z-10 select-none">
@@ -110,7 +104,7 @@ export default function MissionSection() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch z-10">
             
             {/* Progress Telemetry */}
-            <div className="md:col-span-4 flex flex-col items-center justify-center text-center p-6 bg-[#0D1117]/80 rounded-xl border border-glass-border relative select-none">
+            <div className="md:col-span-4 flex flex-col items-center justify-center text-center p-6 bg-[#0D1017]/80 rounded-xl border border-glass-border relative select-none">
               <div className="relative w-36 h-36 flex items-center justify-center">
                 {/* SVG Progress Circle */}
                 <svg className="w-full h-full transform -rotate-90">
@@ -126,7 +120,7 @@ export default function MissionSection() {
                     cx="72"
                     cy="72"
                     r="60"
-                    stroke="#58A6FF"
+                    stroke="#00F0FF"
                     strokeWidth="8"
                     fill="transparent"
                     strokeDasharray={377}
@@ -155,7 +149,7 @@ export default function MissionSection() {
               <div className={`p-4 rounded-xl border transition-all duration-300 ${
                 activePhase === "morning"
                   ? "bg-accent/10 border-accent shadow-[0_0_15px_rgba(88,166,255,0.15)]"
-                  : "bg-[#0D1117]/60 border-glass-border/40 hover:border-glass-border"
+                  : "bg-[#0D1017]/60 border-glass-border/40 hover:border-glass-border"
               }`}>
                 <div className="flex items-center justify-between mb-1.5 select-none">
                   <span className="text-[9px] uppercase font-bold text-accent tracking-wider flex items-center gap-1.5">
@@ -177,7 +171,7 @@ export default function MissionSection() {
               <div className={`p-4 rounded-xl border transition-all duration-300 ${
                 activePhase === "afternoon"
                   ? "bg-[#27C93F]/10 border-[#27C93F] shadow-[0_0_15px_rgba(39,201,63,0.15)]"
-                  : "bg-[#0D1117]/60 border-glass-border/40 hover:border-glass-border"
+                  : "bg-[#0D1017]/60 border-glass-border/40 hover:border-glass-border"
               }`}>
                 <div className="flex items-center justify-between mb-1.5 select-none">
                   <span className="text-[9px] uppercase font-bold text-[#27C93F] tracking-wider flex items-center gap-1.5">
@@ -198,15 +192,15 @@ export default function MissionSection() {
               {/* Phase 3: Evening to Night */}
               <div className={`p-4 rounded-xl border transition-all duration-300 ${
                 activePhase === "evening"
-                  ? "bg-purple-500/10 border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.15)]"
-                  : "bg-[#0D1117]/60 border-glass-border/40 hover:border-glass-border"
+                  ? "bg-accent/10 border-accent shadow-[0_0_15px_rgba(88,166,255,0.15)]"
+                  : "bg-[#0D1017]/60 border-glass-border/40 hover:border-glass-border"
               }`}>
                 <div className="flex items-center justify-between mb-1.5 select-none">
-                  <span className="text-[9px] uppercase font-bold text-purple-400 tracking-wider flex items-center gap-1.5">
+                  <span className="text-[9px] uppercase font-bold text-accent tracking-wider flex items-center gap-1.5">
                     <Tv className="w-3.5 h-3.5" /> Phase 03 // 18:00 - 23:00+
                   </span>
                   {activePhase === "evening" && (
-                    <span className="text-[9px] px-2 py-0.5 rounded bg-purple-500/20 border border-purple-500/30 font-mono text-purple-400 font-bold animate-pulse">ACTIVE NOW</span>
+                    <span className="text-[9px] px-2 py-0.5 rounded bg-accent/20 border border-accent/30 font-mono text-accent font-bold animate-pulse">ACTIVE NOW</span>
                   )}
                 </div>
                 <p className="text-sm font-semibold text-text leading-relaxed">
@@ -216,17 +210,8 @@ export default function MissionSection() {
                   Catching up on unwatched anime series, researching trending repositories on GitHub, auditing open-source packages, and winding down.
                 </p>
                 
-                {/* Cyberpunk/Anime Workstation Picture Embedded */}
-                <div className="mt-3 overflow-hidden rounded-lg border border-glass-border/40 relative group/pic">
-                  <img 
-                    src="/assets/anime_workstation.png" 
-                    alt="Cyberpunk Anime Developer Workstation" 
-                    className="h-28 w-full object-cover rounded-lg transform hover:scale-105 transition-transform duration-500 ease-out" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2 select-none">
-                    <span className="text-[9px] font-mono text-white/80 font-bold">ALLAN'S TERMINAL RETREAT // DUSK</span>
-                  </div>
-                </div>
+                {/* Anime Poster Carousel — hover to scroll, alternates direction */}
+                <AnimeCarousel className="mt-3" />
               </div>
 
             </div>
@@ -241,25 +226,25 @@ export default function MissionSection() {
             viewport={{ once: true }}
             className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-glass-border/40 z-10 font-mono"
           >
-            <motion.div variants={itemVariants} className="bg-[#0D1117]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
+            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
               <span className="text-[9px] text-muted font-bold">FOCUS INDEX</span>
               <span className="text-xs font-bold text-text mt-1 flex items-center gap-1">
                 <Cpu className="w-3.5 h-3.5 text-accent animate-pulse" /> 92%
               </span>
             </motion.div>
-            <motion.div variants={itemVariants} className="bg-[#0D1117]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
+            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
               <span className="text-[9px] text-muted font-bold">COFFEE INTAKE</span>
               <span className="text-xs font-bold text-text mt-1 flex items-center gap-1">
                 <Coffee className="w-3.5 h-3.5 text-[#FFBD2E]" /> 2.0 Cups
               </span>
             </motion.div>
-            <motion.div variants={itemVariants} className="bg-[#0D1117]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
+            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
               <span className="text-[9px] text-muted font-bold">ANIME QUEUE</span>
               <span className="text-xs font-bold text-text mt-1 flex items-center gap-1">
                 <Tv className="w-3.5 h-3.5 text-[#FF5F56]" /> 4 Unwatched
               </span>
             </motion.div>
-            <motion.div variants={itemVariants} className="bg-[#0D1117]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
+            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
               <span className="text-[9px] text-muted font-bold">ENERGY LEVEL</span>
               <span className="text-xs font-bold text-[#27C93F] mt-1 flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#27C93F] animate-status-pulse" /> 78% ACTIVE
@@ -267,6 +252,7 @@ export default function MissionSection() {
             </motion.div>
           </motion.div>
 
+          </SpotlightCard>
         </motion.div>
 
       </div>

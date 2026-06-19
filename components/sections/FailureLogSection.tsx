@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { AlertTriangle, ShieldCheck, Terminal } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { useAchievements } from "../AchievementContext";
+import SpotlightCard from "../SpotlightCard";
 
 interface IncidentReport {
   id: string;
@@ -59,6 +60,7 @@ export default function FailureLogSection() {
       opacity: 1,
       transition: {
         staggerChildren: 0.15,
+        delayChildren: 0.4,
       },
     },
   };
@@ -83,15 +85,6 @@ export default function FailureLogSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#FF5F56]/3 rounded-full filter blur-[100px] pointer-events-none -z-10 animate-pulse-slow" />
 
       <div className="max-w-4xl mx-auto relative z-10">
-        
-        {/* Section Header */}
-        <div className="flex items-center gap-4 mb-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-text">05. Post-Mortem Failure Log</h2>
-          <div className="h-[1px] flex-1 bg-glass-border" />
-        </div>
-        <p className="text-sm text-muted mb-10 max-w-lg leading-relaxed">
-          Things that didn’t go as planned. True engineering is about learning from system crashes, debugging anomalies, and iterating.
-        </p>
 
         {/* Timeline Reports */}
         <motion.div
@@ -111,7 +104,7 @@ export default function FailureLogSection() {
                 }`}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-[#161B22] border border-glass-border flex items-center justify-center z-10 text-xs font-mono font-bold text-accent shadow-md select-none">
+                <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-[#0D1017] border border-glass-border flex items-center justify-center z-10 text-xs font-mono font-bold text-accent shadow-md select-none">
                   {idx + 1}
                 </div>
 
@@ -120,7 +113,7 @@ export default function FailureLogSection() {
                   variants={getCardVariants(isEven)}
                   className="w-full md:w-[46%] ml-12 md:ml-0"
                 >
-                  <div className="glass-panel p-5 rounded-xl border-glass-border space-y-4 hover:border-red-500/25 transition-all duration-300 hover:scale-[1.01]">
+                  <SpotlightCard className="p-5 rounded-xl space-y-4 failure-spotlight">
                     
                     {/* Header */}
                     <div className="flex items-start justify-between flex-wrap gap-2">
@@ -170,7 +163,7 @@ export default function FailureLogSection() {
                       </div>
                     </div>
 
-                  </div>
+                  </SpotlightCard>
                 </motion.div>
 
                 {/* Spacer for MD screens to align timeline */}

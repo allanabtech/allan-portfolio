@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { MessageSquareCode, Trophy, Lock, CheckCircle2, RefreshCcw } from "lucide-react";
+import { MessageSquareCode, RefreshCcw } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import Terminal from "../Terminal";
-import BugSquasher from "../BugSquasher";
+import RPSGame from "../RPSGame";
+import XOGame from "../XOGame";
 import Quiz from "../Quiz";
-import { useAchievements } from "../AchievementContext";
+import SpotlightCard from "../SpotlightCard";
 
 const QUOTES = [
   "There is nothing more permanent than a temporary solution.",
@@ -19,7 +20,6 @@ const QUOTES = [
 ];
 
 export default function PlaygroundSection() {
-  const { unlocked } = useAchievements();
   const [quote, setQuote] = useState("");
 
   const rotateQuote = () => {
@@ -32,20 +32,13 @@ export default function PlaygroundSection() {
     rotateQuote();
   }, []);
 
-  const badgeList = [
-    { id: "explorer", label: "Curious Explorer", desc: "Viewed all sections of the site", icon: "🧭" },
-    { id: "debugger", label: "Senior Debugger", desc: "Squash 10 bugs in the sandbox", icon: "🪲" },
-    { id: "hacker", label: "Terminal Hacker", desc: "Discovered and used the dev terminal", icon: "💻" },
-    { id: "curious", label: "Curious Engineer", desc: "Read the post-mortem failure logs", icon: "📖" },
-    { id: "recruit", label: "Future Recruit", desc: "Visited the contact details", icon: "🤝" },
-  ];
-
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.08,
+        delayChildren: 0.3,
       },
     },
   };
@@ -55,7 +48,7 @@ export default function PlaygroundSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring", stiffness: 85, damping: 15 },
+      transition: { type: "spring", stiffness: 22, damping: 20 },
     },
   };
 
@@ -76,18 +69,13 @@ export default function PlaygroundSection() {
         </svg>
       </div>
 
-      <div className="max-w-4xl mx-auto relative z-10">
+      <div className="max-w-5xl mx-auto relative z-10">
         
-        {/* Section Header */}
-        <div className="flex items-center gap-4 mb-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-text">09. Engineering Playground</h2>
-          <div className="h-[1px] flex-1 bg-glass-border" />
-        </div>
         <p className="text-sm text-muted mb-10 max-w-lg leading-relaxed">
-          Interactive sandboxes. Try typing commands in the mock terminal, squashing code bugs, testing your AI discernment skills, or tracking achievements.
+          Interactive sandboxes. Try typing commands in the dev terminal, testing your AI discernment, or challenging the system core in hand duels and grids.
         </p>
 
-        {/* Grid Row 1: Terminal & Achievements/Quotes */}
+        {/* Grid Row 1: Terminal & Quiz */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -95,91 +83,62 @@ export default function PlaygroundSection() {
           viewport={{ once: true, amount: 0.05 }}
           className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mb-6"
         >
-          {/* Terminal (8 cols) */}
+          {/* Terminal (7 cols) */}
           <motion.div variants={itemVariants} className="lg:col-span-7 flex flex-col justify-stretch">
             <Terminal />
           </motion.div>
 
-          {/* Side Panels: Achievements & Quotes (5 cols) */}
-          <motion.div variants={itemVariants} className="lg:col-span-5 flex flex-col justify-between gap-6">
-            
-            {/* Achievements Dashboard */}
-            <div className="glass-panel p-5 rounded-xl border-glass-border flex-1">
-              <h3 className="text-sm font-bold text-text flex items-center justify-between mb-3.5 border-b border-glass-border/40 pb-2 select-none">
-                <span className="flex items-center gap-2">
-                  <Trophy className="w-4.5 h-4.5 text-[#FFBD2E]" /> Achievements
-                </span>
-                {unlocked.includes("curiosity_pays") && (
-                  <span className="text-[9px] bg-accent/20 border border-accent/40 text-accent font-bold px-2 py-0.5 rounded-full uppercase animate-pulse">
-                    🔑 CURIOSITY PAYS
-                  </span>
-                )}
-              </h3>
-              <div className="space-y-2.5">
-                {badgeList.map((badge) => {
-                  const isUnlocked = unlocked.includes(badge.id);
-                  return (
-                    <div
-                      key={badge.id}
-                      className={`flex items-center gap-3 p-2.5 rounded-lg border text-xs transition-all ${
-                        isUnlocked
-                          ? "bg-green-500/5 border-green-500/15"
-                          : "bg-white/5 border-glass-border/30 opacity-60"
-                      }`}
-                    >
-                      <div className="text-2xl select-none">{badge.icon}</div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-bold text-text truncate">{badge.label}</h4>
-                        <p className="text-[10px] text-muted truncate mt-0.5">{badge.desc}</p>
-                      </div>
-                      <div>
-                        {isUnlocked ? (
-                          <CheckCircle2 className="w-4 h-4 text-green-400" />
-                        ) : (
-                          <Lock className="w-3.5 h-3.5 text-muted" />
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Random Quotes Panel */}
-            <div className="glass-panel p-5 rounded-xl border-glass-border h-36 bg-[#161B22]/50 relative flex flex-col justify-between">
-              <div className="absolute top-3 right-3 text-muted/10 pointer-events-none select-none">
-                <MessageSquareCode className="w-12 h-12" />
-              </div>
-              <div className="z-10 select-none">
-                <span className="text-[9px] uppercase font-bold text-accent tracking-wider">Dev Thought</span>
-                <p className="text-xs text-text italic leading-relaxed mt-2 select-text max-w-[280px]">
-                  “{quote}”
-                </p>
-              </div>
-              <button
-                onClick={rotateQuote}
-                className="self-end text-[10px] text-muted hover:text-text flex items-center gap-1.5 hover:bg-white/5 border border-glass-border/40 px-2.5 py-1  rounded transition-colors active:scale-95 z-10 cursor-pointer"
-              >
-                <RefreshCcw className="w-3 h-3" /> Refresh Quote
-              </button>
-            </div>
-
+          {/* Quiz (5 cols) */}
+          <motion.div variants={itemVariants} className="lg:col-span-5 flex flex-col justify-stretch">
+            <Quiz />
           </motion.div>
         </motion.div>
 
-        {/* Grid Row 2: Bug Squasher & AI Quiz */}
+        {/* Grid Row 2: RPS Game & XO Game side by side */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.05 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch mb-6"
         >
-          <motion.div variants={itemVariants}>
-            <BugSquasher />
+          {/* RPS Game */}
+          <motion.div variants={itemVariants} className="flex flex-col justify-stretch">
+            <RPSGame />
           </motion.div>
-          <motion.div variants={itemVariants}>
-            <Quiz />
+
+          {/* XO Game */}
+          <motion.div variants={itemVariants} className="flex flex-col justify-stretch">
+            <XOGame />
+          </motion.div>
+        </motion.div>
+
+        {/* Grid Row 3: Quotes Banner (full width) */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.05 }}
+          className="w-full"
+        >
+          <motion.div variants={itemVariants} className="w-full">
+            <SpotlightCard className="p-5 rounded-xl bg-[#0D1017]/50 relative flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="absolute top-3 right-3 text-muted/10 pointer-events-none select-none">
+              <MessageSquareCode className="w-12 h-12" />
+            </div>
+            <div className="z-10 select-none flex-1">
+              <span className="text-[9px] uppercase font-bold text-accent tracking-wider">Dev Thought</span>
+              <p className="text-xs text-text italic leading-relaxed mt-1 select-text">
+                "{quote}"
+              </p>
+            </div>
+            <button
+              onClick={rotateQuote}
+              className="whitespace-nowrap text-[10px] text-muted hover:text-text flex items-center gap-1.5 hover:bg-white/5 border border-glass-border/40 px-2.5 py-1 rounded transition-colors active:scale-95 z-10 cursor-pointer"
+            >
+              <RefreshCcw className="w-3 h-3" /> Refresh Quote
+            </button>
+            </SpotlightCard>
           </motion.div>
         </motion.div>
 

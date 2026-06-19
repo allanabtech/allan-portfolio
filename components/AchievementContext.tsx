@@ -135,7 +135,7 @@ export function AchievementProvider({ children }: { children: React.ReactNode })
         particleCount: 100,
         spread: 70,
         origin: { y: 0.8, x: 0.8 },
-        colors: ["#58A6FF", "#388bfd", "#E6EDF3"],
+        colors: ["#00F0FF", "#38BDF8", "#E6EDF3"],
       });
 
       // Play audio synth beep

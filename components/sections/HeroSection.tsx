@@ -25,54 +25,53 @@ export default function HeroSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.18,
-        delayChildren: 0.15,
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 16 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1], // premium easeOutQuart
+        type: "tween",
+        duration: 0.45,
+        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
   };
 
   const subheadlineVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 12 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
+        type: "tween",
+        duration: 0.4,
+        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
   };
 
   const ctaVariants: Variants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut",
+        type: "tween",
+        duration: 0.35,
+        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
   };
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center pt-24 pb-12 relative overflow-hidden">
-      {/* Subtle Premium Ambient Glows */}
-      <div className="absolute top-1/4 left-10 md:left-1/4 w-[250px] md:w-[350px] h-[250px] md:h-[350px] bg-accent/15 rounded-full filter blur-[80px] md:blur-[120px] pointer-events-none -z-10 animate-pulse" />
-      <div className="absolute bottom-1/3 right-10 md:right-1/4 w-[200px] md:w-[300px] h-[200px] md:h-[300px] bg-[#9fcbff]/8 rounded-full filter blur-[70px] md:blur-[100px] pointer-events-none -z-10 animate-pulse" style={{ animationDelay: "3s" }} />
-
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -86,7 +85,7 @@ export default function HeroSection() {
           {/* Status Indicator */}
           <motion.div
             variants={itemVariants}
-            className="flex items-center gap-3 bg-[#161B22]/80 border border-glass-border px-3.5 py-1.5 rounded-full text-xs text-text font-medium select-none shadow-md"
+            className="flex items-center gap-3 bg-[#0D1017]/80 border border-glass-border px-3.5 py-1.5 rounded-full text-xs text-text font-medium select-none shadow-md"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -121,7 +120,7 @@ export default function HeroSection() {
             </motion.span>
             <motion.span
               variants={itemVariants}
-              className="block bg-gradient-to-r from-accent to-[#9fcbff] bg-clip-text text-transparent accent-glow-text"
+              className="block bg-gradient-to-r from-accent to-[#38BDF8] bg-clip-text text-transparent accent-glow-text"
             >
               DevOps Solutions.
             </motion.span>
@@ -142,14 +141,14 @@ export default function HeroSection() {
           >
             <a
               href="#projects"
-              className="bg-accent hover:bg-accent-hover text-[#0D1117] font-semibold text-sm px-6 py-3 rounded-lg flex items-center gap-2 transition-all shadow-lg hover:shadow-accent/20 hover:scale-[1.02] active:scale-95 group"
+              className="bg-accent hover:bg-accent-hover text-[#0D1017] font-semibold text-sm px-6 py-3 rounded-lg flex items-center gap-2 transition-all shadow-lg hover:shadow-accent/20 hover:scale-[1.02] active:scale-95 group"
             >
               <span>View Projects</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
             <a
               href="#contact"
-              className="bg-[#161B22] border border-glass-border hover:border-accent/30 text-text font-semibold text-sm px-6 py-3 rounded-lg flex items-center gap-2 transition-all hover:bg-[#1f2630] active:scale-95"
+              className="bg-[#0D1017] border border-glass-border hover:border-accent/30 text-text font-semibold text-sm px-6 py-3 rounded-lg flex items-center gap-2 transition-all hover:bg-[#1f2630] active:scale-95"
             >
               <Mail className="w-4 h-4 text-accent" />
               <span>Contact Me</span>
@@ -166,10 +165,10 @@ export default function HeroSection() {
             <div className="absolute inset-8 rounded-full border border-accent/20 animate-[spin_30s_linear_infinite_reverse]" />
 
             {/* Inner Profile Box */}
-            <div className="absolute inset-12 bg-gradient-to-tr from-[#161B22] to-[#1f2630] border border-glass-border rounded-full overflow-hidden shadow-2xl flex items-center justify-center p-3">
+            <div className="absolute inset-12 bg-gradient-to-tr from-[#0D1017] to-[#1f2630] border border-glass-border rounded-full overflow-hidden shadow-2xl flex items-center justify-center p-3">
               <svg
                 viewBox="0 0 200 200"
-                className="w-full h-full text-accent/60 filter drop-shadow-[0_0_15px_rgba(88,166,255,0.25)]"
+                className="w-full h-full text-accent/60 filter drop-shadow-[0_0_15px_rgba(168,85,247,0.25)]"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -185,7 +184,7 @@ export default function HeroSection() {
 
                 {/* Animated Orb core */}
                 <circle cx="100" cy="100" r="40" fill="url(#orb-grad)" className="animate-pulse" />
-                <circle cx="100" cy="100" r="22" fill="#0D1117" />
+                <circle cx="100" cy="100" r="22" fill="#0D1017" />
                 
                 {/* Code symbol bracket overlays */}
                 <path d="M 85 90 L 75 100 L 85 110" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -195,18 +194,18 @@ export default function HeroSection() {
                 {/* Gradients */}
                 <defs>
                   <linearGradient id="orb-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#58A6FF" />
-                    <stop offset="100%" stopColor="#1f2630" />
+                    <stop offset="0%" stopColor="#00F0FF" />
+                    <stop offset="100%" stopColor="#0D1017" />
                   </linearGradient>
                 </defs>
               </svg>
             </div>
             
             {/* Tech badges floating */}
-            <div className="absolute top-8 left-8 bg-[#161B22]/90 border border-glass-border p-2 rounded-lg shadow-md animate-float z-20">
+            <div className="absolute top-8 left-8 bg-[#0D1017]/90 border border-glass-border p-2 rounded-lg shadow-md animate-float z-20">
               <TermIcon className="w-4 h-4 text-accent" />
             </div>
-            <div className="absolute bottom-6 right-6 bg-[#161B22]/90 border border-glass-border p-2 rounded-lg shadow-md animate-float z-20" style={{ animationDelay: "1.5s" }}>
+            <div className="absolute bottom-6 right-6 bg-[#0D1017]/90 border border-glass-border p-2 rounded-lg shadow-md animate-float z-20" style={{ animationDelay: "1.5s" }}>
               <Briefcase className="w-4 h-4 text-[#FFBD2E]" />
             </div>
           </div>

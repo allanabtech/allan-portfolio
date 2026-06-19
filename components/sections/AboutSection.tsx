@@ -3,6 +3,7 @@
 import React from "react";
 import { Cpu, Terminal, Shield, Wrench } from "lucide-react";
 import { motion, Variants } from "framer-motion";
+import SpotlightCard from "../SpotlightCard";
 
 export default function AboutSection() {
   const containerVariants: Variants = {
@@ -10,26 +11,27 @@ export default function AboutSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
+        staggerChildren: 0.07,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 12 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { type: "tween", duration: 0.38, ease: [0.25, 0.46, 0.45, 0.94] },
     },
   };
 
   const cardVariants: Variants = {
-    hidden: { opacity: 0, x: 25 },
+    hidden: { opacity: 0, x: 12 },
     visible: {
       opacity: 1,
       x: 0,
-      transition: { type: "spring", stiffness: 100, damping: 15 },
+      transition: { type: "tween", duration: 0.38, ease: [0.25, 0.46, 0.45, 0.94] },
     },
   };
 
@@ -49,19 +51,10 @@ export default function AboutSection() {
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        
-        {/* Section Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-text">01. About Me</h2>
-          <div className="h-[1px] flex-1 bg-glass-border" />
-        </div>
 
         {/* Grid Layout */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
           className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start"
         >
           
@@ -93,64 +86,60 @@ export default function AboutSection() {
           {/* Principle Dashboard (5 columns) */}
           <div className="lg:col-span-5 grid grid-cols-1 gap-4">
             
-            <motion.div
-              variants={cardVariants}
-              className="glass-panel hover:border-accent/40 hover:bg-[#161B22]/80 transition-all p-4 rounded-xl border-glass-border shadow-md hover:shadow-accent/5 hover:scale-[1.01]"
-            >
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-accent/10 border border-accent/20">
-                  <Cpu className="w-5 h-5 text-accent" />
+            <motion.div variants={cardVariants}>
+              <SpotlightCard className="p-4 rounded-xl">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-accent/10 border border-accent/20">
+                    <Cpu className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-text">Artificial Intelligence</h4>
+                    <p className="text-xs text-muted mt-0.5 font-mono">Telemetry-guided modeling & patterns.</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-text">Artificial Intelligence</h4>
-                  <p className="text-xs text-muted mt-0.5 font-mono">Telemetry-guided modeling & patterns.</p>
-                </div>
-              </div>
+              </SpotlightCard>
             </motion.div>
 
-            <motion.div
-              variants={cardVariants}
-              className="glass-panel hover:border-[#27C93F]/40 hover:bg-[#161B22]/80 transition-all p-4 rounded-xl border-glass-border shadow-md hover:shadow-[#27C93F]/5 hover:scale-[1.01]"
-            >
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-[#27C93F]/10 border border-[#27C93F]/20">
-                  <Terminal className="w-5 h-5 text-[#27C93F]" />
+            <motion.div variants={cardVariants}>
+              <SpotlightCard className="p-4 rounded-xl">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-[#27C93F]/10 border border-[#27C93F]/20">
+                    <Terminal className="w-5 h-5 text-[#27C93F]" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-text">Cloud & DevOps</h4>
+                    <p className="text-xs text-muted mt-0.5 font-mono">Automated builds & network pipelines.</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-text">Cloud & DevOps</h4>
-                  <p className="text-xs text-muted mt-0.5 font-mono">Automated builds & network pipelines.</p>
-                </div>
-              </div>
+              </SpotlightCard>
             </motion.div>
 
-            <motion.div
-              variants={cardVariants}
-              className="glass-panel hover:border-[#FFBD2E]/40 hover:bg-[#161B22]/80 transition-all p-4 rounded-xl border-glass-border shadow-md hover:shadow-[#FFBD2E]/5 hover:scale-[1.01]"
-            >
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-[#FFBD2E]/10 border border-[#FFBD2E]/20">
-                  <Wrench className="w-5 h-5 text-[#FFBD2E]" />
+            <motion.div variants={cardVariants}>
+              <SpotlightCard className="p-4 rounded-xl">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-[#FFBD2E]/10 border border-[#FFBD2E]/20">
+                    <Wrench className="w-5 h-5 text-[#FFBD2E]" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-text">Robotics & Systems</h4>
+                    <p className="text-xs text-muted mt-0.5 font-mono">I2C, SPI and real-time microcontroller nodes.</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-text">Robotics & Systems</h4>
-                  <p className="text-xs text-muted mt-0.5 font-mono">I2C, SPI and real-time microcontroller nodes.</p>
-                </div>
-              </div>
+              </SpotlightCard>
             </motion.div>
 
-            <motion.div
-              variants={cardVariants}
-              className="glass-panel hover:border-[#FF5F56]/40 hover:bg-[#161B22]/80 transition-all p-4 rounded-xl border-glass-border shadow-md hover:shadow-[#FF5F56]/5 hover:scale-[1.01]"
-            >
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-[#FF5F56]/10 border border-[#FF5F56]/20">
-                  <Shield className="w-5 h-5 text-[#FF5F56]" />
+            <motion.div variants={cardVariants}>
+              <SpotlightCard className="p-4 rounded-xl">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-[#FF5F56]/10 border border-[#FF5F56]/20">
+                    <Shield className="w-5 h-5 text-[#FF5F56]" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-text">Problem Solving First</h4>
+                    <p className="text-xs text-muted mt-0.5 font-mono">Eschewing bloat for minimal active logic.</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-text">Problem Solving First</h4>
-                  <p className="text-xs text-muted mt-0.5 font-mono">Eschewing bloat for minimal active logic.</p>
-                </div>
-              </div>
+              </SpotlightCard>
             </motion.div>
 
           </div>

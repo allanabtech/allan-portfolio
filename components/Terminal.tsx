@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Terminal as TerminalIcon } from "lucide-react";
 import { useAchievements } from "./AchievementContext";
+import SpotlightCard from "./SpotlightCard";
 
 interface TerminalLine {
   text: string;
@@ -167,12 +168,12 @@ export default function Terminal() {
   };
 
   return (
-    <div
+    <SpotlightCard
       onClick={focusInput}
-      className="glass-panel w-full max-w-2xl rounded-xl overflow-hidden font-mono text-sm border-accent/20 flex flex-col h-80 cursor-text shadow-2xl"
+      className="w-full max-w-2xl rounded-xl overflow-hidden font-mono text-sm border-accent/20 flex flex-col h-full min-h-[350px] cursor-text shadow-2xl"
     >
       {/* Terminal Title Bar */}
-      <div className="bg-[#161B22] border-b border-glass-border px-4 py-2.5 flex items-center justify-between select-none">
+      <div className="bg-[#0D1017] border-b border-glass-border/40 px-4 py-2.5 flex items-center justify-between select-none">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]" />
           <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]" />
@@ -188,7 +189,7 @@ export default function Terminal() {
       {/* Terminal Lines Area */}
       <div
         ref={containerRef}
-        className="flex-1 p-4 overflow-y-auto space-y-2.5 bg-[#0D1117]/95"
+        className="flex-1 p-4 overflow-y-auto space-y-2.5 bg-[#0D1017]/95"
       >
         {history.map((line, idx) => (
           <div
@@ -232,6 +233,6 @@ export default function Terminal() {
           </div>
         )}
       </div>
-    </div>
+    </SpotlightCard>
   );
 }

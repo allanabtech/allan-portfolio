@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Calendar, Layers, ShieldCheck, Cpu, HardDrive, Compass, Activity, Clock, Award, Star, BookOpen } from "lucide-react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
+import SpotlightCard from "../SpotlightCard";
 
 interface TelemetryItem {
   label: string;
@@ -164,7 +165,7 @@ const EVENTS: TimelineEvent[] = [
     skills: ["AWS Architect Cert", "Kubernetes", "Advanced Systems Design"],
     progress: 45,
     statusLabel: "ROADMAP // ACTIVE STUDY",
-    statusColorClass: "text-purple-400 bg-purple-500/10 border-purple-500/20",
+    statusColorClass: "text-blue-400 bg-blue-500/10 border-blue-500/20",
     milestoneTitle: "Solutions Architect Pro Syllabus",
     milestoneDesc: "Studying advanced network routing patterns, disaster recovery strategies, federated authorization services, and cloud optimization rules.",
     objectivesTitle: "Kubernetes & Orchestration",
@@ -187,6 +188,7 @@ export default function TimelineSection() {
       opacity: 1,
       transition: {
         staggerChildren: 0.08,
+        delayChildren: 0.4,
       },
     },
   };
@@ -235,12 +237,6 @@ export default function TimelineSection() {
       </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
-        
-        {/* Section Header */}
-        <div className="flex items-center gap-4 mb-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-text">08. Journey So Far</h2>
-          <div className="h-[1px] flex-1 bg-glass-border" />
-        </div>
 
         {/* Telemetry Subtitle */}
         <div className="flex items-center gap-6 mb-10 text-[10px] text-muted font-mono select-none">
@@ -285,14 +281,14 @@ export default function TimelineSection() {
                 onClick={() => setActiveEvent(evt.id)}
                 className={`w-full text-left p-3.5 rounded-xl border transition-all flex items-center justify-between group select-none ${
                   activeEvent === evt.id
-                    ? "bg-[#161B22] border-accent/40 shadow-lg"
-                    : "bg-transparent border-glass-border/30 hover:bg-[#161B22]/30 hover:border-glass-border"
+                    ? "bg-[#0D1017] border-accent/40 shadow-lg"
+                    : "bg-transparent border-glass-border/30 hover:bg-[#0D1017]/30 hover:border-glass-border"
                 }`}
               >
                 <div>
                   <span className={`text-[9px] font-mono font-bold tracking-wider px-2 py-0.5 rounded ${
                     evt.category === "FUTURE" 
-                      ? "bg-purple-500/10 text-purple-400 border border-purple-500/25"
+                      ? "bg-blue-500/10 text-blue-400 border border-blue-500/25"
                       : evt.id === 6
                       ? "bg-green-500/10 text-green-400 border border-green-500/25"
                       : "bg-white/5 text-muted border border-glass-border"
@@ -320,9 +316,10 @@ export default function TimelineSection() {
                 initial={{ opacity: 0, scale: 0.97, y: 15 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.97, y: -15 }}
-                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-                className="glass-panel p-6 rounded-2xl border-glass-border flex flex-col gap-6 shadow-2xl relative overflow-hidden bg-[#161B22]/85"
+                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full h-full"
               >
+                <SpotlightCard className="p-6 rounded-2xl flex flex-col gap-6 shadow-2xl relative overflow-hidden bg-[#0D1017]/85">
                 {/* Decorative accent glow */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full filter blur-2xl pointer-events-none animate-pulse" />
 
@@ -346,7 +343,7 @@ export default function TimelineSection() {
                 <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-stretch z-10">
                   
                   {/* SVG Circle Progress */}
-                  <div className="sm:col-span-4 flex flex-col items-center justify-center text-center p-4 bg-[#0D1117]/80 rounded-xl border border-glass-border relative select-none">
+                  <div className="sm:col-span-4 flex flex-col items-center justify-center text-center p-4 bg-[#0D1017]/80 rounded-xl border border-glass-border relative select-none">
                     <div className="relative w-28 h-28 flex items-center justify-center">
                       <svg className="w-full h-full transform -rotate-90">
                         <circle
@@ -361,7 +358,7 @@ export default function TimelineSection() {
                           cx="56"
                           cy="56"
                           r="46"
-                          stroke="#58A6FF"
+                          stroke="#00F0FF"
                           strokeWidth="6"
                           fill="transparent"
                           strokeDasharray={290}
@@ -381,7 +378,7 @@ export default function TimelineSection() {
 
                   {/* Descriptions block */}
                   <div className="sm:col-span-8 space-y-3">
-                    <div className="bg-[#0D1117]/60 p-3 rounded-lg border border-glass-border/30">
+                    <div className="bg-[#0D1017]/60 p-3 rounded-lg border border-glass-border/30">
                       <span className="text-[9px] uppercase font-bold text-accent tracking-wider flex items-center gap-1.5 mb-1 select-none">
                         <Calendar className="w-3.5 h-3.5 text-accent" /> {EVENTS[activeEvent - 1].category === "FUTURE" ? "Current Objective" : "Key Milestone"}
                       </span>
@@ -393,7 +390,7 @@ export default function TimelineSection() {
                       </p>
                     </div>
 
-                    <div className="bg-[#0D1117]/60 p-3 rounded-lg border border-glass-border/30">
+                    <div className="bg-[#0D1017]/60 p-3 rounded-lg border border-glass-border/30">
                       <span className="text-[9px] uppercase font-bold text-[#FFBD2E] tracking-wider flex items-center gap-1.5 mb-1 select-none">
                         <Layers className="w-3.5 h-3.5 text-[#FFBD2E]" /> Targets
                       </span>
@@ -409,7 +406,7 @@ export default function TimelineSection() {
                 </div>
 
                 {/* Focus Competency Tags */}
-                <div className="z-10 bg-[#0D1117]/40 p-3 rounded-xl border border-glass-border/20">
+                <div className="z-10 bg-[#0D1017]/40 p-3 rounded-xl border border-glass-border/20">
                   <h4 className="text-[10px] font-bold text-text uppercase tracking-wider flex items-center gap-1.5 mb-2 select-none">
                     <Layers className="w-3.5 h-3.5 text-accent" /> Focus Competencies
                   </h4>
@@ -417,7 +414,7 @@ export default function TimelineSection() {
                     {EVENTS[activeEvent - 1].skills.map((skill, idx) => (
                       <span
                         key={idx}
-                        className="text-[10px] bg-[#0D1117]/80 border border-glass-border/60 px-2 py-0.5 rounded text-text font-medium font-mono hover:border-accent/40 transition-colors"
+                        className="text-[10px] bg-[#0D1017]/80 border border-glass-border/60 px-2 py-0.5 rounded text-text font-medium font-mono hover:border-accent/40 transition-colors"
                       >
                         {skill}
                       </span>
@@ -430,7 +427,7 @@ export default function TimelineSection() {
                   {EVENTS[activeEvent - 1].telemetry.map((tel, idx) => (
                     <div
                       key={idx}
-                      className="bg-[#0D1117]/50 p-2.5 rounded-lg border border-glass-border/30 flex flex-col select-none hover:bg-[#0D1117]/85 transition-colors"
+                      className="bg-[#0D1017]/50 p-2.5 rounded-lg border border-glass-border/30 flex flex-col select-none hover:bg-[#0D1017]/85 transition-colors"
                     >
                       <span className="text-[8px] text-muted font-bold tracking-wider">{tel.label}</span>
                       <span className="text-xs font-bold text-text mt-1.5 flex items-center gap-1.5">
@@ -441,6 +438,7 @@ export default function TimelineSection() {
                   ))}
                 </div>
 
+                </SpotlightCard>
               </motion.div>
             </AnimatePresence>
           </div>

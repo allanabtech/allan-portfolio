@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Brain, User, AlertCircle, RefreshCw } from "lucide-react";
 import { useAchievements } from "./AchievementContext";
+import SpotlightCard from "./SpotlightCard";
 
 interface Question {
   quote: string;
@@ -81,7 +82,7 @@ export default function Quiz() {
   const currentQuestion = QUESTIONS[currentIdx];
 
   return (
-    <div className="glass-panel w-full rounded-xl p-5 border-glass-border flex flex-col h-80 justify-between overflow-hidden relative select-none">
+    <SpotlightCard className="w-full rounded-xl p-5 border-glass-border flex flex-col h-full min-h-[350px] justify-between overflow-hidden relative select-none">
       {/* Title */}
       <div className="z-10 flex items-center justify-between border-b border-glass-border/40 pb-2">
         <h3 className="text-base font-semibold text-text flex items-center gap-2">
@@ -105,7 +106,7 @@ export default function Quiz() {
             className="flex-1 flex flex-col justify-center my-3"
           >
             {/* The Quote Block */}
-            <div className="bg-[#0D1117]/60 border border-glass-border p-3.5 rounded-lg text-sm text-text leading-relaxed italic text-center min-h-[90px] flex items-center justify-center relative">
+            <div className="bg-[#0D1017]/60 border border-glass-border p-3.5 rounded-lg text-sm text-text leading-relaxed italic text-center min-h-[90px] flex items-center justify-center relative">
               <span className="absolute -top-2.5 -left-1 text-2xl text-accent/30 font-serif">“</span>
               <span>{currentQuestion.quote}</span>
               <span className="absolute -bottom-4 -right-1 text-2xl text-accent/30 font-serif">”</span>
@@ -116,13 +117,13 @@ export default function Quiz() {
               <div className="grid grid-cols-2 gap-3 mt-4">
                 <button
                   onClick={() => handleAnswer("AI")}
-                  className="bg-[#161B22] border border-glass-border hover:border-accent/40 text-text py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-95"
+                  className="bg-[#0D1017] border border-glass-border hover:border-accent/40 text-text py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer"
                 >
                   <Brain className="w-4 h-4 text-accent" /> AI Generated
                 </button>
                 <button
                   onClick={() => handleAnswer("Human")}
-                  className="bg-[#161B22] border border-glass-border hover:border-accent/40 text-text py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-95"
+                  className="bg-[#0D1017] border border-glass-border hover:border-accent/40 text-text py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-95 cursor-pointer"
                 >
                   <User className="w-4 h-4 text-accent" /> Human Authored
                 </button>
@@ -180,6 +181,6 @@ export default function Quiz() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </SpotlightCard>
   );
 }

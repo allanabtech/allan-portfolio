@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { CheckCircle, Search, ArrowUpRight, Award, ExternalLink, ChevronDown, ChevronUp, Image as ImageIcon } from "lucide-react";
+import SpotlightCard from "../SpotlightCard";
 
 interface Certificate {
   title: string;
@@ -278,11 +279,14 @@ function ProfessionalCertCard({ cert }: { cert: Certificate }) {
       rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="glass-panel glass-panel-hover p-5 rounded-xl border-glass-border flex flex-col justify-between h-56 relative overflow-hidden group block cursor-pointer select-none"
-      style={{
-        boxShadow: "0 8px 30px -10px rgba(88, 166, 255, 0.12)",
-      }}
+      className="block cursor-pointer select-none"
     >
+      <SpotlightCard
+        className="p-5 rounded-xl h-56 relative overflow-hidden group flex flex-col justify-between"
+        style={{
+          boxShadow: "0 8px 30px -10px rgba(168, 85, 247, 0.12)",
+        }}
+      >
       {/* 1. Default text/design state */}
       <div className="z-10 flex flex-col justify-between h-full transition-opacity duration-300">
         <div>
@@ -320,11 +324,11 @@ function ProfessionalCertCard({ cert }: { cert: Certificate }) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="absolute inset-0 bg-[#0D1117]/95 flex flex-col p-2.5 z-20"
+            className="absolute inset-0 bg-[#0D1017]/95 flex flex-col p-2.5 z-20"
           >
             {/* If the image hasn't been uploaded yet, show fallback mockup vector with custom logo */}
             {imgError ? (
-              <div className="flex-1 border border-dashed border-accent/25 rounded-lg flex flex-col items-center justify-center text-center p-4 bg-[#161B22]/70 select-none">
+              <div className="flex-1 border border-dashed border-accent/25 rounded-lg flex flex-col items-center justify-center text-center p-4 bg-[#0D1017]/70 select-none">
                 <div className="mb-2 p-2 bg-accent/5 rounded-full border border-accent/20">
                   {renderIssuerLogo(cert.issuer)}
                 </div>
@@ -360,6 +364,7 @@ function ProfessionalCertCard({ cert }: { cert: Certificate }) {
           </motion.div>
         )}
       </AnimatePresence>
+      </SpotlightCard>
     </a>
   );
 }
@@ -391,6 +396,7 @@ export default function CertificationsSection() {
       opacity: 1,
       transition: {
         staggerChildren: 0.05,
+        delayChildren: 0.4,
       },
     },
   };
@@ -417,12 +423,6 @@ export default function CertificationsSection() {
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        
-        {/* Section Header */}
-        <div className="flex items-center gap-4 mb-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-text">07. Certifications & Badges</h2>
-          <div className="h-[1px] flex-1 bg-glass-border" />
-        </div>
         <p className="text-sm text-muted mb-10 max-w-lg leading-relaxed">
           Showcasing verified engineering qualifications, TCS industry project milestones, and course credentials.
         </p>
@@ -446,7 +446,7 @@ export default function CertificationsSection() {
         <div className="flex flex-col items-center justify-center my-4">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="bg-[#161B22] border border-glass-border hover:border-accent/30 text-text hover:text-accent text-xs font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer"
+            className="bg-[#0A0A0C] border border-glass-border hover:border-accent/30 text-text hover:text-accent text-xs font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-all shadow-md active:scale-95 cursor-pointer"
           >
             <span>{isExpanded ? "Collapse Additional Certificates" : "View 43 Course Certificates"}</span>
             {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -463,7 +463,7 @@ export default function CertificationsSection() {
               transition={{ duration: 0.4, ease: "easeInOut" }}
               className="overflow-hidden mt-6"
             >
-              <div className="bg-[#161B22]/50 border border-glass-border p-6 rounded-2xl space-y-6">
+              <div className="bg-[#0A0A0C]/50 border border-glass-border p-6 rounded-2xl space-y-6">
                 
                 {/* Search & Filter Controls */}
                 <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -476,7 +476,7 @@ export default function CertificationsSection() {
                         className={`text-[10px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
                           activeCategory === cat
                             ? "bg-accent/15 border-accent text-accent font-bold"
-                            : "bg-[#0D1117]/60 border-glass-border/30 text-muted hover:text-text hover:bg-[#161B22]"
+                            : "bg-[#000000]/60 border-glass-border/30 text-muted hover:text-text hover:bg-[#0A0A0C]"
                         }`}
                       >
                         {cat}
@@ -492,7 +492,7 @@ export default function CertificationsSection() {
                       placeholder="Search credentials, ID, or course..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full bg-[#0D1117]/60 border border-glass-border rounded-lg pl-9 pr-4 py-1.5 text-xs text-text placeholder:text-muted focus:outline-none focus:border-accent/40 font-mono"
+                      className="w-full bg-[#000000]/60 border border-glass-border rounded-lg pl-9 pr-4 py-1.5 text-xs text-text placeholder:text-muted focus:outline-none focus:border-accent/40 font-mono"
                     />
                   </div>
                 </div>
@@ -503,7 +503,7 @@ export default function CertificationsSection() {
                     {filteredNormalCerts.map((cert) => (
                       <div
                         key={cert.id}
-                        className="bg-[#0D1117]/50 border border-glass-border/40 p-4 rounded-xl flex items-center justify-between gap-4 hover:border-glass-border transition-all group"
+                        className="bg-[#000000]/50 border border-glass-border/40 p-4 rounded-xl flex items-center justify-between gap-4 hover:border-glass-border transition-all group"
                       >
                         <div className="min-w-0 flex items-center gap-3">
                           <div className="p-1 bg-white/5 border border-glass-border/40 rounded flex items-center justify-center shrink-0">

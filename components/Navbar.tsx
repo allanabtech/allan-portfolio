@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -19,10 +19,50 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
   const [scrollProgress, setScrollProgress] = useState(0);
 
+  const sectionsLayout = useRef<{ id: string; top: number; bottom: number }[]>([]);
+
+  const calculateSectionLayouts = () => {
+    const sections = ["hero", "about", "skills", "projects", "lab", "playground", "contact"];
+    const layouts = [];
+    for (const id of sections) {
+      const el = document.getElementById(id);
+      if (el) {
+        const top = el.offsetTop;
+        const height = el.offsetHeight;
+        layouts.push({
+          id,
+          top,
+          bottom: top + height
+        });
+      }
+    }
+    sectionsLayout.current = layouts;
+  };
+
   useEffect(() => {
+    calculateSectionLayouts();
+
+    const handleResize = () => {
+      calculateSectionLayouts();
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("load", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("load", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    calculateSectionLayouts();
+
     const handleScroll = () => {
+      const scrollY = window.scrollY;
+
       // 1. Navbar transparent vs glassmorphic transition
-      if (window.scrollY > 20) {
+      if (scrollY > 20) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -31,22 +71,15 @@ export default function Navbar() {
       // 2. Reading scroll progress bar percentage calculation
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (totalHeight > 0) {
-        setScrollProgress((window.scrollY / totalHeight) * 100);
+        setScrollProgress((scrollY / totalHeight) * 100);
       }
 
-      // 3. Spying active section for highlighting
-      const sections = ["hero", "about", "skills", "projects", "lab", "playground", "contact"];
-      const scrollPos = window.scrollY + 160; // offset offset for top bar height
-      
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
-            setActiveSection(section);
-            break;
-          }
+      // 3. Spying active section using cached layouts
+      const scrollPos = scrollY + 160;
+      for (const layout of sectionsLayout.current) {
+        if (scrollPos >= layout.top && scrollPos < layout.bottom) {
+          setActiveSection(layout.id);
+          break;
         }
       }
     };
@@ -66,7 +99,7 @@ export default function Navbar() {
       <header
         className={`fixed top-0 inset-x-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? "bg-[#0D1117]/80 backdrop-blur-md border-b border-glass-border/40 py-3"
+            ? "bg-[#0D1017]/80 backdrop-blur-md border-b border-glass-border/40 py-3"
             : "bg-transparent py-5"
         }`}
       >
@@ -120,7 +153,7 @@ export default function Navbar() {
 
         {/* Mobile Drawer Overlay */}
         {isOpen && (
-          <div className="md:hidden absolute top-full inset-x-0 bg-[#0D1117]/95 backdrop-blur-lg border-b border-glass-border p-6 flex flex-col gap-5 z-40">
+          <div className="md:hidden absolute top-full inset-x-0 bg-[#0D1017]/95 backdrop-blur-lg border-b border-glass-border p-6 flex flex-col gap-5 z-40">
             {NAV_LINKS.map((link, idx) => {
               const isActive = activeSection === link.id;
               return (
