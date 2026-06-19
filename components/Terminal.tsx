@@ -224,7 +224,6 @@ export default function Terminal() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               className="flex-1 bg-transparent border-none outline-none caret-accent text-text select-text"
-              autoFocus
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"
