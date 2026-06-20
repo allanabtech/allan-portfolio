@@ -9,7 +9,7 @@ interface Certificate {
   title: string;
   issuer: string;
   id: string;
-  category: "AI & ML" | "Cloud & DevOps" | "Programming" | "Design & Data";
+  category: "AI & ML" | "Cloud & DevOps" | "Programming" | "Data Analytics" | "UI/UX Design" | "Business & Leadership" | "Humanities & Writing";
   isProfessional: boolean;
   driveLink: string;
   imageFileName: string;
@@ -21,7 +21,7 @@ const PROFESSIONAL_CERTS: Certificate[] = [
     title: "Microsoft Power BI Data Analyst",
     issuer: "Microsoft / Coursera",
     id: "CERT-PBI-101",
-    category: "Design & Data",
+    category: "Data Analytics",
     isProfessional: true,
     driveLink: "https://drive.google.com/file/d/10ctfNcxdhsFx0HxEt4zN0Ej-dmdC31ta/view?usp=drivesdk",
     imageFileName: "pbi.png",
@@ -39,7 +39,7 @@ const PROFESSIONAL_CERTS: Certificate[] = [
     title: "People & Soft Skills: Essential for Professional Success",
     issuer: "IBM / Coursera",
     id: "CERT-IBM-103",
-    category: "Design & Data",
+    category: "Humanities & Writing",
     isProfessional: true,
     driveLink: "https://drive.google.com/file/d/1xwWTZA0y_hRIzUmv3_2LzN0NnmuT0Tts/view?usp=drivesdk",
     imageFileName: "softskills.png",
@@ -48,7 +48,7 @@ const PROFESSIONAL_CERTS: Certificate[] = [
     title: "UI Design for Web Developers",
     issuer: "Scrimba / Coursera",
     id: "CERT-UID-104",
-    category: "Design & Data",
+    category: "UI/UX Design",
     isProfessional: true,
     driveLink: "https://drive.google.com/file/d/10kvCPDCR5fYaYCNphE3rXJ2pl5_ysLtQ/view?usp=drivesdk",
     imageFileName: "uidesign.png",
@@ -57,7 +57,7 @@ const PROFESSIONAL_CERTS: Certificate[] = [
     title: "Strategic Leadership and Management",
     issuer: "Illinois / Coursera",
     id: "CERT-SLM-105",
-    category: "Design & Data",
+    category: "Business & Leadership",
     isProfessional: true,
     driveLink: "https://drive.google.com/file/d/10jvNGjbEKZtQbAVibR7LPCKIOHMQeWxI/view?usp=drivesdk",
     imageFileName: "leadership.png",
@@ -102,7 +102,7 @@ const PROFESSIONAL_CERTS: Certificate[] = [
     title: "Internship & Job Preparation",
     issuer: "Internshala Training",
     id: "CERT-IJP-110",
-    category: "Design & Data",
+    category: "Business & Leadership",
     isProfessional: true,
     driveLink: "https://drive.google.com/file/d/1ESRxuugzdcO83WpsmDHX44jGILFOrOLT/view?usp=drivesdk",
     imageFileName: "jobprep.png",
@@ -120,56 +120,400 @@ const PROFESSIONAL_CERTS: Certificate[] = [
 
 // 43 Normal Certifications
 const NORMAL_CERTS: Certificate[] = [
-  // AI & ML (12)
-  { title: "Supervised Machine Learning: Regression", issuer: "Coursera / Stanford", id: "ML-REG-01", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Advanced Learning Algorithms", issuer: "Coursera / Stanford", id: "ML-ALA-02", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Unsupervised Learning & Recommenders", issuer: "Coursera / Stanford", id: "ML-UNS-03", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Neural Networks & Deep Learning", issuer: "DeepLearning.AI", id: "DL-NN-04", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Structuring Machine Learning Projects", issuer: "DeepLearning.AI", id: "DL-STR-05", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Convolutional Neural Networks", issuer: "DeepLearning.AI", id: "DL-CNN-06", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Sequence Models", issuer: "DeepLearning.AI", id: "DL-SEQ-07", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Introduction to Computer Vision", issuer: "OpenCV Academy", id: "CV-INT-08", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "PyTorch Basics for Machine Learning", issuer: "Udemy", id: "PYT-BSC-09", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Data Analysis with Python", issuer: "freeCodeCamp", id: "FCC-DAP-10", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Applied Plotting & Data Representation", issuer: "University of Michigan", id: "UM-APD-11", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "AI Foundations for Everyone", issuer: "IBM", id: "IBM-AIF-12", category: "AI & ML", isProfessional: false, driveLink: "#", imageFileName: "" },
+  // AI & ML
+  {
+    title: "Supervised Learning Regression Classification Clustering",
+    issuer: "Simplilearn",
+    id: "CRT-01",
+    category: "AI & ML",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11WGSyGhLaDlMSrl8okULTdGqWyJnMNAY/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "COVID19 Data Analysis Using Python",
+    issuer: "Coursera Project Network",
+    id: "CRT-02",
+    category: "AI & ML",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/10rUs8GJN1n6IQJilR5GLjNt8dhZBXNFw/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Probability & Statistics for Machine Learning & Data Science",
+    issuer: "DeepLearning.AI",
+    id: "CRT-03",
+    category: "AI & ML",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12edut-GCTZIMhzN8BtH10kGFyyM-hvrm/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Covid-19 Death Medical Analysis & Visualization using Plotly",
+    issuer: "Coursera Project Network",
+    id: "CRT-16",
+    category: "AI & ML",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/10r8Wgt7oiEVNHn1khFZeuhYbjeFTihsT/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Deep Learning Frameworks and Neural Networks Simplified",
+    issuer: "Simplilearn",
+    id: "CRT-17",
+    category: "AI & ML",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11jVWavC2bf7LedjrHEr8MzsCNmdjNlW-/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Matrix Algebra for Engineers",
+    issuer: "The Hong Kong University of Science and Technology",
+    id: "CRT-23",
+    category: "AI & ML",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11Tb35Q7Ww_Qb_UK59u7xAuN-J6pjmv5d/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Deep Learning",
+    issuer: "Illinois Tech",
+    id: "CRT-31",
+    category: "AI & ML",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/18usrLy-454DUqpmHTJDL8yxpaJq3oDtM/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Fake News Detection with Machine Learning",
+    issuer: "Coursera Project Network",
+    id: "CRT-36",
+    category: "AI & ML",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12BsVAbOFLOH2SI0JFts0MeZoEu-5-k1w/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "AI & Deep Learning Concepts and Applications",
+    issuer: "Simplilearn",
+    id: "CRT-39",
+    category: "AI & ML",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11dlAzvl24y2SdOV2y8qqLDXkhO5FP_jo/view?usp=drivesdk",
+    imageFileName: ""
+  },
 
-  // Cloud & DevOps (10)
-  { title: "AWS Cloud Practitioner Essentials", issuer: "AWS Training", id: "AWS-CP-13", category: "Cloud & DevOps", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Docker for Absolute Beginners", issuer: "Udemy", id: "DKR-BEG-14", category: "Cloud & DevOps", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "CI/CD Pipelines with GitHub Actions", issuer: "Udemy", id: "GH-ACT-15", category: "Cloud & DevOps", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Introduction to Terraform", issuer: "HashiCorp", id: "HC-TF-16", category: "Cloud & DevOps", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Linux Command Line Fundamentals", issuer: "Udemy", id: "LNX-CMD-17", category: "Cloud & DevOps", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Shell Scripting & Bash Automation", issuer: "Udemy", id: "SH-SCR-18", category: "Cloud & DevOps", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Kubernetes for Beginners", issuer: "KodeKloud", id: "K8S-BEG-19", category: "Cloud & DevOps", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Nginx Web Server Setup & Config", issuer: "Udemy", id: "NGX-CFG-20", category: "Cloud & DevOps", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Version Control with Git", issuer: "Atlassian / Coursera", id: "GIT-VCS-21", category: "Cloud & DevOps", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Prometheus & Grafana Monitoring Basics", issuer: "Udemy", id: "MON-PROM-22", category: "Cloud & DevOps", isProfessional: false, driveLink: "#", imageFileName: "" },
+  // Cloud & DevOps
+  {
+    title: "Introduction to Cloud Computing",
+    issuer: "IBM",
+    id: "CRT-14",
+    category: "Cloud & DevOps",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/10ptIW99amsK_-9k7qX8Iu-DnCfy-9gjN/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Introduction to Computers and Operating Systems and Security",
+    issuer: "Microsoft",
+    id: "CRT-33",
+    category: "Cloud & DevOps",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/1120z9QdurPSIEiDKNI0d0ylLaOyUuB_r/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Introduction to Contemporary Operating Systems and Hardware 1b",
+    issuer: "Illinois Tech",
+    id: "CRT-40",
+    category: "Cloud & DevOps",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12w_6LTSFPU9PIkgozJhA3eXoi1hDJT3g/view?usp=drivesdk",
+    imageFileName: ""
+  },
 
-  // Programming Languages (11)
-  { title: "Python Masterclass for Developers", issuer: "Udemy", id: "PY-MAS-23", category: "Programming", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Java Programming Masterclass", issuer: "Udemy", id: "JV-MAS-24", category: "Programming", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Scientific Computing with Python", issuer: "freeCodeCamp", id: "FCC-SCP-25", category: "Programming", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Modern JavaScript (ES6+)", issuer: "Udemy", id: "JS-MOD-26", category: "Programming", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "TypeScript Core Concepts", issuer: "Udemy", id: "TS-COR-27", category: "Programming", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Responsive Web Design (HTML/CSS)", issuer: "freeCodeCamp", id: "FCC-RWD-28", category: "Programming", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "C++ Programming Fundamentals", issuer: "Udemy", id: "CPP-FUN-29", category: "Programming", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "SQL & Relational Databases Boot Camp", issuer: "freeCodeCamp", id: "FCC-SQL-30", category: "Programming", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Bash Scripting for System Admins", issuer: "Udemy", id: "BSH-ADM-31", category: "Programming", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Algorithms and Data Structures Course", issuer: "freeCodeCamp", id: "FCC-ADS-32", category: "Programming", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Introduction to Programming in C", issuer: "Udemy", id: "C-PROG-33", category: "Programming", isProfessional: false, driveLink: "#", imageFileName: "" },
+  // Programming Languages
+  {
+    title: "Build a Multi-Page Website with Frontend Mentor, HTML, and CSS",
+    issuer: "Scrimba",
+    id: "CRT-05",
+    category: "Programming",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11jZIi_DFf4_Zxng022oocIe2ZCcsM7Fx/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Getting Started with Cascading Style Sheet",
+    issuer: "Grey crowned crane",
+    id: "CRT-08",
+    category: "Programming",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/10ttoXSN3Tff3PE-52vufUJNSrcLCj_sa/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Programming Fundamentals",
+    issuer: "Duke University",
+    id: "CRT-09",
+    category: "Programming",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11SrNBFRUKbV7ndYatxmcLdnKHWRJtaSV/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Sql Joins",
+    issuer: "Coursera Project Network",
+    id: "CRT-19",
+    category: "Programming",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/1145fMLnx2NZ0CwqHYf7YTOwxe2lT_JWK/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Introduction to Relational Database and SQL",
+    issuer: "Grey crowned crane",
+    id: "CRT-20",
+    category: "Programming",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11A4ypJ-_3cbhMLsjf8ns2qZ5dWPmdNM0/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Foundations of Computer Science",
+    issuer: "LearnQuest",
+    id: "CRT-25",
+    category: "Programming",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11QRN5IHAjWXi8frOMxsvBKrdz9_AwrQz/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Build Websites with Figma, HTML, and CSS",
+    issuer: "Scrimba",
+    id: "CRT-28",
+    category: "Programming",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11W0y_Qn-naWTQ-ix0EJXFj1WP4TjfOoK/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Data Structures in C",
+    issuer: "University of Michigan",
+    id: "CRT-30",
+    category: "Programming",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/10thIWj0MEDZfunByEylsfN8dZlsQQQdo/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Fundamentals of Java Programming",
+    issuer: "Board Infinity",
+    id: "CRT-42",
+    category: "Programming",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/112lCJ6u3X_-DN2jLtxyykFFQPSXEgjba/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Pointers, Arrays, and Recursion",
+    issuer: "Duke University",
+    id: "CRT-43",
+    category: "Programming",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11BSJX86uVtom6EzQt2KTUAd5bGKc0BBN/view?usp=drivesdk",
+    imageFileName: ""
+  },
 
-  // Design & Data (10)
-  { title: "Introduction to Power BI", issuer: "Microsoft Training", id: "PBI-INT-34", category: "Design & Data", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "UI/UX Design Fundamentals", issuer: "Udemy", id: "UIX-FUN-35", category: "Design & Data", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Figma Masterclass for Web Designers", issuer: "Udemy", id: "FIG-MAS-36", category: "Design & Data", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Data Visualization with Power BI", issuer: "Udemy", id: "PBI-VIS-37", category: "Design & Data", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Advanced DAX Formulas in Power BI", issuer: "Udemy", id: "DAX-ADV-38", category: "Design & Data", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Product Design Principles", issuer: "Coursera", id: "PRD-DSN-39", category: "Design & Data", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Google Analytics Certification", issuer: "Google Academy", id: "GG-ANL-40", category: "Design & Data", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Typography and Color Theory Basics", issuer: "Coursera", id: "DSN-TYP-41", category: "Design & Data", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Excel for Data Analysts Masterclass", issuer: "Udemy", id: "EXL-ANL-42", category: "Design & Data", isProfessional: false, driveLink: "#", imageFileName: "" },
-  { title: "Design Systems & Component Library Dev", issuer: "Udemy", id: "DS-COMP-43", category: "Design & Data", isProfessional: false, driveLink: "#", imageFileName: "" }
+  // Business & Leadership, Data Analytics, UI/UX Design, Humanities & Writing
+  {
+    title: "Business Strategy",
+    issuer: "Illinois",
+    id: "CRT-04",
+    category: "Business & Leadership",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11zbyAuMwD9HGOymBWSjF8EG5np0Q0Daf/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Strategic Leadership and Management Capstone",
+    issuer: "Illinois",
+    id: "CRT-06",
+    category: "Business & Leadership",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11lQrhtWnY3tLqDTBpVUBoQmaUnGEcMQc/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Deploy and Maintain Power BI Assets and Capstone project",
+    issuer: "Microsoft",
+    id: "CRT-07",
+    category: "Data Analytics",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12avGuxNsJjsOv4dciD09CgrmqlBakoQk/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Leading Teams: Building Effective Team Cultures",
+    issuer: "Illinois",
+    id: "CRT-10",
+    category: "Business & Leadership",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/127ukt1e706uDlhuAqSh5Atfsf0iK8uGL/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Gender Equality",
+    issuer: "University of Western Australia",
+    id: "CRT-11",
+    category: "Humanities & Writing",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11DNtyJWQtbXHrbgmE3SuCI6k1Z9030Zg/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Learn UI Design",
+    issuer: "Scrimba",
+    id: "CRT-12",
+    category: "UI/UX Design",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11ldlsfoVpkTgnirEd9lWS1Ac56pAVE6H/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Data Analysis and Visualization with Power BI",
+    issuer: "Microsoft",
+    id: "CRT-13",
+    category: "Data Analytics",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12Eu81X1CmEDbeTbyu7HjPoqQhXs8D4wO/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Managing the Organization",
+    issuer: "Illinois",
+    id: "CRT-15",
+    category: "Business & Leadership",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12CHakVPEjiGLUeo6XGBkG4rWAYoB_YG5/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Successful Presentation",
+    issuer: "University of Colorado Boulder",
+    id: "CRT-18",
+    category: "Humanities & Writing",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11OuUJrb7a0F_uARofdQMwDBUn69faptX/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Corporate Strategy",
+    issuer: "Illinois",
+    id: "CRT-21",
+    category: "Business & Leadership",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11seud0IQ9-mnYJ5x4poc00gPJV9WD1K0/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Designing the Organization",
+    issuer: "Illinois",
+    id: "CRT-22",
+    category: "Business & Leadership",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11lsgHcw_aamARVibMpWou7Ugm1L9v4ne/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Data Modeling in Power BI",
+    issuer: "Microsoft",
+    id: "CRT-24",
+    category: "Data Analytics",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12jfjMMGzp9lYCSp4_bbIhgY6hzEdLjxG/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Harnessing the Power of Data with Power BI",
+    issuer: "Microsoft",
+    id: "CRT-26",
+    category: "Data Analytics",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12hKeF_Jk5VBbUUrQFv7vaqRuRQsbnecb/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Sharpened Visions: A Poetry Workshop",
+    issuer: "CalArts",
+    id: "CRT-27",
+    category: "Humanities & Writing",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/11IXGRkj9mmVSL1IWfQv2h10NL3MKpdak/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Preparing Data for Analysis with Microsoft Excel",
+    issuer: "Microsoft",
+    id: "CRT-29",
+    category: "Data Analytics",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12cvvxKJchKqc_nDXLeL4e1o6ohYXjmzW/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Extract, Transform and Load Data in Power BI",
+    issuer: "Microsoft",
+    id: "CRT-32",
+    category: "Data Analytics",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12hUWy5OMnkQcBst0aHCJa7LLVyqV9B3z/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Creative Designing in Power BI",
+    issuer: "Microsoft",
+    id: "CRT-34",
+    category: "Data Analytics",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12IjDmBJUzEb-84CYH6SlDHimJjZQYn8v/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Writing in English at University",
+    issuer: "Lund University",
+    id: "CRT-35",
+    category: "Humanities & Writing",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/10pyyRMUdVL2lHvISDcPSI6Y-uh19WOmy/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Interactive Statistical Data Visualization 101",
+    issuer: "Coursera Project Network",
+    id: "CRT-37",
+    category: "Data Analytics",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/120Euxay4_8WG3RzGPpoMfQRKn1bsYOtG/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Leading Teams: Developing as a Leader",
+    issuer: "Illinois",
+    id: "CRT-38",
+    category: "Business & Leadership",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12W-SiUb81nmBIXEV2tMhE1oED88vq9sG/view?usp=drivesdk",
+    imageFileName: ""
+  },
+  {
+    title: "Microsoft PL-300 Exam Preparation and Practice",
+    issuer: "Microsoft",
+    id: "CRT-41",
+    category: "Data Analytics",
+    isProfessional: false,
+    driveLink: "https://drive.google.com/file/d/12bJd4_Ppi2UzmRIOUHl4paOGeLpIj_eE/view?usp=drivesdk",
+    imageFileName: ""
+  }
 ];
 
 // Helper to return corporate SVG logos for the respective issuers
@@ -197,19 +541,22 @@ function renderIssuerLogo(issuer: string) {
 
   if (norm.includes("simplilearn")) {
     return (
-      <svg viewBox="0 0 24 24" className="w-5.5 h-5.5 shrink-0" fill="currentColor">
-        <circle cx="12" cy="12" r="10" fill="none" stroke="#FF5722" strokeWidth="2.5" />
-        <path d="M12 6v6l4 2" fill="none" stroke="#00A4EF" strokeWidth="2.5" strokeLinecap="round" />
+      <svg viewBox="0 0 115 30" className="h-5.5 w-auto shrink-0 select-none" fill="currentColor">
+        <text x="0" y="21" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold" fontSize="20" fill="#FF9900">simpli</text>
+        <text x="53" y="21" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold" fontSize="20" fill="#FF9900">;</text>
+        <text x="59" y="21" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="bold" fontSize="20" fill="#00AEEF">learn</text>
       </svg>
     );
   }
 
   if (norm.includes("scrimba")) {
     return (
-      <svg viewBox="0 0 24 24" className="w-5.5 h-5.5 shrink-0 text-[#FF0055]" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-        <path d="M7 8l-4 4 4 4" />
-        <path d="M17 8l4 4-4 4" />
-        <line x1="13" y1="7" x2="11" y2="17" />
+      <svg viewBox="0 0 160 30" className="h-5.5 w-auto shrink-0 select-none" fill="#000000">
+        <rect x="5" y="15" width="12" height="7" rx="0.5" />
+        <rect x="17" y="8" width="12" height="7" rx="0.5" />
+        <rect x="34" y="15" width="12" height="7" rx="0.5" />
+        <rect x="46" y="8" width="12" height="7" rx="0.5" />
+        <text x="68" y="21" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="17" letterSpacing="1">SCRIMBA</text>
       </svg>
     );
   }
@@ -258,6 +605,175 @@ function renderIssuerLogo(issuer: string) {
         <line x1="39.5" y1="5.5" x2="39.5" y2="9.5" stroke="#0056D2" strokeWidth="2.2" strokeLinecap="round" />
         {/* N in Orange */}
         <text x="47" y="16" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="900" fontSize="14" fill="#FF6C00">N</text>
+      </svg>
+    );
+  }
+
+  if (norm.includes("coursera")) {
+    return (
+      <svg viewBox="0 0 100 100" className="h-6.5 w-6.5 shrink-0 rounded select-none">
+        <rect x="0" y="0" width="100" height="100" fill="#3B2E9F" />
+        <text x="50" y="44" textAnchor="middle" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="800" fontSize="17" fill="#FFFFFF" letterSpacing="-0.3">coursera</text>
+        <text x="50" y="65" textAnchor="middle" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="300" fontSize="13" fill="#FFFFFF" letterSpacing="-0.1">project</text>
+        <text x="50" y="80" textAnchor="middle" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="300" fontSize="13" fill="#FFFFFF" letterSpacing="-0.1">network</text>
+      </svg>
+    );
+  }
+
+  if (norm.includes("deeplearning")) {
+    return (
+      <svg viewBox="0 0 160 30" className="h-5.5 w-auto shrink-0 select-none" fill="currentColor">
+        <circle cx="15" cy="15" r="11" fill="#FF3366" />
+        <circle cx="15" cy="15" r="8" fill="#FFFFFF" />
+        <circle cx="15" cy="15" r="6" fill="#FF3366" />
+        <circle cx="15" cy="15" r="4.5" fill="#FFFFFF" />
+        <circle cx="15" cy="15" r="2.5" fill="#FF3366" />
+        <text x="32" y="22" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="700" fontSize="18" fill="#FF3366" letterSpacing="-0.3">DeepLearning.AI</text>
+      </svg>
+    );
+  }
+
+  if (norm.includes("illinois tech")) {
+    return (
+      <svg viewBox="0 0 24 24" className="w-5.5 h-5.5 shrink-0 text-[#CC0000]" fill="currentColor">
+        <path d="M4 2v20h16V2H4zm3 3h3v5H7V5zm0 7h3v5H7v-5zm10 5h-3v-5h3v5zm0-7h-3V5h3v5z" />
+      </svg>
+    );
+  }
+
+  if (norm.includes("duke")) {
+    return (
+      <svg viewBox="0 0 100 45" className="h-5.5 w-auto shrink-0 select-none" fill="#012169">
+        <text x="50%" y="26" textAnchor="middle" fontFamily="Georgia, serif" fontSize="28" fontWeight="bold" letterSpacing="-0.5">Duke</text>
+        <text x="50%" y="39" textAnchor="middle" fontFamily="system-ui, sans-serif" fontSize="8" letterSpacing="2.5" fontWeight="400">UNIVERSITY</text>
+      </svg>
+    );
+  }
+
+  if (norm.includes("grey crowned crane") || norm.includes("crane")) {
+    return (
+      <svg viewBox="0 0 40 40" className="h-6.5 w-auto shrink-0 select-none">
+        <path d="M22 6c3-3 8-1 10 3-3 0-6-1-10-3z" fill="#FFC107" />
+        <path d="M22 6c1.5-2 4-1.5 5 1-2.5 0-4-.5-5-1z" fill="#DC3545" />
+        <path d="M20 7c1.5.5 3 2 2.5 4.5s-4 7-6 10" fill="none" stroke="#1A1A1A" strokeWidth="2.8" strokeLinecap="round" />
+        <circle cx="21.5" cy="8.5" r="0.6" fill="#FFFFFF" />
+        <path d="M22.5 9l-4 .5z" stroke="#1A1A1A" strokeWidth="1.5" />
+        <path d="M19 11.5c-1 1-1 3 .5 3s2.5-2 .5-3z" fill="#DC3545" />
+        <path d="M16.5 21.5c0 0-4 1-5 4.5s1 7 4.5 7h4c3.5 0 6.5-3.5 5.5-8s-5-3.5-9-3.5z" fill="#1A1A1A" />
+        <path d="M15 23.5c1.5 1 5 1.5 7 4.5s1.5 4 .5 4.5-3.5-1-5.5-4-2-5-2-5z" fill="#708090" />
+        <path d="M23 27.5c2 1 6 3 5.5 6s-4 2.5-6.5.5-2-5.5-1-6.5z" fill="#DC3545" />
+        <path d="M16 32v7M16 34.5l-3 2.5" fill="none" stroke="#1A1A1A" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (norm.includes("calarts")) {
+    return (
+      <svg viewBox="0 0 120 30" className="h-6 w-auto shrink-0 select-none">
+        <text x="2" y="22" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="700" fontSize="22" fill="#00A5DB" stroke="#00A5DB" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" letterSpacing="0.5">CaLARTS</text>
+      </svg>
+    );
+  }
+
+  if (norm.includes("learnquest")) {
+    return (
+      <svg viewBox="0 0 135 30" className="h-5.5 w-auto shrink-0 select-none">
+        <text x="2" y="21" fontFamily="system-ui, -apple-system, sans-serif" fontStyle="italic" fontWeight="bold" fontSize="19" fill="#005B94">Learn</text>
+        <text x="70" y="21" fontFamily="system-ui, -apple-system, sans-serif" fontStyle="italic" fontWeight="bold" fontSize="19" fill="#005B94">uest</text>
+        <circle cx="60" cy="14" r="7.5" fill="none" stroke="#FF9900" strokeWidth="2.8" />
+        <path d="M57 20h18" fill="none" stroke="#FF9900" strokeWidth="2.8" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (norm.includes("board infinity") || norm.includes("boord infinity")) {
+    return (
+      <svg viewBox="0 0 135 55" className="h-7 w-auto shrink-0 select-none">
+        <text x="2" y="33" fontFamily="'Arial Black', 'Impact', 'Inter', sans-serif" fontWeight="900" fontSize="28" fill="#FFFFFF">B</text>
+        <path d="M 53,20.5 C 49,14.5 43,14.5 38.5,19 C 34,23.5 34,30.5 38.5,35 C 43,39.5 49,39.5 53,33.5 L 69,17.5 C 73,13 79,13 83.5,17.5 C 87.5,21.5 87.5,28 84,32 L 83.5,32.5 M 69,29 C 72,33.5 78.5,33.5 82,29.5 M 84,18 L 84,35.5 C 84,37.5 85.5,38.5 87.5,38.5" fill="none" stroke="#0067FF" strokeWidth="5.2" strokeLinecap="round" strokeLinejoin="round" />
+        <text x="93" y="33" fontFamily="'Arial Black', 'Impact', 'Inter', sans-serif" fontWeight="900" fontSize="28" fill="#FFFFFF">RD</text>
+        <text x="3" y="49" fontFamily="'Arial Black', 'Inter', sans-serif" fontWeight="900" fontSize="12.5" fill="#FFFFFF" letterSpacing="4.1">INFINITY</text>
+      </svg>
+    );
+  }
+
+  if (norm.includes("lund")) {
+    return (
+      <svg viewBox="0 0 190 38" className="h-6.5 w-auto shrink-0 select-none">
+        <circle cx="16" cy="18" r="14" fill="none" stroke="#C5A059" strokeWidth="1.5" />
+        <circle cx="16" cy="18" r="11" fill="none" stroke="#C5A059" strokeWidth="0.8" />
+        <rect x="11.5" y="18" width="9" height="7" rx="0.5" fill="none" stroke="#C5A059" strokeWidth="0.8" />
+        <line x1="16" y1="18" x2="16" y2="25" stroke="#C5A059" strokeWidth="0.8" />
+        <line x1="12" y1="15" x2="8" y2="7" stroke="#C5A059" strokeWidth="1.2" strokeLinecap="round" />
+        <line x1="9" y1="12" x2="12" y2="13" stroke="#C5A059" strokeWidth="0.8" />
+        <path d="M 17,20 C 18,17 19.5,15.5 22.5,15.5 C 23.5,15.5 24.5,16.5 25,17.5 C 24,19 22.5,19 22.5,20.5 C 22.5,21.5 24,21.5 25,22.5 C 23,24 19.5,24 17.5,22.5" fill="none" stroke="#C5A059" strokeWidth="0.8" />
+        <path d="M 21.5,8 l 1,1.5 h -2 z M 24.5,8 l 1,1.5 h -2 z M 23,10 l 1,1.5 h -2 z" fill="#C5A059" />
+        <text x="38" y="24" fontFamily="Georgia, serif" fontSize="15" fontWeight="500" fill="#E5E7EB" letterSpacing="1.2">LUND UNIVERSITY</text>
+      </svg>
+    );
+  }
+
+  if (norm.includes("michigan")) {
+    return (
+      <svg viewBox="0 0 170 38" className="h-6.5 w-auto shrink-0 select-none">
+        <path d="M 2,4 H 13 V 8.5 H 9.5 V 10 L 17,25 L 24.5,10 V 8.5 H 21 V 4 H 32 V 8.5 H 28.5 V 27.5 H 32 V 32 H 21 V 27.5 H 24.5 V 14.5 L 17,29.5 L 9.5,14.5 V 27.5 H 13 V 32 H 2 V 27.5 H 5.5 V 8.5 H 2 Z" fill="#FFCB05" />
+        <text x="38" y="15" fontFamily="Georgia, serif" fontSize="10.5" fontWeight="bold" fill="#FFFFFF" letterSpacing="0.2">UNIVERSITY OF</text>
+        <text x="38" y="32" fontFamily="Georgia, serif" fontSize="18" fontWeight="bold" fill="#FFFFFF" letterSpacing="0.3">MICHIGAN</text>
+      </svg>
+    );
+  }
+
+  if (norm.includes("western australia") || norm.includes("uwa")) {
+    return (
+      <svg viewBox="0 0 180 55" className="h-7 w-auto shrink-0 select-none" fill="#002F6C">
+        <g transform="scale(0.85)">
+          <path d="M5 2h34v15c0 10-17 19-17 19S5 27 5 17V2z" fill="#002F6C" />
+          <path d="M22 17l10 8-10 8-10-8z" fill="#FFC72C" />
+          <path d="M21 21c-2 0-3 2-2 3.5s2 1.5 3 .5 1.5-1.5.5-2.5c1 1 2 2 1.5 3s-2.5 1-3.5 0" fill="#000000" />
+          <rect x="9" y="5" width="10" height="7" fill="#FFFFFF" rx="0.5" />
+          <rect x="25" y="5" width="10" height="7" fill="#FFFFFF" rx="0.5" />
+        </g>
+        <text x="42" y="18" fontFamily="Georgia, serif" fontSize="10.5" fontWeight="bold">THE UNIVERSITY OF</text>
+        <text x="42" y="32" fontFamily="Georgia, serif" fontSize="13.5" fontWeight="bold" letterSpacing="0.2">WESTERN</text>
+        <text x="42" y="46" fontFamily="Georgia, serif" fontSize="13.5" fontWeight="bold" letterSpacing="0.2">AUSTRALIA</text>
+      </svg>
+    );
+  }
+
+  if (norm.includes("hong kong") || norm.includes("hkust")) {
+    return (
+      <svg viewBox="0 0 200 42" className="h-6.5 w-auto shrink-0 select-none">
+        <g transform="translate(2, 2)">
+          <circle cx="15" cy="8" r="4.5" fill="#B58A30" />
+          <path d="M13 14h4v15l-3 4-3-4z" fill="#B58A30" />
+          <path d="M11 13h8l-1 2h-6z" fill="#B58A30" />
+          <path d="M5 14c0 0 2-3 10-3s10 3 10 3v8c0 5-4 9-10 9S5 27 5 22v-8zm3 2v6c0 3 3 5 7 5s7-2 7-5v-6" fill="none" stroke="#003893" strokeWidth="2.5" />
+        </g>
+        <text x="38" y="14" fontFamily="system-ui, sans-serif" fontSize="9.5" fill="#003893" fontWeight="700" letterSpacing="0.2">THE HONG KONG</text>
+        <text x="38" y="24" fontFamily="system-ui, sans-serif" fontSize="9.5" fill="#003893" fontWeight="700" letterSpacing="0.2">UNIVERSITY OF SCIENCE</text>
+        <text x="38" y="34" fontFamily="system-ui, sans-serif" fontSize="9.5" fill="#003893" fontWeight="700" letterSpacing="0.2">AND TECHNOLOGY</text>
+      </svg>
+    );
+  }
+
+  if (norm.includes("colorado") || norm.includes("boulder")) {
+    return (
+      <svg viewBox="0 0 170 38" className="h-5.5 w-auto shrink-0 select-none">
+        <g stroke="#D4AF37" strokeWidth="1.5" strokeLinejoin="miter">
+          <path d="M18 6H8l-4 4v16l4 4h10v-5H9v-8h9z" fill="#1A1A1A" />
+          <path d="M15 11v11l3 3h8l3-3V11h-5v10h-4V11z" fill="#1A1A1A" />
+        </g>
+        <text x="36" y="16" fontFamily="system-ui, sans-serif" fontSize="12" fill="#202020" fontWeight="400">University of Colorado</text>
+        <text x="36" y="30" fontFamily="system-ui, sans-serif" fontSize="12" fill="#202020" fontWeight="400">Boulder</text>
+      </svg>
+    );
+  }
+
+  if (norm.includes("university") || norm.includes("college") || norm.includes("quest") || norm.includes("michigan") || norm.includes("stanford") || norm.includes("calarts")) {
+    return (
+      <svg viewBox="0 0 24 24" className="w-5.5 h-5.5 shrink-0 text-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+        <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
       </svg>
     );
   }
@@ -374,7 +890,7 @@ export default function CertificationsSection() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string>("All");
 
-  const categories = ["All", "AI & ML", "Cloud & DevOps", "Programming", "Design & Data"];
+  const categories = ["All", "AI & ML", "Cloud & DevOps", "Programming", "Data Analytics", "UI/UX Design", "Business & Leadership", "Humanities & Writing"];
 
   const filteredNormalCerts = useMemo(() => {
     return NORMAL_CERTS.filter((cert) => {
@@ -499,35 +1015,43 @@ export default function CertificationsSection() {
 
                 {/* Grid of minor certificates */}
                 {filteredNormalCerts.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[520px] overflow-y-auto pr-2">
                     {filteredNormalCerts.map((cert) => (
-                      <div
+                      <a
                         key={cert.id}
-                        className="bg-[#000000]/50 border border-glass-border/40 p-4 rounded-xl flex items-center justify-between gap-4 hover:border-glass-border transition-all group"
+                        href={cert.driveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-[#000000]/50 border border-glass-border/40 p-4 rounded-xl flex flex-col justify-between min-h-[132px] h-auto hover:border-accent/40 hover:bg-[#0D1017]/50 transition-all group cursor-pointer w-full overflow-hidden"
                       >
-                        <div className="min-w-0 flex items-center gap-3">
+                        {/* Row 1: Logo on left, tag and by who on right */}
+                        <div className="flex items-center justify-between w-full gap-2 min-w-0">
                           <div className="p-1 bg-white/5 border border-glass-border/40 rounded flex items-center justify-center shrink-0">
                             {renderIssuerLogo(cert.issuer)}
                           </div>
-                          <div className="min-w-0">
-                            <span className="text-[8px] font-mono text-accent/60 uppercase tracking-widest font-bold">
+                          <div className="flex items-center gap-2 text-right min-w-0 flex-1 justify-end">
+                            <span className="text-[10px] text-muted font-medium truncate flex-1 min-w-0">
+                              by {cert.issuer}
+                            </span>
+                            <span className="text-[8px] font-mono bg-accent/10 border border-accent/20 text-accent uppercase tracking-wider font-bold px-1.5 py-0.5 rounded shrink-0">
                               {cert.category}
                             </span>
-                            <h4 className="text-xs font-bold text-text truncate group-hover:text-accent transition-colors mt-0.5">
-                              {cert.title}
-                            </h4>
-                            <p className="text-[10px] text-muted truncate">{cert.issuer} • ID: {cert.id}</p>
                           </div>
                         </div>
-                        <a
-                          href={cert.driveLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="shrink-0 text-[10px] font-mono text-muted hover:text-accent flex items-center gap-0.5 hover:underline"
-                        >
-                          Verify <ArrowUpRight className="w-3.5 h-3.5" />
-                        </a>
-                      </div>
+
+                        {/* Row 2: Title and Verify link */}
+                        <div className="flex items-end justify-between w-full mt-2 gap-4 min-w-0">
+                          <div className="min-w-0 flex-1">
+                            <h4 className="text-xs font-bold text-text group-hover:text-accent transition-colors leading-snug line-clamp-2">
+                              {cert.title}
+                            </h4>
+                            <p className="text-[9px] text-muted/70 font-mono mt-0.5">ID: {cert.id}</p>
+                          </div>
+                          <span className="shrink-0 text-[10px] font-mono text-accent flex items-center gap-0.5 group-hover:underline">
+                            Verify <ArrowUpRight className="w-3.5 h-3.5" />
+                          </span>
+                        </div>
+                      </a>
                     ))}
                   </div>
                 ) : (

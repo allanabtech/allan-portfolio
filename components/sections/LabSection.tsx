@@ -25,98 +25,98 @@ interface LabExperiment {
 const EXPERIMENTS: LabExperiment[] = [
   {
     id: 1,
-    title: "AI Experiments",
-    description: "Training neural network classifiers locally, testing gradient descent optimization rates, and writing object segmentation layers.",
+    title: "AI / ML Experiments",
+    description: "Training image classifiers locally on my GPU, tuning learning rates, and experimenting with different architectures. Currently working through object detection with YOLOv8 and poking at custom loss functions for imbalanced datasets.",
     status: "Active",
-    metric: "Loss: 0.042",
+    metric: "Loss: 0.038",
     icon: <Cpu className="w-5 h-5 text-accent" />,
-    tech: ["Python", "PyTorch", "OpenCV", "Convolutional Neural Nets", "Gradient Descent", "NumPy"],
-    challenges: "Training classifiers on highly imbalanced edge data caused overfitting in the minority classes, skewing telemetry scores.",
-    lessons: "Applied class-weighted cross-entropy loss functions and focal loss layers, balancing gradients and increasing mAP by 8.4%.",
+    tech: ["Python", "PyTorch", "YOLOv8", "OpenCV", "NumPy", "Matplotlib"],
+    challenges: "Training on my own dataset with very few samples for certain classes — the model would completely ignore the minority class and still report 94% accuracy because the majority class dominated everything.",
+    lessons: "Switched to focal loss and added class weights based on sample frequency. Also started augmenting the minority class with flips, crops, and brightness shifts. Got the minority class recall from ~12% to ~68% after that.",
     metrics: {
-      parameter: "1.2M Weights",
-      rate: "Loss: 0.042",
-      device: "CUDA Acceleration"
+      parameter: "YOLOv8-nano",
+      rate: "Loss: 0.038",
+      device: "RTX local GPU"
     }
   },
   {
     id: 2,
-    title: "Cloud Infrastructure Labs",
-    description: "Configuring IaC templates, serverless API orchestration matrices, IAM policies, and VPC virtual networking topologies.",
-    status: "Staging",
-    metric: "Uptime: 99.98%",
+    title: "AWS & Cloud Setup",
+    description: "Setting up and breaking AWS infrastructure for practice — EC2 instances, S3 buckets, Lambda functions, IAM roles. Mostly used for backend APIs and storage for my projects. Also experimenting with Terraform to stop clicking around the console manually.",
+    status: "Active",
+    metric: "EC2: t3.micro",
     icon: <GitBranch className="w-5 h-5 text-[#27C93F]" />,
-    tech: ["AWS EC2 & S3", "IAM Security Policies", "VPC Subnets", "Terraform", "Serverless API Gateway"],
-    challenges: "Configuring IAM role structures too loosely created security vectors, while locking them down too tight blocked Lambda handler writes.",
-    lessons: "Mapped granular permissions and automated roles assembly using Terraform IaC templates, testing and securing access.",
+    tech: ["AWS EC2", "S3", "Lambda", "IAM", "API Gateway", "Terraform"],
+    challenges: "IAM permissions were a constant headache — too permissive felt wrong, too restrictive broke everything silently. Lambda would just return a 403 with no useful error message, which made debugging feel like guessing.",
+    lessons: "Started testing IAM policies with the AWS Policy Simulator before deploying. Also learned to always check CloudWatch logs first — 90% of the time the actual error is buried in there, not in the API response.",
     metrics: {
-      parameter: "AWS Cloud",
-      rate: "Uptime: 99.98%",
-      device: "6 Multi-AZ Subnets"
+      parameter: "Free Tier + t3",
+      rate: "~$4/mo avg cost",
+      device: "ap-south-1 region"
     }
   },
   {
     id: 3,
-    title: "Linux Exploration",
-    description: "Customizing kernel modules, testing socket performance constraints, and setting up secure shell sandbox environments.",
+    title: "Linux Daily Driver",
+    description: "Running Ubuntu as my primary OS for development. Mostly bash scripting, setting up dev environments, SSH key management, and occasionally going too deep into sysctl settings trying to squeeze performance out of my machine.",
     status: "Active",
-    metric: "OS: Ubuntu-LTS",
+    metric: "Ubuntu 24.04 LTS",
     icon: <Terminal className="w-5 h-5 text-[#FFBD2E]" />,
-    tech: ["Ubuntu Linux", "Bash Scripting", "Sysctl Tuning", "SSH Keys", "Socket Buffer Optimization"],
-    challenges: "High traffic packet handling led to network buffer overflows, dropping active connections at the kernel level.",
-    lessons: "Optimized TCP socket read/write limits using customized sysctl rules, increasing total bandwidth throughput.",
+    tech: ["Ubuntu 24.04", "Bash", "SSH", "tmux", "ufw", "sysctl"],
+    challenges: "Set net.core.rmem_max too aggressively once while trying to improve socket throughput for a local server test — ended up with unstable TCP connections that dropped randomly. Took a while to realise the kernel was rejecting the allocation.",
+    lessons: "Now always test sysctl changes in a VM first and read the kernel docs for valid ranges before applying. Also keeps a backup of working sysctl.conf before touching anything.",
     metrics: {
-      parameter: "Ubuntu LTS",
-      rate: "Buffer: 4.0MB",
-      device: "TCP Tuning Active"
+      parameter: "Ubuntu 24.04 LTS",
+      rate: "Uptime: weeks",
+      device: "Ryzen host machine"
     }
   },
   {
     id: 4,
-    title: "Hardware Modifications",
-    description: "Solder-modding microcontrollers, wiring analog I/O relays, calibrating sensor logic boards, and testing digital hardware signals.",
+    title: "Hardware Bench Work",
+    description: "Soldering sensors onto custom breakout boards, wiring relay modules for GPIO control, and using a logic analyzer to debug signal timing issues. Also where most of the robot builds happen before they make it into a proper project.",
     status: "Archived",
-    metric: "Voltage: 5.0V",
+    metric: "3.3V / 5V logic",
     icon: <Settings className="w-5 h-5 text-[#FF5F56]" />,
-    tech: ["Arduino/MCU C++", "Soldering Iron", "Relays & GPIO", "Logic Analyzer", "Digital Signal Filters"],
-    challenges: "Bounce noise from physical switch triggers created duplicate signal interrupts, crashing the microcode loop.",
-    lessons: "Implemented both hardware RC filter networks and software debouncing timers to isolate clean signal rises.",
+    tech: ["Soldering Iron", "Arduino", "GPIO Relays", "Logic Analyzer", "Multimeter", "Breadboard"],
+    challenges: "Mechanical switch bounce was causing the microcontroller to read a single button press as 4–6 rapid triggers. The ISR would fire multiple times before the signal settled, causing the code to behave completely unexpectedly.",
+    lessons: "Wired a 100nF capacitor across the switch pins as a hardware filter and added a 20ms software debounce timer in the ISR. Both together eliminated false triggers completely — either one alone wasn't enough.",
     metrics: {
-      parameter: "5.0V Logic",
-      rate: "Relays: 4 Channels",
-      device: "MCU GPIO Wired"
+      parameter: "3.3V / 5V rails",
+      rate: "4-ch relay module",
+      device: "Logic analyzer + scope"
     }
   },
   {
     id: 5,
-    title: "Automation Scripts",
-    description: "Creating custom shell scripts to auto-backup server nodes, bundle builds, test logs, and optimize deployment flows.",
+    title: "Automation & Shell Scripts",
+    description: "Writing bash scripts to automate stuff I got tired of doing manually — deploying Docker containers, rotating logs, running tests, syncing files to S3. Most of these run via cron and I only notice them when something breaks at 2am.",
     status: "Active",
-    metric: "Runs: Daily",
+    metric: "Cron: 02:00 daily",
     icon: <ShieldAlert className="w-5 h-5 text-[#9fcbff]" />,
-    tech: ["Shell Scripting", "Docker Commands", "CI/CD Workflows", "Cron Schedulers", "Logrotate"],
-    challenges: "Automated backups locked the primary databases briefly, causing latency spikes in active client operations.",
-    lessons: "Redirected read queries to replicas during backup events, scripting asynchronous compression jobs to run off-peak.",
+    tech: ["Bash", "Cron", "Docker CLI", "rsync", "logrotate", "jq"],
+    challenges: "A backup script I wrote was doing a full pg_dump while the database had active connections. It wasn't locking the DB but the I/O spike was bad enough to cause visible latency on the running app for about 30 seconds every night.",
+    lessons: "Moved the backup to 2am when traffic is near zero, added ionice -c3 to the dump command to drop its I/O priority, and piped output straight into gzip rather than dumping then compressing. Backup time went from 48s to 19s and the latency spike disappeared.",
     metrics: {
-      parameter: "Cron Runner",
-      rate: "Runs: Daily 02:00",
-      device: "Backup DB Replicas"
+      parameter: "Cron: daily 02:00",
+      rate: "~19s avg runtime",
+      device: "Local + S3 backup"
     }
   },
   {
     id: 6,
-    title: "Network Testing",
-    description: "Sniffing packet routes, analyzing latency jitter across subnets, setting up firewalls, and auditing DNS record handshakes.",
+    title: "Networking & Packet Analysis",
+    description: "Using Wireshark to see what's actually happening on the network, setting up basic firewall rules with ufw and iptables, and tracing where latency comes from. Mostly done out of curiosity but useful when debugging connectivity issues in projects.",
     status: "Staging",
-    metric: "Ping: 4ms",
+    metric: "LAN ping: ~1ms",
     icon: <Network className="w-5 h-5 text-[#8B949E]" />,
-    tech: ["Wireshark", "Ping Telemetry", "IPtables Rules", "Subnets Setup", "Jitter Audits"],
-    challenges: "Tracing localized network jitter proved complex due to varying router routing loops along external hops.",
-    lessons: "Configured dedicated traceroute logging sequences and structured strict IPtables rules to filter diagnostic payloads.",
+    tech: ["Wireshark", "ufw", "iptables", "nmap", "traceroute", "netstat"],
+    challenges: "Was getting intermittent 200–400ms latency spikes to a local server that I couldn't reproduce on demand. Standard ping showed everything normal. Took ages to figure out it was ARP cache expiring and causing re-resolution delays every few minutes.",
+    lessons: "Captured a timed Wireshark session during the spike window and spotted the ARP requests immediately. Extended the ARP cache timeout via sysctl and the spikes stopped. Wireshark makes invisible problems visible — should have used it from the start.",
     metrics: {
-      parameter: "Ping: 4ms Avg",
-      rate: "Jitter: < 1ms",
-      device: "Wireshark Audited"
+      parameter: "LAN: ~1ms avg",
+      rate: "WAN: 45ms avg",
+      device: "Wireshark + ufw"
     }
   }
 ];
@@ -162,26 +162,30 @@ export default function LabSection() {
       <div className="max-w-5xl mx-auto relative z-10">
 
         <p className="text-sm text-muted mb-6 max-w-lg leading-relaxed">
-          My personal R&D department. Click on any experiment to view technical specs, challenges, lessons, and configuration metrics in detail.
+          Personal experiments, side setups, and things I built or broke while learning. Click any card for the full breakdown.
         </p>
 
         {/* Diagnostics Dashboard Metrics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 mb-8 bg-[#0D1017]/30 border border-glass-border/30 rounded-xl font-mono text-[10px] text-muted relative overflow-hidden select-none">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 p-4 mb-8 bg-[#0D1017]/30 border border-glass-border/30 rounded-xl font-mono text-[10px] text-muted relative overflow-hidden select-none">
           <div className="flex flex-col gap-1">
-            <span>R&D HOST: NODE-ALPHA</span>
-            <span className="font-bold text-accent">CPU LOAD: 18%</span>
+            <span>HOST: INTEL-WS</span>
+            <span className="font-bold text-accent">CPU: i9-10900K</span>
           </div>
           <div className="flex flex-col gap-1">
-            <span>SANDBOX: SECURE-VM</span>
-            <span className="font-bold text-[#27C93F]">LATENCY: 1.2ms</span>
+            <span>GPU: Quadro RTX 5000</span>
+            <span className="font-bold text-accent">VRAM: 16 GB GDDR6</span>
           </div>
           <div className="flex flex-col gap-1">
-            <span>ACTIVE JOBS: 6/6</span>
-            <span className="font-bold text-[#FFBD2E]">JOBS: WAITING</span>
+            <span>OS: Win 11 Pro</span>
+            <span className="font-bold text-[#27C93F]">/ Bazzite Linux</span>
           </div>
           <div className="flex flex-col gap-1">
-            <span>ISOLATION: HYPER-V</span>
-            <span className="font-bold text-[#FF5F56]">INTEGRITY: 100%</span>
+            <span>ACTIVE LABS: 4 / 6</span>
+            <span className="font-bold text-[#FFBD2E]">ARCHIVED: 1</span>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span>CLOUD: AWS free tier</span>
+            <span className="font-bold text-[#FF5F56]">REGION: ap-south-1</span>
           </div>
         </div>
 

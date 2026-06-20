@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { X, Bot, Cpu, CloudLightning, Construction, HelpCircle, BookOpen } from "lucide-react";
+import { X, Bot, Cpu, CloudLightning, Construction, HelpCircle, BookOpen, Cloud, Infinity, ChevronLeft, ChevronRight, Images } from "lucide-react";
 import SpotlightCard from "../SpotlightCard";
 
 interface Project {
@@ -11,6 +11,8 @@ interface Project {
   subtitle: string;
   description: string;
   status?: string;
+  isLifeGoal?: boolean;
+  images?: { src: string; caption: string }[];
   tech: string[];
   challenges: string;
   lessons: string;
@@ -26,21 +28,68 @@ interface Project {
 const PROJECTS: Project[] = [
   {
     id: 1,
-    title: "AI-Powered Navigation Bot",
-    subtitle: "Autonomous obstacle avoidance and path planning",
-    description: "Built an autonomous crawling robot that utilizes ultrasonic and infrared sensors to detect obstacles and map layouts. It runs localized pathfinding algorithms to navigate rooms without human intervention.",
-    tech: ["Arduino Uno", "Ultrasonic Sensors", "IR Sensors", "Obstacle Detection", "C++", "Autonomous Navigation"],
-    challenges: "Calibrating the IR sensors under varying light conditions was highly problematic. The sensor values fluctuated significantly, causing erratic turn actions.",
-    lessons: "Designed a software-level threshold buffer matrix and moving average noise filter to smooth out signal telemetry, resulting in steady navigation.",
+    title: "Autonomous Navigation Bot",
+    subtitle: "Obstacle avoidance with sensor fusion on Arduino",
+    description: "Built a two-wheeled crawling robot on Arduino Uno that uses ultrasonic and IR sensors to navigate around obstacles. The bot maps a room incrementally and makes turn decisions in real time without any external input. No pre-programmed routes — it figures it out as it goes.",
+    images: [
+      { src: "/assets/proj_bot_1.jpg", caption: "Final assembled bot — sensors mounted and wired up, ready for the navigation demo" },
+      { src: "/assets/proj_bot_2.jpg", caption: "Mid-build stage at the lab — positioning the ultrasonic module and routing cables" },
+      { src: "/assets/proj_bot_3.jpg", caption: "Underside view showing the Arduino Uno, L298N motor driver, and full wiring harness" },
+    ],
+    tech: ["Arduino Uno", "Ultrasonic HC-SR04", "IR Sensors", "C++", "PID Control"],
+    challenges: "IR sensors turned completely unreliable near dark surfaces or under fluorescent lighting — readings would swing by 30–40% with no physical change in distance. This caused the bot to spin randomly in corners.",
+    lessons: "Added a 5-sample moving average per sensor and cross-validated readings between the ultrasonic and IR before making any turn decision. Noisy input stopped causing actual movement errors after that.",
     icon: <Bot className="w-5 h-5 text-accent" />,
     svgGraphic: (
       <svg viewBox="0 0 100 60" className="w-full h-full text-accent opacity-80" fill="none">
-        <rect x="30" y="20" width="40" height="25" rx="4" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="40" cy="45" r="8" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="60" cy="45" r="8" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M 50 20 L 50 10" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="50" cy="8" r="2.5" fill="currentColor" />
-        <path d="M 33 28 L 67 28" stroke="currentColor" strokeWidth="1" strokeDasharray="2,2" />
+        <style>{`
+          @keyframes bot-bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-1.5px); }
+          }
+          @keyframes wheel-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+          @keyframes antenna-ping {
+            0% { r: 2.5; opacity: 1; }
+            100% { r: 6; opacity: 0; }
+          }
+          .group:hover .bot-chassis {
+            animation: bot-bounce 0.5s ease-in-out infinite alternate;
+          }
+          .group:hover .bot-wheel-left {
+            animation: wheel-spin 1.5s linear infinite;
+            transform-origin: 40px 45px;
+          }
+          .group:hover .bot-wheel-right {
+            animation: wheel-spin 1.5s linear infinite;
+            transform-origin: 60px 45px;
+          }
+          .bot-antenna-pulse {
+            animation: antenna-ping 1.5s ease-out infinite;
+            transform-origin: 50px 8px;
+          }
+        `}</style>
+        <g className="bot-chassis">
+          <rect x="30" y="20" width="40" height="25" rx="4" stroke="currentColor" strokeWidth="1.5" />
+          <path d="M 50 20 L 50 10" stroke="currentColor" strokeWidth="1.5" />
+          <circle cx="50" cy="8" r="2.5" fill="currentColor" />
+          <circle cx="50" cy="8" r="2.5" stroke="currentColor" strokeWidth="1" className="bot-antenna-pulse" />
+          <path d="M 33 28 L 67 28" stroke="currentColor" strokeWidth="1" strokeDasharray="2,2" />
+        </g>
+        {/* Left Wheel */}
+        <g className="bot-wheel-left">
+          <circle cx="40" cy="45" r="8" stroke="currentColor" strokeWidth="1.5" />
+          <line x1="40" y1="37" x2="40" y2="53" stroke="currentColor" strokeWidth="1" />
+          <line x1="32" y1="45" x2="48" y2="45" stroke="currentColor" strokeWidth="1" />
+        </g>
+        {/* Right Wheel */}
+        <g className="bot-wheel-right">
+          <circle cx="60" cy="45" r="8" stroke="currentColor" strokeWidth="1.5" />
+          <line x1="60" y1="37" x2="60" y2="53" stroke="currentColor" strokeWidth="1" />
+          <line x1="52" y1="45" x2="68" y2="45" stroke="currentColor" strokeWidth="1" />
+        </g>
       </svg>
     ),
     metrics: {
@@ -51,81 +100,301 @@ const PROJECTS: Project[] = [
   },
   {
     id: 2,
-    title: "Robotics & Embedded Systems",
-    subtitle: "Hardware-software integration framework",
-    description: "An open framework mapping high-level software logic to low-level microcontroller operations. Handles asynchronous interrupts, register state reads, and multi-sensor interfaces.",
-    tech: ["Hardware Software Integration", "Sensor Systems", "Embedded Development", "I2C/SPI", "C/Assembly"],
-    challenges: "Handling real-time interrupt requests (IRQs) from multiple fast-firing sensors without causing thread locks or buffer overflows on limited RAM.",
-    lessons: "Implemented a ring-buffer queue architecture with volatile flag registers, ensuring asynchronous logs do not overflow stack operations.",
+    title: "Multi-Sensor Embedded Framework",
+    subtitle: "Interrupt-driven I2C/SPI sensor hub on STM32",
+    description: "Wrote a lightweight sensor abstraction layer for STM32 microcontrollers that handles multiple I2C and SPI devices sharing the same bus. The framework manages interrupt priorities, debounces digital inputs, and exposes a clean API so sensor reads don't block the main loop.",
+    tech: ["STM32", "I2C / SPI", "C / Assembly", "GPIO Interrupts", "HAL Layer"],
+    challenges: "When two sensors triggered interrupts within microseconds of each other, the ISR for the slower one would get preempted repeatedly and never complete — effectively starving it.",
+    lessons: "Implemented a priority-tagged volatile flag register system. ISRs now only set a flag and return immediately. The main loop reads flags and dispatches handlers in sequence, which eliminated the starvation entirely.",
     icon: <Cpu className="w-5 h-5 text-[#27C93F]" />,
     svgGraphic: (
       <svg viewBox="0 0 100 60" className="w-full h-full text-[#27C93F] opacity-80" fill="none">
+        <style>{`
+          @keyframes core-pulse {
+            0%, 100% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.45; transform: scale(1.08); }
+          }
+          @keyframes signal-glow {
+            0%, 100% { opacity: 0.5; stroke-width: 1.5; }
+            50% { opacity: 1; stroke-width: 2.5; stroke: #27C93F; filter: drop-shadow(0 0 2px #27C93F); }
+          }
+          .emb-core {
+            animation: core-pulse 2s ease-in-out infinite;
+            transform-origin: 50px 30px;
+          }
+          .group:hover .pin-l1 { animation: signal-glow 0.8s infinite 0s; }
+          .group:hover .pin-l2 { animation: signal-glow 0.8s infinite 0.15s; }
+          .group:hover .pin-l3 { animation: signal-glow 0.8s infinite 0.3s; }
+          .group:hover .pin-r1 { animation: signal-glow 0.8s infinite 0.075s; }
+          .group:hover .pin-r2 { animation: signal-glow 0.8s infinite 0.225s; }
+          .group:hover .pin-r3 { animation: signal-glow 0.8s infinite 0.375s; }
+        `}</style>
         <rect x="25" y="15" width="50" height="30" rx="3" stroke="currentColor" strokeWidth="1.5" />
-        <rect x="40" y="25" width="20" height="10" rx="1" fill="currentColor" fillOpacity="0.1" stroke="currentColor" strokeWidth="1" />
-        <line x1="20" y1="20" x2="25" y2="20" stroke="currentColor" strokeWidth="1.5" />
-        <line x1="20" y1="30" x2="25" y2="30" stroke="currentColor" strokeWidth="1.5" />
-        <line x1="20" y1="40" x2="25" y2="40" stroke="currentColor" strokeWidth="1.5" />
-        <line x1="75" y1="20" x2="80" y2="20" stroke="currentColor" strokeWidth="1.5" />
-        <line x1="75" y1="30" x2="80" y2="30" stroke="currentColor" strokeWidth="1.5" />
-        <line x1="75" y1="40" x2="80" y2="40" stroke="currentColor" strokeWidth="1.5" />
+        <rect x="40" y="25" width="20" height="10" rx="1" fill="currentColor" stroke="currentColor" strokeWidth="1" className="emb-core" />
+        <line x1="20" y1="20" x2="25" y2="20" stroke="currentColor" strokeWidth="1.5" className="pin-l1" />
+        <line x1="20" y1="30" x2="25" y2="30" stroke="currentColor" strokeWidth="1.5" className="pin-l2" />
+        <line x1="20" y1="40" x2="25" y2="40" stroke="currentColor" strokeWidth="1.5" className="pin-l3" />
+        <line x1="75" y1="20" x2="80" y2="20" stroke="currentColor" strokeWidth="1.5" className="pin-r1" />
+        <line x1="75" y1="30" x2="80" y2="30" stroke="currentColor" strokeWidth="1.5" className="pin-r2" />
+        <line x1="75" y1="40" x2="80" y2="40" stroke="currentColor" strokeWidth="1.5" className="pin-r3" />
       </svg>
     ),
     metrics: {
-      loc: "3,150 LOC",
-      speed: "IRQ latency < 8µs",
-      memory: "Volatile Registers"
+      loc: "2,800 LOC",
+      speed: "ISR latency < 8µs",
+      memory: "STM32 + HAL"
     }
   },
   {
     id: 3,
-    title: "AI & Cloud Computing Projects",
-    subtitle: "Automated neural net deploy pipeline",
-    description: "A hybrid framework that deploys trained machine learning model files into AWS cloud nodes. Automates instance provisioning, bucket data pipelines, and serverless compute triggers.",
-    tech: ["AI Models", "Cloud Solutions", "Automation", "AWS Lambda", "S3", "Python"],
-    challenges: "AWS Lambda timeout limitations when parsing large image payloads for inference models during peak trigger request spikes.",
-    lessons: "Separated payload tasks: user triggers instantly write files to S3 buckets, firing a lightweight SQS queue which processes inference asynchronously in dedicated EC2 clusters.",
+    title: "ML Model Deployment Pipeline",
+    subtitle: "Serverless inference on AWS with async job queuing",
+    description: "Set up an end-to-end pipeline that takes a trained PyTorch model, packages it, and deploys it to AWS for inference. Users submit images through an API, jobs get queued via SQS, and a worker on EC2 runs inference and writes results back. The Lambda just handles the API layer — it doesn't touch the model.",
+    tech: ["Python", "PyTorch", "AWS Lambda", "SQS", "EC2", "S3"],
+    challenges: "First version had Lambda trying to load the model and run inference directly. Cold starts alone were taking 18–22 seconds, and anything above a batch size of 4 hit the timeout wall.",
+    lessons: "Separated concerns completely — Lambda only validates the request and pushes a job to SQS. An EC2 worker with the model already warm in memory picks it up and returns results asynchronously. Latency dropped to under 3 seconds for standard requests.",
     icon: <CloudLightning className="w-5 h-5 text-[#FFBD2E]" />,
     svgGraphic: (
       <svg viewBox="0 0 100 60" className="w-full h-full text-[#FFBD2E] opacity-80" fill="none">
-        <path d="M 30 35 C 30 25, 45 20, 50 25 C 55 20, 70 25, 70 35 C 75 35, 80 40, 75 48 C 70 48, 30 48, 25 45 C 20 40, 25 35, 30 35 Z" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M 50 38 L 45 46 L 52 46 L 48 54" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <style>{`
+          @keyframes ml-cloud-drift {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2.5px); }
+          }
+          @keyframes ml-flash {
+            0%, 100% { opacity: 0.8; stroke-width: 1.5; }
+            10%, 90% { opacity: 0.3; }
+            35%, 55% { opacity: 1; stroke-width: 2.2; filter: drop-shadow(0 0 3px #FFBD2E); }
+          }
+          .ml-cloud {
+            animation: ml-cloud-drift 4s ease-in-out infinite;
+          }
+          .group:hover .ml-lightning {
+            animation: ml-flash 1.2s ease-in-out infinite;
+          }
+        `}</style>
+        <path d="M 30 35 C 30 25, 45 20, 50 25 C 55 20, 70 25, 70 35 C 75 35, 80 40, 75 48 C 70 48, 30 48, 25 45 C 20 40, 25 35, 30 35 Z" stroke="currentColor" strokeWidth="1.5" className="ml-cloud" />
+        <path d="M 50 38 L 45 46 L 52 46 L 48 54" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="ml-lightning" />
       </svg>
     ),
     metrics: {
-      loc: "8,900 LOC",
-      speed: "EC2 Autoscale",
-      memory: "S3 Data Buckets"
+      loc: "3,400 LOC",
+      speed: "< 3s p95 latency",
+      memory: "EC2 + SQS + S3"
     }
   },
   {
     id: 4,
-    title: "Pothole Detection & Severity Analysis",
-    subtitle: "Computer vision mapping on edge devices",
-    description: "Currently in development. Real-time video stream processor detecting road damage, potholes, and classifying severity index for municipal maintenance prioritizing pipelines.",
-    status: "In Development",
-    tech: ["PyTorch", "OpenCV", "Raspberry Pi", "AWS Cloud", "GPS Telemetry"],
-    challenges: "Achieving double-digit framerate processing on low-spec edge compute hardware (Raspberry Pi) when running raw convolutional layers.",
-    lessons: "Moving from heavy ResNet models to custom lightweight MobileNet topologies, leveraging edge TPU coprocessors for hardware-level acceleration.",
+    title: "Pothole Detection & Severity Mapping",
+    subtitle: "Edge CV pipeline on Raspberry Pi with GPS logging",
+    description: "Mounted a camera and GPS module on a vehicle and built a pipeline that detects potholes from the live feed, classifies severity (shallow / deep / edge-damage), and logs the GPS coordinates with each detection. Intended for use by local road maintenance teams who don't have budget for LiDAR rigs.",
+    tech: ["PyTorch", "OpenCV", "Raspberry Pi 4", "GPS Module", "AWS S3"],
+    challenges: "MobileNetV2 was still too slow on the Pi's ARM CPU — we were getting around 4–5 FPS, which meant detections were being missed between frames at normal driving speed.",
+    lessons: "Switched to a quantized INT8 model and offloaded post-processing to a separate thread. Got to ~14 FPS, which is workable. Also added overlap detection between frames to catch anything the model missed on a single pass.",
     icon: <Construction className="w-5 h-5 text-[#FF5F56]" />,
     svgGraphic: (
       <svg viewBox="0 0 100 60" className="w-full h-full text-[#FF5F56] opacity-80" fill="none">
+        <style>{`
+          @keyframes sweep-horizontal {
+            0% { transform: translateX(0px); }
+            100% { transform: translateX(50px); }
+          }
+          .pothole-sweep {
+            animation: sweep-horizontal 2s linear infinite;
+          }
+          @keyframes camera-scan {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; stroke-width: 2px; }
+          }
+          .pothole-scope {
+            animation: camera-scan 1s ease-in-out infinite;
+          }
+        `}</style>
         <path d="M 15 45 C 30 45, 35 32, 45 32 C 55 32, 60 50, 70 50 C 80 50, 85 45, 90 45" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         <circle cx="45" cy="32" r="3" fill="currentColor" className="animate-ping" />
         <circle cx="70" cy="50" r="3" fill="currentColor" className="animate-ping" />
-        <line x1="10" y1="15" x2="35" y2="15" stroke="currentColor" strokeWidth="1.5" />
-        <line x1="22.5" y1="15" x2="22.5" y2="45" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" />
+        <line x1="10" y1="15" x2="35" y2="15" stroke="currentColor" strokeWidth="1.5" className="pothole-scope" />
+        <line x1="22.5" y1="15" x2="22.5" y2="45" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" className="pothole-sweep" />
       </svg>
     ),
     metrics: {
-      loc: "4,600 LOC",
-      speed: "~45ms latency",
-      memory: "RPi Edge TPU"
+      loc: "3,900 LOC",
+      speed: "~14 FPS on Pi 4",
+      memory: "INT8 Quantised"
+    }
+  },
+  {
+    id: 5,
+    title: "Cloud File Storage System",
+    subtitle: "React + FastAPI + PostgreSQL + AWS S3",
+    description: "A file storage web app where users can upload, organise, and download files backed by S3. Built the backend with FastAPI and PostgreSQL for metadata — filenames, sizes, upload timestamps, owner IDs. The frontend is React. Auth is JWT-based and every S3 operation goes through a presigned URL generated server-side.",
+    images: [
+      { src: "/assets/proj_cloud_1.jpg", caption: "Dashboard sidebar view — storage usage at 0.2%, file type breakdown visible" },
+      { src: "/assets/proj_cloud_2.jpg", caption: "Full dashboard — total files, recent uploads, storage by type chart, and recent file list" },
+    ],
+    tech: ["React", "FastAPI", "PostgreSQL", "AWS S3", "JWT Auth", "Python"],
+    challenges: "Concurrent uploads from the same user were occasionally writing duplicate metadata records because two requests would pass the uniqueness check at nearly the same time before either committed.",
+    lessons: "Added a database-level unique constraint on (user_id, file_hash) and handled the constraint violation in the API layer to return a deduplicate response instead of a 500. Also moved to a transactional insert-then-upload order so metadata is never written for a file that fails to reach S3.",
+    icon: <Cloud className="w-5 h-5 text-[#38BDF8]" />,
+    svgGraphic: (
+      <svg viewBox="0 0 100 60" className="w-full h-full text-[#38BDF8] opacity-80" fill="none">
+        <style>{`
+          @keyframes db-glow {
+            0%, 100% { stroke: #38BDF8; opacity: 0.6; }
+            50% { stroke: #00F0FF; opacity: 1; filter: drop-shadow(0 0 3px #00F0FF); }
+          }
+          @keyframes pulse-server {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.9; }
+          }
+          @keyframes dash-flow {
+            to { stroke-dashoffset: -10; }
+          }
+          .db-cylinder {
+            animation: db-glow 2s ease-in-out infinite;
+          }
+          .server-left {
+            animation: pulse-server 1.5s infinite alternate;
+          }
+          .server-right {
+            animation: pulse-server 1.5s infinite alternate 0.75s;
+          }
+          .group:hover .flow-line-up {
+            stroke-dasharray: 3, 2;
+            animation: dash-flow 1s linear infinite;
+          }
+        `}</style>
+        <path d="M 28 38 C 28 28, 42 22, 50 27 C 55 20, 72 22, 72 33 C 78 33, 82 38, 78 44 C 74 44, 26 44, 22 41 C 18 37, 22 33, 28 38 Z" stroke="currentColor" strokeWidth="1.5" />
+        <ellipse cx="50" cy="53" rx="10" ry="3" stroke="currentColor" strokeWidth="1" className="db-cylinder" />
+        <line x1="40" y1="53" x2="40" y2="47" stroke="currentColor" strokeWidth="1" />
+        <line x1="60" y1="53" x2="60" y2="47" stroke="currentColor" strokeWidth="1" />
+        <ellipse cx="50" cy="47" rx="10" ry="3" stroke="currentColor" strokeWidth="1" className="db-cylinder" />
+        <path d="M 50 44 L 50 47" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2,2" className="flow-line-up" />
+        <rect x="13" y="27" width="8" height="10" rx="1" stroke="currentColor" strokeWidth="1" className="server-left" />
+        <path d="M 13 31 L 21 31" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
+        <rect x="79" y="27" width="8" height="10" rx="1" stroke="currentColor" strokeWidth="1" className="server-right" />
+        <path d="M 79 31 L 87 31" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
+      </svg>
+    ),
+    metrics: {
+      loc: "4,200 LOC",
+      speed: "Presigned URL auth",
+      memory: "PostgreSQL + S3"
+    }
+  },
+  {
+    id: 7,
+    title: "DevOps CI/CD Automation Pipeline",
+    subtitle: "GitHub Actions + Docker + EC2 self-hosted runners",
+    description: "Set up a full CI/CD pipeline for a Python web service — lint, test, build Docker image, push to ECR, and deploy to EC2 on every merge to main. Used GitHub Actions with a self-hosted runner on a t3.micro. Added a rollback stage that re-deploys the previous image tag if the health check fails post-deploy.",
+    tech: ["GitHub Actions", "Docker", "AWS ECR", "EC2", "Nginx", "Bash"],
+    challenges: "The self-hosted runner on the t3.micro kept running out of memory mid-build because Docker was pulling large base images and building in parallel with the running app. The instance would OOM-kill the runner process.",
+    lessons: "Switched to sequential job steps instead of parallel, added a docker image prune step at the start of each run to clear old layers, and set a build memory limit via DOCKER_BUILD_ARGS. Builds now complete cleanly under 4 minutes.",
+    icon: <CloudLightning className="w-5 h-5 text-[#A78BFA]" />,
+    svgGraphic: (
+      <svg viewBox="0 0 100 60" className="w-full h-full text-[#A78BFA] opacity-80" fill="none">
+        <style>{`
+          @keyframes active-glow {
+            0%, 100% { stroke: currentColor; fill: transparent; }
+            25% { stroke: #A78BFA; fill: rgba(167, 139, 250, 0.15); filter: drop-shadow(0 0 3px #A78BFA); }
+          }
+          @keyframes rollback-flow {
+            to { stroke-dashoffset: 20; }
+          }
+          .group:hover .devops-box1 { animation: active-glow 2.5s infinite 0s; }
+          .group:hover .devops-box2 { animation: active-glow 2.5s infinite 0.6s; }
+          .group:hover .devops-box3 { animation: active-glow 2.5s infinite 1.2s; }
+          .group:hover .devops-box4 { animation: active-glow 2.5s infinite 1.8s; }
+          .group:hover .rollback-path {
+            stroke-dasharray: 3, 2;
+            animation: rollback-flow 1.5s linear infinite;
+          }
+        `}</style>
+        {/* Pipeline flow: boxes connected by arrows */}
+        <rect x="5" y="23" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.3" className="devops-box1" />
+        <text x="13" y="32" textAnchor="middle" fontSize="5" fill="currentColor" opacity="0.8">lint</text>
+        <path d="M 21 30 L 27 30" stroke="currentColor" strokeWidth="1" />
+        <rect x="27" y="23" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.3" className="devops-box2" />
+        <text x="35" y="32" textAnchor="middle" fontSize="5" fill="currentColor" opacity="0.8">test</text>
+        <path d="M 43 30 L 49 30" stroke="currentColor" strokeWidth="1" />
+        <rect x="49" y="23" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.3" className="devops-box3" />
+        <text x="57" y="32" textAnchor="middle" fontSize="4.5" fill="currentColor" opacity="0.8">build</text>
+        <path d="M 65 30 L 71 30" stroke="currentColor" strokeWidth="1" />
+        <rect x="71" y="23" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.3" className="devops-box4" />
+        <text x="79" y="32" textAnchor="middle" fontSize="4.5" fill="currentColor" opacity="0.8">deploy</text>
+        {/* Rollback arrow */}
+        <path d="M 79 37 Q 79 50 57 50 Q 35 50 35 37" stroke="currentColor" strokeWidth="0.9" strokeDasharray="2,2" opacity="0.5" className="rollback-path" />
+        <text x="57" y="56" textAnchor="middle" fontSize="4" fill="currentColor" opacity="0.45">rollback</text>
+      </svg>
+    ),
+    metrics: {
+      loc: "~900 LOC config",
+      speed: "< 4 min build",
+      memory: "EC2 t3.micro"
+    }
+  },
+  {
+    id: 6,
+    title: "Project ∞ — Hardware Frontier Lab",
+    subtitle: "Lifelong pursuit of pushing silicon to its absolute limits",
+    isLifeGoal: true,
+    description: "A never-ending personal research initiative dedicated to breaking the boundaries of consumer hardware. From transplanting additional VRAM dies onto GPU PCBs, to booting custom microprocessors on hand-etched substrates, testing unlocked multipliers on locked CPUs via modified BIOSes, designing custom voltage regulators, and reverse-engineering proprietary firmware — this is the lab where physics meets obsession.",
+    tech: ["VRAM Die Transplant", "Custom BIOS Mod", "CPU Unlocking", "PCB Design", "Microarch Research", "Firmware RE", "Voltage Modding", "JTAG Debugging", "Custom Microprocessors", "Silicon Validation"],
+    challenges: "Every experiment is the challenge — from desoldering BGA packages under a hot-air rework station without killing the die, to writing bare-metal bootloaders for microarchitectures with zero public documentation.",
+    lessons: "The goal is not a finish line — it's the accumulation of deep hardware intuition. Every burned chip, every failed BIOS flash, and every successful multiplier unlock is a lesson in how computing truly works at the transistor level.",
+    icon: <Infinity className="w-5 h-5 text-[#F59E0B]" />,
+    svgGraphic: (
+      <svg viewBox="0 0 100 60" className="w-full h-full text-[#F59E0B] opacity-85" fill="none">
+        <style>{`
+          @keyframes draw-flow {
+            to { stroke-dashoffset: -30; }
+          }
+          @keyframes component-flash {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; fill: #F59E0B; filter: drop-shadow(0 0 2px #F59E0B); }
+          }
+          .infinity-flow {
+            stroke-dasharray: 6, 4;
+            animation: draw-flow 1.5s linear infinite;
+          }
+          .group:hover .led-soc1 {
+            animation: component-flash 0.8s ease-in-out infinite;
+          }
+          .group:hover .led-soc2 {
+            animation: component-flash 0.8s ease-in-out infinite 0.4s;
+          }
+        `}</style>
+        <path
+          d="M 50 30 C 50 22, 38 16, 30 22 C 22 28, 22 32, 30 38 C 38 44, 50 38, 50 30 C 50 22, 62 16, 70 22 C 78 28, 78 32, 70 38 C 62 44, 50 38, 50 30 Z"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          fill="none"
+          className="infinity-flow"
+        />
+        <circle cx="30" cy="30" r="2" fill="currentColor" className="led-soc1" />
+        <circle cx="70" cy="30" r="2" fill="currentColor" className="led-soc2" />
+        <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3,4" opacity="0.3" />
+        <line x1="10" y1="10" x2="90" y2="10" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3,4" opacity="0.3" />
+        <rect x="8" y="7" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
+        <rect x="86" y="47" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
+      </svg>
+    ),
+    metrics: {
+      loc: "∞ Experiments",
+      speed: "Beyond Spec",
+      memory: "Timeline: ∞"
     }
   }
 ];
 
 export default function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [galleryIndex, setGalleryIndex] = useState(0);
+
+  const openProject = (proj: Project) => {
+    setGalleryIndex(0);
+    setSelectedProject(proj);
+  };
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -162,11 +431,11 @@ export default function ProjectsSection() {
 
         {/* Telemetry Subtitle */}
         <div className="flex items-center gap-6 mb-10 text-[10px] text-muted font-mono select-none">
-          <span>DEPLOYED SERVICES: 3</span>
+          <span>DEPLOYED SERVICES: 5</span>
           <span>•</span>
           <span>ON EDGE TARGETS: 1</span>
           <span>•</span>
-          <span>COMPILATION ROUTE: OPT-B2</span>
+          <span>LIFE GOAL PROJECTS: ∞</span>
         </div>
 
         {/* Projects Grid */}
@@ -181,49 +450,84 @@ export default function ProjectsSection() {
             <motion.div
               key={proj.id}
               variants={cardVariants}
+              className={proj.isLifeGoal ? "md:col-span-2" : ""}
             >
               <SpotlightCard
-                onClick={() => setSelectedProject(proj)}
-                className="rounded-xl p-6 cursor-pointer flex flex-col justify-between group h-80 relative overflow-hidden"
+                onClick={() => openProject(proj)}
+                glowColor={proj.isLifeGoal ? "#F59E0B" : undefined}
+                className={`rounded-xl p-6 cursor-pointer flex flex-col justify-between group h-80 relative overflow-hidden ${
+                  proj.isLifeGoal
+                    ? "border border-[#F59E0B]/20 shadow-[0_0_40px_rgba(245,158,11,0.06)] hover:shadow-[0_0_60px_rgba(245,158,11,0.12)] hover:border-[#F59E0B]/40"
+                    : ""
+                }`}
               >
                 {/* Graphic Illustration */}
                 <div className="w-full h-24 mb-4 bg-[#0D1017]/80 rounded-lg flex items-center justify-center border border-glass-border/40 overflow-hidden relative">
-                  {proj.svgGraphic}
-                  {proj.status && (
-                    <span className="absolute top-2 right-2 text-[9px] uppercase tracking-wider font-extrabold bg-[#FF5F56]/15 border border-[#FF5F56]/30 text-[#FF5F56] px-2 py-0.5 rounded-full">
-                      {proj.status}
-                    </span>
-                  )}
-                </div>
-
-                <div>
-                  {/* Meta details */}
-                  <div className="flex items-center gap-2.5 mb-1.5">
-                    <div className="p-1.5 rounded-md bg-white/5 border border-glass-border">
-                      {proj.icon}
+                  {proj.isLifeGoal ? (
+                    <div className="w-full h-full flex items-center justify-center relative">
+                      {proj.svgGraphic}
+                      {/* Infinity badge */}
+                      <span className="absolute top-2 right-2 text-[11px] font-extrabold tracking-widest bg-[#F59E0B]/15 border border-[#F59E0B]/40 text-[#F59E0B] px-2.5 py-0.5 rounded-full animate-pulse select-none">
+                        ∞
+                      </span>
+                      <span className="absolute top-2 left-2 text-[8px] uppercase tracking-wider font-bold text-[#F59E0B]/60 select-none">LIFE GOAL</span>
                     </div>
-                    <h3 className="text-base font-bold text-text group-hover:text-accent transition-colors">
-                      {proj.title}
-                    </h3>
-                  </div>
-                  <p className="text-xs text-muted font-medium mb-4">{proj.subtitle}</p>
+                  ) : (
+                    <>
+                      {proj.svgGraphic}
+                      {proj.status && (
+                        <span className="absolute top-2 right-2 text-[9px] uppercase tracking-wider font-extrabold bg-[#FF5F56]/15 border border-[#FF5F56]/30 text-[#FF5F56] px-2 py-0.5 rounded-full">
+                          {proj.status}
+                        </span>
+                      )}
+                    </>
+                  )}
                 </div>
 
-                {/* Tech Tags */}
-                <div className="flex flex-wrap gap-1.5 mt-auto">
-                  {proj.tech.slice(0, 3).map((tag, tIdx) => (
-                    <span
-                      key={tIdx}
-                      className="text-[10px] bg-white/5 border border-glass-border px-2 py-0.5 rounded text-muted font-medium"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                  {proj.tech.length > 3 && (
-                    <span className="text-[10px] text-accent font-semibold px-1 py-0.5">
-                      +{proj.tech.length - 3} more
-                    </span>
-                  )}
+                <div className={proj.isLifeGoal ? "flex flex-row items-start justify-between gap-6" : ""}>
+                  <div className={proj.isLifeGoal ? "flex-1" : ""}>
+                    {/* Meta details */}
+                    <div className="flex items-center gap-2.5 mb-1.5">
+                      <div className={`p-1.5 rounded-md border border-glass-border ${
+                        proj.isLifeGoal ? "bg-[#F59E0B]/10 border-[#F59E0B]/20" : "bg-white/5"
+                      }`}>
+                        {proj.icon}
+                      </div>
+                      <h3 className={`text-base font-bold transition-colors ${
+                        proj.isLifeGoal
+                          ? "text-[#F59E0B] group-hover:text-[#FCD34D]"
+                          : "text-text group-hover:text-accent"
+                      }`}>
+                        {proj.title}
+                      </h3>
+                    </div>
+                    <p className="text-xs text-muted font-medium mb-4">{proj.subtitle}</p>
+                  </div>
+
+                  {/* Tech Tags */}
+                  <div className={`flex flex-wrap gap-1.5 ${
+                    proj.isLifeGoal ? "mt-0 max-w-sm" : "mt-auto"
+                  }`}>
+                    {proj.tech.slice(0, proj.isLifeGoal ? 6 : 3).map((tag, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className={`text-[10px] border px-2 py-0.5 rounded font-medium ${
+                          proj.isLifeGoal
+                            ? "bg-[#F59E0B]/5 border-[#F59E0B]/20 text-[#F59E0B]/80"
+                            : "bg-white/5 border-glass-border text-muted"
+                        }`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {proj.tech.length > (proj.isLifeGoal ? 6 : 3) && (
+                      <span className={`text-[10px] font-semibold px-1 py-0.5 ${
+                        proj.isLifeGoal ? "text-[#F59E0B]" : "text-accent"
+                      }`}>
+                        +{proj.tech.length - (proj.isLifeGoal ? 6 : 3)} more
+                      </span>
+                    )}
+                  </div>
                 </div>
               </SpotlightCard>
             </motion.div>
@@ -273,8 +577,16 @@ export default function ProjectsSection() {
                 {/* Content */}
                 <div className="p-6 overflow-y-auto space-y-5 text-sm leading-relaxed text-muted">
                   
+                  {/* Life Goal Banner */}
+                  {selectedProject.isLifeGoal && (
+                    <div className="bg-[#F59E0B]/10 border border-[#F59E0B]/25 p-3 rounded-lg text-xs text-[#F59E0B] font-medium flex items-center gap-2">
+                      <Infinity className="w-4 h-4 flex-shrink-0" />
+                      <span>This is a lifelong pursuit — no end date. Timeline: <strong>∞</strong></span>
+                    </div>
+                  )}
+
                   {/* Status Banner */}
-                  {selectedProject.status && (
+                  {selectedProject.status && !selectedProject.isLifeGoal && (
                     <div className="bg-[#FF5F56]/10 border border-[#FF5F56]/20 p-2.5 rounded-lg text-xs text-[#FF5F56] font-medium flex items-center gap-2">
                       <Construction className="w-4 h-4" /> Currently in Development phase
                     </div>
@@ -283,15 +595,15 @@ export default function ProjectsSection() {
                   {/* Telemetry Metrics Grid */}
                   <div className="grid grid-cols-3 gap-3 bg-[#0D1017]/60 border border-glass-border/40 p-3.5 rounded-lg text-center font-mono select-none">
                     <div>
-                      <span className="block text-[9px] uppercase text-muted mb-0.5">Lines of Code</span>
-                      <span className="text-xs font-bold text-accent">{selectedProject.metrics.loc}</span>
+                      <span className="block text-[9px] uppercase text-muted mb-0.5">Scale</span>
+                      <span className={`text-xs font-bold ${selectedProject.isLifeGoal ? "text-[#F59E0B]" : "text-accent"}`}>{selectedProject.metrics.loc}</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase text-muted mb-0.5">Speed/Clock</span>
+                      <span className="block text-[9px] uppercase text-muted mb-0.5">Performance</span>
                       <span className="text-xs font-bold text-[#27C93F]">{selectedProject.metrics.speed}</span>
                     </div>
                     <div>
-                      <span className="block text-[9px] uppercase text-muted mb-0.5">MCU/Host Spec</span>
+                      <span className="block text-[9px] uppercase text-muted mb-0.5">Infrastructure</span>
                       <span className="text-xs font-bold text-[#FFBD2E]">{selectedProject.metrics.memory}</span>
                     </div>
                   </div>
@@ -301,6 +613,85 @@ export default function ProjectsSection() {
                     <h4 className="text-xs font-bold text-text uppercase tracking-wider mb-2">Overview</h4>
                     <p>{selectedProject.description}</p>
                   </div>
+
+                  {/* Photo Gallery */}
+                  {selectedProject.images && selectedProject.images.length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-bold text-text uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                        <Images className="w-3.5 h-3.5" /> Project Photos
+                      </h4>
+                      <div className="relative rounded-xl overflow-hidden border border-glass-border/40 bg-[#0D1017]/60">
+                        {/* Main Image */}
+                        <div className="relative w-full" style={{ aspectRatio: '16/10' }}>
+                          <AnimatePresence mode="wait">
+                            <motion.img
+                              key={galleryIndex}
+                              src={selectedProject.images[galleryIndex].src}
+                              alt={selectedProject.images[galleryIndex].caption}
+                              initial={{ opacity: 0, x: 20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -20 }}
+                              transition={{ duration: 0.25 }}
+                              className="absolute inset-0 w-full h-full object-cover"
+                            />
+                          </AnimatePresence>
+                          {/* Nav arrows */}
+                          {selectedProject.images.length > 1 && (
+                            <>
+                              <button
+                                onClick={(e) => { e.stopPropagation(); setGalleryIndex(i => (i - 1 + selectedProject.images!.length) % selectedProject.images!.length); }}
+                                className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-[#0D1017]/70 border border-glass-border/50 flex items-center justify-center text-text hover:bg-[#0D1017] transition-colors backdrop-blur-sm"
+                              >
+                                <ChevronLeft className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={(e) => { e.stopPropagation(); setGalleryIndex(i => (i + 1) % selectedProject.images!.length); }}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-[#0D1017]/70 border border-glass-border/50 flex items-center justify-center text-text hover:bg-[#0D1017] transition-colors backdrop-blur-sm"
+                              >
+                                <ChevronRight className="w-4 h-4" />
+                              </button>
+                            </>
+                          )}
+                        </div>
+                        {/* Caption + dots */}
+                        <div className="px-3 py-2.5 border-t border-glass-border/30">
+                          <p className="text-[11px] text-muted leading-relaxed">{selectedProject.images[galleryIndex].caption}</p>
+                          {selectedProject.images.length > 1 && (
+                            <div className="flex gap-1.5 mt-2">
+                              {selectedProject.images.map((_, i) => (
+                                <button
+                                  key={i}
+                                  onClick={() => setGalleryIndex(i)}
+                                  className={`w-1.5 h-1.5 rounded-full transition-all ${
+                                    i === galleryIndex ? "bg-accent w-4" : "bg-white/20 hover:bg-white/40"
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* No-photo joke placeholder — for projects without images that aren't the life goal */}
+                  {!selectedProject.images && !selectedProject.isLifeGoal && (
+                    <div>
+                      <h4 className="text-xs font-bold text-text uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                        <Images className="w-3.5 h-3.5" /> Project Photos
+                      </h4>
+                      <div className="rounded-xl border border-dashed border-glass-border/50 bg-[#0D1017]/40 overflow-hidden">
+                        {/* Empty frame */}
+                        <div className="w-full flex flex-col items-center justify-center gap-3 py-8 px-6">
+                          <span className="text-4xl select-none">📷</span>
+                          <p className="text-xs text-center text-muted/70 leading-relaxed max-w-xs italic">
+                            "I never had the brilliant idea to photograph any of these projects after I built them, so... when I get a photo I'll update this 😅 lol"
+                          </p>
+                          <span className="text-[10px] font-mono text-muted/40 border border-glass-border/30 px-2 py-0.5 rounded">photos: null // TODO: own a camera</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Challenges Section */}
                   <div className="bg-[#FFBD2E]/5 border border-[#FFBD2E]/10 p-4 rounded-lg">

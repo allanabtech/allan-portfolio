@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ShieldCheck, Cpu, HardDrive, Compass, Activity, Coffee, Tv, Sparkles } from "lucide-react";
+import { ShieldCheck, Cpu, HardDrive, Compass, Activity, Coffee, Tv, Sparkles, BatteryCharging } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import SpotlightCard from "../SpotlightCard";
 import AnimeCarousel from "../AnimeCarousel";
@@ -10,6 +10,7 @@ export default function MissionSection() {
   const [dayProgress, setDayProgress] = useState(75);
   const [activePhase, setActivePhase] = useState<"morning" | "afternoon" | "evening">("afternoon");
   const [currentTimeText, setCurrentTimeText] = useState("");
+  const [isSleeping, setIsSleeping] = useState(false);
 
   useEffect(() => {
     const updateProgress = () => {
@@ -23,6 +24,8 @@ export default function MissionSection() {
 
       const formattedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
       setCurrentTimeText(formattedTime);
+
+      setIsSleeping(hrs >= 23 || hrs < 7);
 
       if (hrs >= 8 && hrs < 12) {
         setActivePhase("morning");
@@ -87,15 +90,15 @@ export default function MissionSection() {
           {/* Dashboard Header */}
           <div className="flex items-center justify-between flex-wrap gap-4 z-10 select-none">
             <div>
-              <span className="text-[10px] font-mono text-accent font-bold tracking-wider">ROUTINE-METRICS // DYNAMIC</span>
+              <span className="text-[10px] font-mono text-accent font-bold tracking-wider">DAILY ROUTINE // LIVE STATS</span>
               <h3 className="text-lg md:text-xl font-extrabold text-text mt-1">
-                Developer Daily Life Control
+                Routine & Focus
               </h3>
             </div>
             <div className="flex items-center gap-4">
               <span className="flex items-center gap-1.5 text-xs text-green-400 bg-green-500/10 border border-green-500/20 px-3.5 py-1.5 rounded-full font-mono font-semibold animate-pulse">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-status-pulse" />
-                SYSTEM RUNNING // {currentTimeText || "LIVE"}
+                LOCAL TIME // {currentTimeText || "LIVE"}
               </span>
             </div>
           </div>
@@ -132,13 +135,13 @@ export default function MissionSection() {
                 {/* Inner Text */}
                 <div className="absolute flex flex-col items-center justify-center">
                   <span className="text-3xl font-extrabold text-text font-mono">{dayProgress}%</span>
-                  <span className="text-[10px] text-muted tracking-widest uppercase mt-0.5">Day Elapsed</span>
+                  <span className="text-[10px] text-muted tracking-widest uppercase mt-0.5">Day Completed</span>
                 </div>
               </div>
               
               <div className="mt-4 font-mono text-[10px] text-muted space-y-1">
-                <div>TIMEZONE: GMT+05:30</div>
-                <div className="uppercase">ACTIVE: PHASE {activePhase === "morning" ? "01" : activePhase === "afternoon" ? "02" : "03"}</div>
+                <div>TIMEZONE: GMT+05:30 (IST)</div>
+                <div className="uppercase">CURRENT: {activePhase === "morning" ? "MORNING PLANNING" : activePhase === "afternoon" ? "AFTERNOON CODING" : "EVENING WIND DOWN"}</div>
               </div>
             </div>
 
@@ -153,17 +156,17 @@ export default function MissionSection() {
               }`}>
                 <div className="flex items-center justify-between mb-1.5 select-none">
                   <span className="text-[9px] uppercase font-bold text-accent tracking-wider flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5" /> Phase 01 // 08:00 - 12:00
+                    <Sparkles className="w-3.5 h-3.5" /> Morning Focus // 08:00 - 12:00
                   </span>
                   {activePhase === "morning" && (
                     <span className="text-[9px] px-2 py-0.5 rounded bg-accent/20 border border-accent/30 font-mono text-accent font-bold animate-pulse">ACTIVE NOW</span>
                   )}
                 </div>
                 <p className="text-sm font-semibold text-text leading-relaxed">
-                  Ideation, Concepts & Architecture R&D
+                  Planning & Architecture
                 </p>
-                <p className="text-xs text-muted mt-1">
-                  Brainstorming algorithmic solutions, analyzing architecture whitepapers, drafting system flowcharts, and designing databases.
+                <p className="text-xs text-muted mt-1 leading-relaxed">
+                  I like to start my day with planning and design. Mornings are usually spent sketching system architectures, designing database schemas, and mapping out the codebase logic—essentially figuring out *how* to build something before I write a single line of code.
                 </p>
               </div>
 
@@ -175,17 +178,17 @@ export default function MissionSection() {
               }`}>
                 <div className="flex items-center justify-between mb-1.5 select-none">
                   <span className="text-[9px] uppercase font-bold text-[#27C93F] tracking-wider flex items-center gap-1.5">
-                    <Activity className="w-3.5 h-3.5" /> Phase 02 // 12:00 - 18:00
+                    <Activity className="w-3.5 h-3.5" /> Afternoon Session // 12:00 - 18:00
                   </span>
                   {activePhase === "afternoon" && (
                     <span className="text-[9px] px-2 py-0.5 rounded bg-[#27C93F]/20 border border-[#27C93F]/30 font-mono text-[#27C93F] font-bold animate-pulse">ACTIVE NOW</span>
                   )}
                 </div>
                 <p className="text-sm font-semibold text-text leading-relaxed">
-                  Deployment, Coding & CI/CD Pipelines
+                  Deep Work & Coding
                 </p>
-                <p className="text-xs text-muted mt-1">
-                  Writing Python and JavaScript modules, containerizing services with Docker, deploying serverless configurations to AWS cloud storage, and testing payloads.
+                <p className="text-xs text-muted mt-1 leading-relaxed">
+                  This is where I get head-down in the editor to bring the concepts and system flows I sketched in the morning to life. I focus on writing the core application logic, building out components, and integrating APIs to translate the designs into a working reality.
                 </p>
               </div>
 
@@ -197,17 +200,17 @@ export default function MissionSection() {
               }`}>
                 <div className="flex items-center justify-between mb-1.5 select-none">
                   <span className="text-[9px] uppercase font-bold text-accent tracking-wider flex items-center gap-1.5">
-                    <Tv className="w-3.5 h-3.5" /> Phase 03 // 18:00 - 23:00+
+                    <Tv className="w-3.5 h-3.5" /> Evening Wind-down // 18:00 - 23:00+
                   </span>
                   {activePhase === "evening" && (
                     <span className="text-[9px] px-2 py-0.5 rounded bg-accent/20 border border-accent/30 font-mono text-accent font-bold animate-pulse">ACTIVE NOW</span>
                   )}
                 </div>
                 <p className="text-sm font-semibold text-text leading-relaxed">
-                  Rest, Anime & Open-Source Discoveries
+                  Learning & Side Projects
                 </p>
-                <p className="text-xs text-muted mt-1">
-                  Catching up on unwatched anime series, researching trending repositories on GitHub, auditing open-source packages, and winding down.
+                <p className="text-xs text-muted mt-1 leading-relaxed">
+                  Evenings are for cooling off. I'll usually catch up on some anime, check out trending repositories on GitHub, experiment with new packages, or build mini side projects to play around with new technologies.
                 </p>
                 
                 {/* Anime Poster Carousel — hover to scroll, alternates direction */}
@@ -226,28 +229,41 @@ export default function MissionSection() {
             viewport={{ once: true }}
             className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-glass-border/40 z-10 font-mono"
           >
-            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
-              <span className="text-[9px] text-muted font-bold">FOCUS INDEX</span>
-              <span className="text-xs font-bold text-text mt-1 flex items-center gap-1">
+            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col items-center text-center select-none justify-center">
+              <span className="text-[9px] text-muted font-bold">FLOW STATE</span>
+              <span className="text-xs font-bold text-text mt-1 flex items-center gap-1 justify-center">
                 <Cpu className="w-3.5 h-3.5 text-accent animate-pulse" /> 92%
               </span>
             </motion.div>
-            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
+            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col items-center text-center select-none justify-center">
               <span className="text-[9px] text-muted font-bold">COFFEE INTAKE</span>
-              <span className="text-xs font-bold text-text mt-1 flex items-center gap-1">
-                <Coffee className="w-3.5 h-3.5 text-[#FFBD2E]" /> 2.0 Cups
+              <span className="text-xs font-bold text-text mt-1 flex flex-col items-center gap-0.5 w-full">
+                <div className="flex items-center gap-1 justify-center">
+                  <Coffee className="w-3.5 h-3.5 text-[#FFBD2E]" /> 0 Cups
+                </div>
+                <div className="text-[8px] font-mono text-muted/80 whitespace-nowrap">
+                  only monster and redbull 😅
+                </div>
               </span>
             </motion.div>
-            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
+            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col items-center text-center select-none justify-center">
               <span className="text-[9px] text-muted font-bold">ANIME QUEUE</span>
-              <span className="text-xs font-bold text-text mt-1 flex items-center gap-1">
-                <Tv className="w-3.5 h-3.5 text-[#FF5F56]" /> 4 Unwatched
+              <span className="text-xs font-bold text-text mt-1 flex items-center gap-1 justify-center">
+                <Tv className="w-3.5 h-3.5 text-[#FF5F56]" /> ∞
               </span>
             </motion.div>
-            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col select-none">
+            <motion.div variants={itemVariants} className="bg-[#0D1017]/40 p-3 rounded-lg border border-glass-border/30 flex flex-col items-center text-center select-none justify-center">
               <span className="text-[9px] text-muted font-bold">ENERGY LEVEL</span>
-              <span className="text-xs font-bold text-[#27C93F] mt-1 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#27C93F] animate-status-pulse" /> 78% ACTIVE
+              <span className="text-xs font-bold mt-1 flex items-center gap-1 justify-center w-full">
+                {isSleeping ? (
+                  <div className="flex items-center gap-1 justify-center text-[#27C93F] text-[9px] font-mono whitespace-nowrap">
+                    <BatteryCharging className="w-3.5 h-3.5 animate-pulse" /> SLEEPING // RECHARGING
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1 justify-center text-[#27C93F]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#27C93F] animate-status-pulse" /> {100 - dayProgress}% ACTIVE
+                  </div>
+                )}
               </span>
             </motion.div>
           </motion.div>

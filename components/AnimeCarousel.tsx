@@ -8,25 +8,25 @@ interface AnimeCarouselProps {
 
 const ANIME_POSTERS = [
   {
-    src: "/assets/anime_darling.png",
+    src: "/assets/anime_darling.jpg",
     title: "Darling in the FranXX",
     subtitle: "TRIGGER × A-1 Pictures",
     accent: "#FF3366",
   },
   {
-    src: "/assets/anime_naruto.png",
+    src: "/assets/anime_naruto.jpg",
     title: "Naruto Shippuden",
     subtitle: "Studio Pierrot",
     accent: "#FF7A00",
   },
   {
-    src: "/assets/anime_bleach.png",
+    src: "/assets/anime_bleach.jpg",
     title: "Bleach: TYBW",
     subtitle: "Studio Pierrot",
     accent: "#A0C4FF",
   },
   {
-    src: "/assets/anime_slime.png",
+    src: "/assets/anime_slime.jpg",
     title: "Tensura: Slime",
     subtitle: "8bit",
     accent: "#5CE1C0",

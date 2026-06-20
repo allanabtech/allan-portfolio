@@ -66,7 +66,7 @@ export default function Home() {
               <TimelineSection />
             </SectionWrapper>
 
-            <SectionWrapper id="mission" title="06. Daily Operations Command Center" showDivider={true}>
+            <SectionWrapper id="mission" title="06. A Day in the Life" showDivider={true}>
               <MissionSection />
             </SectionWrapper>
 
@@ -84,7 +84,7 @@ export default function Home() {
           </main>
 
           <footer className="py-8 text-center text-[10px] text-muted border-t border-glass-border/30 font-mono bg-[#0D1017]/80">
-            © {new Date().getFullYear()} Allan Abraham. Engineered with Next.js, Tailwind v4 & Framer Motion.
+            © {new Date().getFullYear()} Allan Abraham. Compiled with hope, fueled by energy drinks, and engineered with Next.js, Tailwind v4 & Framer Motion.
           </footer>
         </div>
       )}

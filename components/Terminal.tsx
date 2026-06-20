@@ -75,7 +75,7 @@ export default function Terminal() {
       setHistory((prev) => [
         ...prev,
         {
-          text: "AI/ML: Machine Learning, Deep Learning, Data Analysis\nCloud: AWS Solutions Architecture, Infrastructure as Code\nDevOps: Docker, CI/CD pipelines, Linux Shell\nProgramming: Python, Java, JavaScript, Bash",
+          text: "AI/ML: Machine Learning, Deep Learning, Data Analysis\nCloud: AWS Solutions, Cloud Infrastructure & Architecture, FinOps & Cost Optimization\nDevOps: Docker, CI/CD pipelines, Linux Shell\nProgramming: Python, Java, C/C++, JavaScript, HTML & CSS",
           type: "output",
         },
       ]);
@@ -83,7 +83,7 @@ export default function Terminal() {
       setHistory((prev) => [
         ...prev,
         {
-          text: "1. AI-Powered Navigation Bot (Arduino, Autonomous Navigation)\n2. Robotics & Embedded Systems\n3. AI & Cloud Computing Projects\n4. Daily Operations & Interactive Milestones (Status: Active)",
+          text: "1. AI-Powered Navigation Bot (Arduino, Autonomous Navigation)\n2. Robotics & Embedded Systems\n3. AI & Cloud Computing Projects\n4. A Day in the Life & Live Logs (Status: Active)",
           type: "output",
         },
       ]);
@@ -107,7 +107,7 @@ export default function Terminal() {
       setHistory((prev) => [
         ...prev,
         {
-          text: "Current Mission: Daily Operations Command Center\nProgress: 100% Active\nObjective: Explore new concepts in the morning, deploy cloud and coding projects in the afternoon, and discover open-source or watch anime at night.",
+          text: "Current Focus: A Day in the Life\nProgress: 100% Active\nObjective: Explore new concepts in the morning, deploy cloud and coding projects in the afternoon, and discover open-source or watch anime at night.",
           type: "output",
         },
       ]);

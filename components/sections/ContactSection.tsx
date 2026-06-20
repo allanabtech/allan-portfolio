@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Mail, FileText, ArrowUpRight, Copy, Check } from "lucide-react";
+import React, { useEffect, useState, useRef } from "react";
+import { Mail, FileText, ArrowUpRight, Copy, Check, Download } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { useAchievements } from "../AchievementContext";
 import SpotlightCard from "../SpotlightCard";
@@ -9,6 +9,18 @@ import SpotlightCard from "../SpotlightCard";
 export default function ContactSection() {
   const { triggerViewContact } = useAchievements();
   const [copiedStatus, setCopiedStatus] = useState<Record<string, boolean>>({});
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isHoveredContainer, setIsHoveredContainer] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMoveContainer = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
   const handleCopy = (e: React.MouseEvent, text: string, key: string) => {
     e.preventDefault();
@@ -19,6 +31,18 @@ export default function ContactSection() {
         setCopiedStatus((prev) => ({ ...prev, [key]: false }));
       }, 2000);
     });
+  };
+
+  const handleDownload = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    triggerViewContact();
+    const link = document.createElement("a");
+    link.href = "/allanabraham_cv.pdf";
+    link.download = "allanabraham_cv.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   // Trigger achievement when contact section is loaded
@@ -48,38 +72,50 @@ export default function ContactSection() {
 
   return (
     <div className="py-24 container mx-auto px-6 relative">
-      
-      {/* Drifting cosmic cloud backgrounds */}
-      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none select-none">
-        <div className="absolute -left-[10%] -top-[10%] w-[60%] h-[60%] rounded-full bg-accent/5 filter blur-[120px] animate-drift-cloud" />
-        <div className="absolute -right-[10%] -bottom-[10%] w-[50%] h-[50%] rounded-full bg-[#FF5F56]/3 filter blur-[100px] animate-drift-cloud" style={{ animationDelay: "4s" }} />
-      </div>
-
-      {/* Subtle Background Glow Blobs */}
-      <div className="absolute -top-12 left-1/3 w-80 h-80 bg-accent/8 rounded-full filter blur-[120px] pointer-events-none -z-10 animate-pulse" />
-      <div className="absolute -bottom-12 right-1/4 w-72 h-72 bg-[#9fcbff]/6 rounded-full filter blur-[100px] pointer-events-none -z-10 animate-pulse" style={{ animationDelay: "2.5s" }} />
 
       <div className="max-w-5xl mx-auto relative z-10">
         
-        {/* Large Glowing Centerpiece CTA Container */}
-        <SpotlightCard className="border-accent/25 rounded-3xl p-8 md:p-12 text-center bg-gradient-to-b from-[#0A0A0C]/60 to-[#000000]/95 shadow-2xl relative overflow-hidden group/container select-none">
+        {/* Large Stable Centerpiece CTA Container */}
+        <div
+          ref={containerRef}
+          onMouseEnter={() => setIsHoveredContainer(true)}
+          onMouseMove={handleMouseMoveContainer}
+          onMouseLeave={() => setIsHoveredContainer(false)}
+          className="border border-[#23282E] rounded-3xl p-8 md:p-12 text-center bg-[#0A0A0C]/65 backdrop-blur-md shadow-2xl relative overflow-hidden group/container select-none"
+        >
           
           {/* Moving Ambient light bar */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.08),transparent_50%)] pointer-events-none" />
           
-          {/* Subtle animated border glow line */}
-          <div className="absolute -inset-[1px] bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 rounded-3xl pointer-events-none opacity-50 group-hover/container:opacity-100 transition-opacity duration-700 animate-pulse" />
+          {/* Interactive Inner Hover Spotlight Glow */}
+          {isHoveredContainer && (
+            <div
+              className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+              style={{
+                background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(0, 240, 255, 0.05), transparent 80%)`,
+              }}
+            />
+          )}
 
           <div className="space-y-6 max-w-2xl mx-auto relative z-10">
             {/* Header */}
             <h2 className="text-3xl md:text-5xl font-extrabold text-text tracking-tight select-text">
-              Ready to build something interesting?
+              Let's build something cool.
             </h2>
-            <p className="text-lg md:text-xl font-medium bg-gradient-to-r from-[#8B949E] via-text to-[#8B949E] bg-clip-text text-transparent pb-4">
-              Let's connect.
+            <p className="text-lg md:text-xl font-medium bg-gradient-to-r from-accent via-text to-[#8B949E] bg-clip-text text-transparent pb-1">
+              Or just argue about tabs vs. spaces.
             </p>
+
+            {/* Funny Handshake Dialog Box */}
+            <div className="bg-[#0D1017]/80 border border-[#23282E] rounded-xl p-4 max-w-md mx-auto text-left font-mono text-[11px] text-muted/95 leading-relaxed shadow-lg">
+              <span className="text-accent font-bold">&gt; ping allan</span><br/>
+              <span className="text-muted font-bold">Allan:</span> "I can automate this in 5 minutes!"<br/>
+              <span className="text-[#FF5F56] font-bold">Narrator:</span> "It took him 3 hours to debug the script."<br/>
+              <span className="text-green-400 font-bold">Status: Online. Grab a channel below.</span>
+            </div>
+
             <p className="text-sm md:text-base text-muted leading-relaxed max-w-xl mx-auto select-text">
-              I'm always seeking opportunities to collaborate on cloud infrastructure automation, deep learning models, CI/CD optimization, or hardware-software integration projects. Reach out directly.
+              Whether you want to scale some cloud infrastructure, brainstorm a deep learning project, talk custom hardware hacking, or just send a meme—my inbox is open. Let's make something happen.
             </p>
           </div>
 
@@ -98,7 +134,7 @@ export default function ContactSection() {
               onClick={triggerViewContact}
               className="block group"
             >
-              <SpotlightCard className="p-5 rounded-2xl flex flex-col items-center justify-between text-center gap-4 transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-md hover:shadow-accent/5 h-full bg-[#0A0A0C]/50 hover:bg-[#0A0A0C]/90">
+              <SpotlightCard glowColor="rgba(0, 240, 255, 0.4)" className="p-5 rounded-2xl flex flex-col items-center justify-between text-center gap-4 transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-md h-full bg-[#0A0A0C]/50 hover:bg-[#0A0A0C]/90">
                 <div className="flex flex-col items-center gap-3 w-full">
                   <div className="p-3.5 rounded-xl bg-accent/10 border border-accent/15 group-hover:bg-accent/20 group-hover:scale-110 transition-all duration-300">
                     <Mail className="w-5 h-5 text-accent" />
@@ -138,7 +174,7 @@ export default function ContactSection() {
               onClick={triggerViewContact}
               className="block group"
             >
-              <SpotlightCard className="p-5 rounded-2xl flex flex-col items-center justify-between text-center gap-4 transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-md hover:shadow-[#27C93F]/5 h-full bg-[#0A0A0C]/50 hover:bg-[#0A0A0C]/90">
+              <SpotlightCard glowColor="rgba(39, 201, 63, 0.4)" className="p-5 rounded-2xl flex flex-col items-center justify-between text-center gap-4 transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-md h-full bg-[#0A0A0C]/50 hover:bg-[#0A0A0C]/90">
                 <div className="flex flex-col items-center gap-3 w-full">
                   <div className="p-3.5 rounded-xl bg-[#27C93F]/10 border border-[#27C93F]/15 group-hover:bg-[#27C93F]/20 group-hover:scale-110 transition-all duration-300">
                     <svg viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-[#27C93F] fill-none">
@@ -182,7 +218,7 @@ export default function ContactSection() {
               onClick={triggerViewContact}
               className="block group"
             >
-              <SpotlightCard className="p-5 rounded-2xl flex flex-col items-center justify-between text-center gap-4 transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-md hover:shadow-[#FFBD2E]/5 h-full bg-[#0A0A0C]/50 hover:bg-[#0A0A0C]/90">
+              <SpotlightCard glowColor="rgba(255, 189, 46, 0.4)" className="p-5 rounded-2xl flex flex-col items-center justify-between text-center gap-4 transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-md h-full bg-[#0A0A0C]/50 hover:bg-[#0A0A0C]/90">
                 <div className="flex flex-col items-center gap-3 w-full">
                   <div className="p-3.5 rounded-xl bg-[#FFBD2E]/10 border border-[#FFBD2E]/15 group-hover:bg-[#FFBD2E]/20 group-hover:scale-110 transition-all duration-300">
                     <svg viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-[#FFBD2E] fill-none">
@@ -218,15 +254,12 @@ export default function ContactSection() {
 
             <motion.a
               variants={itemVariants}
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                triggerViewContact();
-                alert("Resume PDF is loaded! (Simulation: Download registered in telemetry)");
-              }}
+              href="/allanabraham_cv.pdf"
+              download="allanabraham_cv.pdf"
+              onClick={triggerViewContact}
               className="block group"
             >
-              <SpotlightCard className="p-5 rounded-2xl flex flex-col items-center justify-between text-center gap-4 transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-md hover:shadow-[#FF5F56]/5 h-full bg-[#0A0A0C]/50 hover:bg-[#0A0A0C]/90">
+              <SpotlightCard glowColor="rgba(255, 95, 86, 0.4)" className="p-5 rounded-2xl flex flex-col items-center justify-between text-center gap-4 transition-all duration-300 hover:scale-[1.03] active:scale-95 shadow-md h-full bg-[#0A0A0C]/50 hover:bg-[#0A0A0C]/90">
                 <div className="flex flex-col items-center gap-3 w-full">
                   <div className="p-3.5 rounded-xl bg-[#FF5F56]/10 border border-[#FF5F56]/15 group-hover:bg-[#FF5F56]/20 group-hover:scale-110 transition-all duration-300">
                     <FileText className="w-5 h-5 text-[#FF5F56]" />
@@ -241,15 +274,11 @@ export default function ContactSection() {
                         allanabraham_cv.pdf
                       </span>
                       <button
-                        onClick={(e) => handleCopy(e, "allanabraham_cv.pdf", "resume")}
+                        onClick={handleDownload}
                         className="p-1 rounded hover:bg-glass-border/60 text-muted hover:text-[#FF5F56] transition-all flex-shrink-0 cursor-pointer"
-                        title="Copy Resume Name"
+                        title="Download Resume"
                       >
-                        {copiedStatus["resume"] ? (
-                          <Check className="w-3.5 h-3.5 text-green-400 animate-scale-in" />
-                        ) : (
-                          <Copy className="w-3.5 h-3.5" />
-                        )}
+                        <Download className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
@@ -260,7 +289,7 @@ export default function ContactSection() {
 
           </motion.div>
 
-        </SpotlightCard>
+        </div>
 
       </div>
     </div>

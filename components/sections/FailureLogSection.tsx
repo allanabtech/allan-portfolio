@@ -43,6 +43,15 @@ const INCIDENTS: IncidentReport[] = [
     summary: "Microcontroller completely locked up and rebooted randomly when receiving high-frequency clock cycles from the encoder sensor.",
     rootCause: "The Interrupt Service Routine (ISR) took longer to execute than the sensor's frequency period, causing stack overflow as new interrupts piled up.",
     resolution: "Optimized the assembly ISR by moving heavy logs to the main thread. The ISR now only sets a volatile flag register, reducing run cycles from 120 to 8."
+  },
+  {
+    id: "INCIDENT-404",
+    title: "Wild Hardware Modding Incident: VRAM Upgrade & CPU Voltage Miscalculation",
+    date: "Hardware Frontier Lab",
+    impact: "CRITICAL",
+    summary: "Attempted to double the VRAM capacity of a GPU by soldering an additional GDDR6 die directly onto the PCB, paired with a custom BIOS voltage tune pushing the VRMs 40% beyond rated load. The GPU displayed a beautiful single white frame, then nothing. The CPU, feeling left out, decided to fry the motherboard for moral support. The acrid smell of burned FR4 confirmed that physics had won. Again.",
+    rootCause: "The voltage regulators on the board were simply not rated to supply stable power to twice the VRAM capacity under full memory bandwidth load. The custom BIOS raised VCore limits past what the VRM thermal headroom could sustain. Within 11 seconds of boot, the VRM MOSFETs hit thermal runaway, scorched the PCB traces, and backfed an unregulated spike into the CPU socket. The CPU, being an honourable piece of silicon, did not survive this betrayal.",
+    resolution: "Lesson painfully learned: always validate VRM phase count and thermal ratings before touching BIOS voltage curves. Ordered a proper power delivery board, added inline current sensing, and now test every BIOS mod in 10mV increments with a thermal camera pointed at the VRMs. Also learned that 'it might just work' is not an engineering methodology — it is optimism with a body count (of hardware)."
   }
 ];
 

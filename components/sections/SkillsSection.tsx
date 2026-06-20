@@ -24,7 +24,7 @@ const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Cloud Technologies",
     icon: <Cloud className="w-5 h-5 text-[#27C93F]" />,
-    skills: ["AWS Solutions", "Cloud Infrastructure", "Cloud Architecture", "S3 & EC2"],
+    skills: ["AWS Solutions", "Cloud Infrastructure & Architecture", "FinOps & Cost Optimization", "S3 & EC2"],
     color: "rgba(39, 201, 63, 0.18)",
     glowColor: "rgba(39, 201, 63, 0.45)",
   },
@@ -38,7 +38,7 @@ const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Programming Languages",
     icon: <Code className="w-5 h-5 text-[#00E676]" />,
-    skills: ["Python", "Java", "JavaScript", "HTML & CSS", "Bash scripting"],
+    skills: ["Python", "Java", "C/C++", "JavaScript", "HTML & CSS"],
     color: "rgba(0, 230, 118, 0.18)",
     glowColor: "rgba(0, 230, 118, 0.45)",
   },

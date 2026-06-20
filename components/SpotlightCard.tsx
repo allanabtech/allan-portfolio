@@ -58,7 +58,10 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
         `;
         card.style.borderColor = "transparent";
         card.style.transform = "translate3d(0, -4px, 0)";
-        card.style.boxShadow = `0 16px 40px 0 ${glowColor.replace(/[\d.]+\)$/, "0.15)")}`;
+        card.style.boxShadow = `
+          0 8px 30px -10px ${glowColor.replace(/[\d.]+\)$/, "0.55)")},
+          0 20px 40px -15px ${glowColor.replace(/[\d.]+\)$/, "0.22)")}
+        `;
       }
     };
 
@@ -69,9 +72,21 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
         cardRef.current.style.background = "";
         cardRef.current.style.borderColor = "";
         cardRef.current.style.transform = "";
-        cardRef.current.style.boxShadow = "";
+        cardRef.current.style.boxShadow = `
+          0 6px 20px -8px ${glowColor.replace(/[\d.]+\)$/, "0.35)")}, 
+          0 15px 35px -15px ${glowColor.replace(/[\d.]+\)$/, "0.15)")}
+        `;
       }
     };
+
+    const initialShadowStyle = glowColor 
+      ? {
+          boxShadow: `
+            0 6px 20px -8px ${glowColor.replace(/[\d.]+\)$/, "0.35)")}, 
+            0 15px 35px -15px ${glowColor.replace(/[\d.]+\)$/, "0.15)")}
+          `
+        }
+      : {};
 
     return (
       <div
@@ -80,7 +95,7 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className={`glass-panel ${glowColor ? "" : "glass-panel-hover"} ${className}`}
-        style={style}
+        style={{ ...initialShadowStyle, ...style }}
         {...props}
       >
         {children}
