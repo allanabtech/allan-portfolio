@@ -75,20 +75,53 @@ export default function SectionWrapper({ children, id, className = "", title, sh
         <div className="w-full">
           {!isHero && title && (
             <div className="w-full max-w-5xl mx-auto px-6 mb-8 relative z-20 pointer-events-none select-none">
-              {/* Line 1 — top rule */}
-              <div className="h-[1px] w-full bg-gradient-to-r from-glass-border/60 via-glass-border/20 to-transparent mb-3" />
-              {/* Heading sits between the two lines */}
-              <motion.h2
-                variants={headerVariants}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-                style={{ willChange: "transform, opacity" }}
-                className="text-3xl font-bold text-accent tracking-[0.1em] uppercase py-1"
-              >
-                {title}
-              </motion.h2>
-              {/* Line 2 — bottom rule */}
-              <div className="h-[1px] w-full bg-gradient-to-r from-glass-border/60 via-glass-border/20 to-transparent mt-3" />
+              {/* Top rule with animated scan */}
+              <div className="h-[1px] w-full relative mb-3 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-glass-border/60 via-glass-border/20 to-transparent" />
+                <div
+                  className="absolute top-0 left-0 h-full w-16"
+                  style={{
+                    background: "linear-gradient(to right, transparent, rgba(0,240,255,0.6), transparent)",
+                    animation: "shimmer-sweep 5s ease-in-out infinite",
+                  }}
+                />
+              </div>
+
+              {/* Heading with blinking cursor */}
+              <div className="flex items-center gap-3">
+                {/* Glowing accent dot */}
+                <div
+                  className="w-2 h-2 rounded-full flex-shrink-0"
+                  style={{
+                    background: "#00F0FF",
+                    boxShadow: "0 0 8px #00F0FF, 0 0 20px rgba(0,240,255,0.4)",
+                    animation: "hero-glow-breathe 3s ease-in-out infinite",
+                  }}
+                />
+                <motion.h2
+                  variants={headerVariants}
+                  initial="hidden"
+                  animate={isInView ? "visible" : "hidden"}
+                  style={{ willChange: "transform, opacity" }}
+                  className="text-3xl font-bold text-accent tracking-[0.1em] uppercase py-1 flex items-center gap-1"
+                >
+                  {title}
+                  <span className="animate-blink-cursor text-accent/70 font-light ml-1">_</span>
+                </motion.h2>
+              </div>
+
+              {/* Bottom rule with animated scan */}
+              <div className="h-[1px] w-full relative mt-3 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-glass-border/60 via-glass-border/20 to-transparent" />
+                <div
+                  className="absolute top-0 left-0 h-full w-12"
+                  style={{
+                    background: "linear-gradient(to right, transparent, rgba(0,240,255,0.4), transparent)",
+                    animation: "shimmer-sweep 7s ease-in-out infinite",
+                    animationDelay: "2s",
+                  }}
+                />
+              </div>
             </div>
           )}
 

@@ -71,7 +71,22 @@ export default function ContactSection() {
   };
 
   return (
-    <div className="py-24 container mx-auto px-6 relative">
+    <div className="py-24 container mx-auto px-6 relative overflow-hidden">
+
+      {/* ── Aurora background ── */}
+      <div className="absolute top-0 left-1/4 w-80 h-80 rounded-full blur-[130px] pointer-events-none -z-10"
+        style={{ background: "radial-gradient(circle, rgba(167,139,250,0.07) 0%, transparent 70%)", animation: "aurora-drift 22s ease-in-out infinite" }} />
+      <div className="absolute bottom-0 right-1/4 w-72 h-72 rounded-full blur-[110px] pointer-events-none -z-10"
+        style={{ background: "radial-gradient(circle, rgba(0,240,255,0.06) 0%, transparent 70%)", animation: "aurora-drift 28s ease-in-out infinite reverse" }} />
+
+      {/* ── Animated dot-grid ── */}
+      <div className="absolute inset-0 pointer-events-none -z-20"
+        style={{
+          backgroundImage: "radial-gradient(circle, rgba(0,240,255,0.05) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+          animation: "scroll-grid 30s linear infinite",
+        }}
+      />
 
       <div className="max-w-5xl mx-auto relative z-10">
         
@@ -82,7 +97,17 @@ export default function ContactSection() {
           onMouseMove={handleMouseMoveContainer}
           onMouseLeave={() => setIsHoveredContainer(false)}
           className="border border-[#23282E] rounded-3xl p-8 md:p-12 text-center bg-[#0A0A0C]/65 backdrop-blur-md shadow-2xl relative overflow-hidden group/container select-none"
+          style={{
+            animation: "card-breathe 8s ease-in-out infinite",
+            ["--card-glow" as string]: "rgba(167,139,250,0.08)",
+          }}
         >
+
+          {/* Shimmer sweep on container */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-3xl">
+            <div className="absolute top-0 left-0 w-1/5 h-full"
+              style={{ background: "linear-gradient(to right, transparent, rgba(167,139,250,0.04), transparent)", animation: "shimmer-sweep 14s ease-in-out infinite" }} />
+          </div>
           
           {/* Moving Ambient light bar */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.08),transparent_50%)] pointer-events-none" />

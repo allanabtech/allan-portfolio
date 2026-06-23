@@ -63,15 +63,28 @@ export default function MissionSection() {
 
   return (
     <div className="py-20 container mx-auto px-6 relative overflow-hidden">
-      
+
+      {/* ── Ambient aurora atmosphere ── */}
+      <div className="absolute top-0 left-0 w-96 h-96 rounded-full blur-[130px] pointer-events-none -z-10"
+        style={{ background: "radial-gradient(circle, rgba(0,240,255,0.06) 0%, transparent 70%)", animation: "aurora-drift 20s ease-in-out infinite" }} />
+      <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full blur-[120px] pointer-events-none -z-10"
+        style={{ background: "radial-gradient(circle, rgba(39,201,63,0.05) 0%, transparent 70%)", animation: "aurora-drift 25s ease-in-out infinite reverse" }} />
+
+      {/* ── Floating chip decoratives ── */}
+      <div className="absolute top-16 right-32 opacity-[0.05] pointer-events-none -z-10 animate-chip-float">
+        <svg viewBox="0 0 60 60" width="60" height="60" fill="none" stroke="#00F0FF" strokeWidth="1"><rect x="10" y="10" width="40" height="40" rx="3" /><rect x="20" y="20" width="20" height="20" rx="1" /><line x1="0" y1="20" x2="10" y2="20" /><line x1="0" y1="30" x2="10" y2="30" /><line x1="0" y1="40" x2="10" y2="40" /><line x1="50" y1="20" x2="60" y2="20" /><line x1="50" y1="30" x2="60" y2="30" /><line x1="50" y1="40" x2="60" y2="40" /></svg>
+      </div>
+      <div className="absolute bottom-24 left-20 opacity-[0.05] pointer-events-none -z-10 animate-chip-float" style={{ animationDelay: "3s" }}>
+        <svg viewBox="0 0 60 60" width="60" height="60" fill="none" stroke="#27C93F" strokeWidth="1"><rect x="10" y="10" width="40" height="40" rx="3" /><rect x="20" y="20" width="20" height="20" rx="1" /><line x1="0" y1="20" x2="10" y2="20" /><line x1="0" y1="30" x2="10" y2="30" /><line x1="0" y1="40" x2="10" y2="40" /><line x1="50" y1="20" x2="60" y2="20" /><line x1="50" y1="30" x2="60" y2="30" /><line x1="50" y1="40" x2="60" y2="40" /></svg>
+      </div>
+
       {/* Mission Radar Scan overlay */}
-      <div className="absolute right-4 top-1/4 w-64 h-64 opacity-[0.035] -z-10 overflow-hidden pointer-events-none select-none">
-        <div className="w-full h-full rounded-full border border-accent/40 relative flex items-center justify-center">
+      <div className="absolute right-4 top-1/4 w-64 h-64 opacity-[0.045] -z-10 overflow-hidden pointer-events-none select-none">
+        <div className="w-full h-full rounded-full border border-accent/40 relative flex items-center justify-center" style={{ animation: "hero-glow-breathe 6s ease-in-out infinite" }}>
           <div className="w-[80%] h-[80%] rounded-full border border-accent/20" />
           <div className="w-[50%] h-[50%] rounded-full border border-accent/15" />
           <div className="w-[20%] h-[20%] rounded-full border border-accent/10" />
-          {/* Radar Sweep Needle */}
-          <div className="absolute inset-0 rounded-full animate-radar-sweep bg-[conic-gradient(from_0deg,transparent_50%,rgba(88,166,255,0.25))] pointer-events-none" />
+          <div className="absolute inset-0 rounded-full animate-radar-sweep bg-[conic-gradient(from_0deg,transparent_50%,rgba(0,240,255,0.25))] pointer-events-none" />
         </div>
       </div>
 
@@ -85,7 +98,13 @@ export default function MissionSection() {
           transition={{ type: "spring", stiffness: 22, damping: 20, delay: 0.4 }}
           className="w-full"
         >
-          <SpotlightCard className="w-full rounded-2xl p-6 md:p-8 flex flex-col gap-8 shadow-2xl relative overflow-hidden bg-[#0D1017]/80">
+          <SpotlightCard className="w-full rounded-2xl p-6 md:p-8 flex flex-col gap-8 shadow-2xl relative overflow-hidden bg-[#0D1017]/80"
+            style={{ animation: "card-breathe 7s ease-in-out infinite", ["--card-glow" as string]: "rgba(0,240,255,0.08)" }}
+          >
+          {/* Shimmer sweep */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+            <div className="absolute top-0 left-0 w-1/4 h-full" style={{ background: "linear-gradient(to right, transparent, rgba(0,240,255,0.04), transparent)", animation: "shimmer-sweep 12s ease-in-out infinite" }} />
+          </div>
           
           {/* Dashboard Header */}
           <div className="flex items-center justify-between flex-wrap gap-4 z-10 select-none">
