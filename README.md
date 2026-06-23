@@ -6,45 +6,42 @@
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.4.0-F107A3?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-Welcome to my personal portfolio—a high-performance, fully interactive web application showcasing my engineering journey across **Artificial Intelligence, Embedded Systems, Cloud/DevOps, and Robotics**. 
+Welcome to my portfolio! This is basically a live sandbox of things I've built, broken, and eventually fixed across **Artificial Intelligence, Embedded Systems, Cloud/DevOps, and Robotics**. 
 
-Rather than a static, resume-style page, this website serves as a live demonstration of modern web engineering, hardware design, and interactive system design, complete with custom terminal emulation, retro mini-games, dynamic micro-animations, and a gamified achievements engine.
+Instead of a boring, static resume that just lists bullet points, I built this as a high-performance playground where you can run actual terminal commands, unlock achievements, play retro mini-games, and look at my real-world post-mortems (yes, including the time I set a motherboard on fire).
 
 ---
 
-## ⚡ Core Highlights & Architectural Features
+## ⚡ Interactive Easter Eggs & Features
 
 ### 🎮 Gamified Achievement Engine
-* Includes a custom, global React-Context-based achievement system tracker.
-* Visitors unlock badges (e.g., **Curious Explorer**, **Senior Debugger**, **Terminal Hacker**) by interacting with the site.
-* Features native **Audio Synthesis (Web Audio API)** for rewarding retro sound indicators upon unlock, combined with dynamic `canvas-confetti` bursts.
-* Persistent state management utilizing `localStorage` to save unlocked achievements across sessions.
+* A global React-Context system that tracks what you do on the site.
+* If you find hidden easter eggs, squash bugs, or hack the terminal, it triggers custom retro synth-audio alerts (synthesized using the Web Audio API because loading MP3s is bloat) and fires confetti at your screen.
+* Unlocked badges save straight to your `localStorage` so you don't lose your hard-earned progress.
 
 ### 💻 Retro R&D Terminal
-* A functional, inline UNIX-like CLI shell (`allan-dev-terminal`) allowing command-line discovery of portfolio details.
+* An inline UNIX-like CLI shell (`allan-dev-terminal`) for people who hate clicking buttons.
 * Supported commands: `help`, `about`, `skills`, `projects`, `certifications`, `mission`, `joke`, `clear`, and `portfolio --future`.
-* Try executing `sudo hire-allan` to trigger a simulated cryptographic key check, loading bars, and status elevation.
+* Try running `sudo hire-allan` to trigger a simulated cryptographic key check, loading progress bars, and status elevation.
 
 ### 🪲 Live Bug Squashing System
-* To represent software debugging in a visual format, literal crawling bugs wander around the screen.
-* Visitors can chase and click to squash them (playing a custom audio pop), updating local states to earn the **Senior Debugger** achievement after squashing 10 bugs.
+* To make debugging visual (and frustrating), I have literal bugs crawling around the screen.
+* You can chase and click to squash them (plays a satisfying pop sound). Squash 10 of them to earn the **Senior Debugger** badge. No JIRA ticket required.
 
 ### 📖 Post-Mortem Failure Log
-* A dedicated workspace section documenting real engineering failures, lessons learned, and resolutions.
-* Features details on sensor threshold drift, serverless timeout bottlenecks, interrupt stack crashes, and a notorious hardware modding incident (where an optimistic VRAM upgrade resulted in board meltdowns).
+* A section dedicated to things that did *not* go according to plan.
+* Covers sensor threshold drift, serverless timeout bottlenecks, interrupt stack crashes, and the infamous hardware modding incident where a VRAM upgrade resulted in motherboard suicide.
 
 ---
 
 ## 🛠️ Technology Stack & Engineering Design
 
-This portfolio is built with modern framework components and styling strategies for sub-millisecond responsiveness and buttery-smooth FPS:
+I designed this site to run at a smooth 60 FPS without turning your laptop fan into a jet engine:
 
-* **Next.js 16 (App Router)** & **React 19** for optimized routing and layout rendering.
-* **Tailwind CSS v4** & **Vanilla CSS variables** for fluid styling, modern HSL-tailored colors, and glassmorphic layers.
-* **Framer Motion 12** for smooth transitions and state-based visual entries.
-* **Performance Optimizations**:
-  * Offloads heavy background calculations to avoid main-thread blocking.
-  * Employs GPU-accelerated css properties (`will-change: transform`, `transform: translateZ(0)`) to pre-promote animated elements to separate compositor layers, eliminating scroll jitter during complex transitions.
+* **Next.js 16 (App Router)** & **React 19** for overall structure.
+* **Tailwind CSS v4** & **Vanilla CSS variables** for dark-mode colors, custom scrollbars, and frosted glass layers.
+* **Framer Motion 12** for smooth transitions and state-based entries.
+* **Scroll Jitter Prevention**: Reduced particle counts, streamlined rain columns, and added GPU-level CSS properties (`will-change: transform`, `transform: translateZ(0)`) to force the browser to pre-promote animated blocks to their own compositor layers before scroll starts. Smooth scrolling only.
 
 ---
 
@@ -52,74 +49,74 @@ This portfolio is built with modern framework components and styling strategies 
 
 ```src
 ├── app/
-│   ├── globals.css           # Core styling tokens, responsive variables & compositor animations
-│   ├── layout.tsx            # Global HTML wrappers & providers
+│   ├── globals.css           # Custom theme tokens & performance-tuned CSS keyframes
+│   ├── layout.tsx            # Global HTML wrappers & state providers
 │   └── page.tsx              # Application layout compiling sections into a single scroll flow
 ├── components/
-│   ├── AchievementContext.tsx# Core state-machine tracking easter eggs & achievements
-│   ├── AchievementToast.tsx  # Interactive pop-ups for achievement unlocks
-│   ├── LoadingScreen.tsx     # Animated bootloader sequence bypassable after initial visit
+│   ├── AchievementContext.tsx# The state-machine tracking your easter eggs & achievements
+│   ├── AchievementToast.tsx  # Dynamic pop-ups for achievement unlocks
+│   ├── LoadingScreen.tsx     # Animated bootloader sequence (bypassed if you visit again)
 │   ├── Navbar.tsx            # Floating glassmorphic navigation controller
 │   ├── Terminal.tsx          # UNIX-style interactive terminal emulator
-│   ├── XOGame.tsx            # Interactive Tic-Tac-Toe game with mini AI logic
+│   ├── XOGame.tsx            # Interactive Tic-Tac-Toe game with mini-AI logic
 │   ├── RPSGame.tsx           # Interactive Rock-Paper-Scissors game
 │   ├── Quiz.tsx              # Interactive Technical Engineering Quiz
 │   └── sections/             # Modular UI layouts:
 │       ├── HeroSection.tsx   # Matrix code-rain & animated aurora landing page
 │       ├── AboutSection.tsx  # Developer story & dynamic SVG circuit boards
-│       ├── SkillsSection.tsx # Technical taxonomy organized by domain cards
+│       ├── SkillsSection.tsx # Technical skills categorized by card layouts
 │       ├── ProjectsSection.tsx# High-impact engineering project showcases
 │       ├── LabSection.tsx    # Live & archived bench experiments logs
-│       ├── FailureLogSection.tsx # Post-mortem incident registry
-│       ├── TimelineSection.tsx# Interactive journey chronological index
-│       ├── MissionSection.tsx# A day in the life schedule wheel
-│       ├── CertificationsSection.tsx # Verified credentials log
-│       └── PlaygroundSection.tsx # Portal hosting games & quizzes
+│       ├── FailureLogSection.tsx # Post-mortem incident registry (the wall of mistakes)
+│       ├── TimelineSection.tsx# Interactive journey timeline
+│       ├── MissionSection.tsx# "A Day in the Life" routine & anime carousel
+│       ├── CertificationsSection.tsx # Verified credentials log (43 real courses)
+│       └── PlaygroundSection.tsx # Portal hosting games, quizzes & dev quotes
 ```
 
 ---
 
 ## 🤖 Featured Projects Showcased
 
-The website highlights real-world hardware, systems, and automation projects:
+Actual projects I've built (no generic templates or placeholders here):
 
 1. **Autonomous Navigation Bot**
    * *Stack*: Arduino Uno, C++, IR/Ultrasonic sensors, PID control.
-   * *Concept*: A crawler robot executing obstacle avoidance and live path planning via sensor-fusion algorithms.
+   * *Concept*: A two-wheeled robot executing obstacle avoidance and live path planning. Added a Kalman filter because IR sensors got confused by dark surfaces and fluorescent lights.
 2. **Multi-Sensor Embedded Framework**
    * *Stack*: STM32, C/Assembly, GPIO interrupts, I2C/SPI bus.
-   * *Concept*: An interrupt-driven sensor hub with custom stack management to avoid sensor starvation during microsecond priority collisions.
+   * *Concept*: An interrupt-driven sensor hub. Solved microsecond interrupt priority locks by replacing blocking loops with a volatile register flag system.
 3. **ML Model Inference Pipeline**
    * *Stack*: PyTorch, AWS Lambda, Amazon SQS, EC2, S3.
-   * *Concept*: A serverless-driven async job queuing system separating web request layers from heavy GPU inference jobs to drop latency under 3 seconds.
+   * *Concept*: A serverless-driven async job queuing system. Solved a 20-second Lambda cold start by moving the weights to warm EC2 containers fed via SQS. Latency dropped under 3 seconds.
 4. **Edge CV Pothole Severity Mapper**
    * *Stack*: PyTorch, OpenCV, Raspberry Pi 4, GPS module.
-   * *Concept*: Real-time computer vision mapping road damage on quantized neural nets running at ~14 FPS at normal vehicle speeds.
+   * *Concept*: Real-time computer vision mapping road damage. Runs a quantized INT8 MobileNet model at ~14 FPS on the road.
 5. **Cloud Storage Engine**
    * *Stack*: React, FastAPI, PostgreSQL, AWS S3.
-   * *Concept*: A multi-tenant file cloud hosting dashboard using secure S3 presigned URLs, deduplication hashes, and transaction-safe database writes.
+   * *Concept*: A file cloud hosting dashboard using secure S3 presigned URLs. Handled concurrent duplicate uploads via database-level unique constraints.
 6. **Dockerized CI/CD Deployment Runner**
    * *Stack*: GitHub Actions, Docker ECR/ECS, Nginx, Linux Shell.
-   * *Concept*: Self-hosted pipeline automation on EC2 instances with automatic layer caching and auto-rollback health check states.
+   * *Concept*: Automated pipeline deploying to AWS EC2. Had to limit build memory and prune old Docker layers on the runner because the self-hosted t3.micro kept running out of RAM and dying mid-build.
 
 ---
 
 ## 🧬 Engineering Lab & Experiments
 
-In the **Engineering Lab** section of the portfolio, I maintain logs of active research and experiments:
-* **AI/ML Bench**: Local training logs, image classification, custom loss weight models.
-* **AWS & Infrastructure**: Terraform scripts, CloudWatch log aggregation architectures, IAM policies simulation.
-* **Linux Workspace Daily-Driver**: System kernel adjustments (`sysctl`), networking configuration modifications, socket buffers optimization.
-* **Hardware Bench Work**: PCB soldering, logic analyzer timing charts, physical input signal debouncers (hardware capacitors + software filters).
+A place where I log work-in-progress research and experiments:
+* **AI/ML Bench**: Local training logs, class weight tuning, and YOLOv8 object detection.
+* **AWS & Infrastructure**: Messing with IAM policies (using simulators to avoid breaking access) and automation via Terraform.
+* **Linux Workspace Daily-Driver**: Tinkering with Ubuntu, bash scripts, and occasionally tweaking system socket buffer sizes (`sysctl`) until the connection drops.
+* **Hardware Bench Work**: Soldering custom boards, using logic analyzers, and fixing noisy buttons with 100nF capacitors.
 
 ---
 
 ## 🎯 Play & Interact (Playground Section)
 
-To showcase React state coordination, I built the **Engineering Playground** holding three modular mini-games:
-* **Tech Quiz**: A randomized 10-question technical challenge covering AI, Cloud, DevOps, and hardware internals.
+React state experiments masquerading as games:
+* **Tech Quiz**: A randomized 5-question challenge pulled from a pool of 52 questions on AI, Cloud, DevOps, and hardware.
 * **Play Tic-Tac-Toe**: Fight against a Minimax-inspired AI agent block algorithm.
-* **Rock, Paper, Scissors**: Relive classic hand battles against RNG algorithms.
+* **Rock, Paper, Scissors**: Relive classic schoolyard fights against an RNG algorithm.
 
 ---
 
