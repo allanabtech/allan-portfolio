@@ -96,10 +96,20 @@ export default function AboutSection() {
       </div>
 
       {/* ── Ambient aurora blobs ── */}
-      <div className="absolute top-0 right-0 w-80 h-80 rounded-full blur-[120px] pointer-events-none -z-10"
-        style={{ background: "radial-gradient(circle, rgba(0,240,255,0.07) 0%, transparent 70%)", animation: "aurora-drift 20s ease-in-out infinite" }} />
-      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full blur-[100px] pointer-events-none -z-10"
-        style={{ background: "radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 70%)", animation: "aurora-drift 25s ease-in-out infinite reverse" }} />
+      <div className="absolute top-0 right-0 w-80 h-80 rounded-full blur-[100px] pointer-events-none -z-10"
+        style={{
+          background: "radial-gradient(circle, rgba(0,240,255,0.07) 0%, transparent 70%)",
+          animation: "aurora-drift 20s ease-in-out infinite",
+          willChange: "transform",
+          transform: "translateZ(0)",
+        }} />
+      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full blur-[90px] pointer-events-none -z-10"
+        style={{
+          background: "radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 70%)",
+          animation: "aurora-drift 25s ease-in-out infinite reverse",
+          willChange: "transform",
+          transform: "translateZ(0)",
+        }} />
 
       <div className="max-w-4xl mx-auto relative z-10">
         <motion.div

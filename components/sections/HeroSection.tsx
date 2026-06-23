@@ -10,24 +10,24 @@ const LEARNING_ITEMS = [
   "Cloud Infrastructure Automation",
 ];
 
-// Floating particles config
-const PARTICLES = Array.from({ length: 22 }, (_, i) => ({
+// Floating particles — reduced to 12 for smooth compositing
+const PARTICLES = Array.from({ length: 12 }, (_, i) => ({
   id: i,
   x: Math.random() * 100,
-  size: 1.5 + Math.random() * 2.5,
+  size: 1.5 + Math.random() * 2,
   delay: Math.random() * 12,
-  duration: 8 + Math.random() * 14,
+  duration: 10 + Math.random() * 12,
   color: i % 3 === 0 ? "#00F0FF" : i % 3 === 1 ? "#38BDF8" : "#A78BFA",
 }));
 
-// Code rain columns
-const RAIN_COLS = Array.from({ length: 14 }, (_, i) => ({
+// Code rain columns — reduced to 8
+const RAIN_COLS = Array.from({ length: 8 }, (_, i) => ({
   id: i,
-  x: 3 + (i / 13) * 94,
-  chars: ["0", "1", "{", "}", "<", ">", "/", "λ", "π", "∑", "fn", "if"],
+  x: 5 + (i / 7) * 90,
+  chars: ["0", "1", "{", "}", "<", ">", "/", "λ", "π", "fn"],
   delay: Math.random() * 8,
-  duration: 6 + Math.random() * 10,
-  opacity: 0.04 + Math.random() * 0.08,
+  duration: 8 + Math.random() * 10,
+  opacity: 0.04 + Math.random() * 0.06,
 }));
 
 // Floating tech badges
@@ -102,43 +102,34 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Aurora blobs — large soft color masses */}
-      <div
-        className="absolute pointer-events-none -z-10 rounded-full blur-[120px]"
-        style={{
-          width: "55vw",
-          height: "55vw",
-          top: "-15%",
-          left: "-10%",
-          background:
-            "radial-gradient(circle, rgba(0,240,255,0.09) 0%, rgba(56,189,248,0.06) 50%, transparent 70%)",
-          animation: "aurora-drift 22s ease-in-out infinite",
-        }}
-      />
-      <div
-        className="absolute pointer-events-none -z-10 rounded-full blur-[140px]"
-        style={{
-          width: "45vw",
-          height: "45vw",
-          bottom: "-5%",
-          right: "-5%",
-          background:
-            "radial-gradient(circle, rgba(167,139,250,0.10) 0%, rgba(56,189,248,0.05) 50%, transparent 70%)",
-          animation: "aurora-drift 28s ease-in-out infinite reverse",
-          animationDelay: "-10s",
-        }}
-      />
+      {/* Aurora blobs — pre-promoted to compositor layers via will-change + translateZ */}
       <div
         className="absolute pointer-events-none -z-10 rounded-full blur-[100px]"
         style={{
-          width: "30vw",
-          height: "30vw",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
+          width: "50vw",
+          height: "50vw",
+          top: "-15%",
+          left: "-10%",
           background:
-            "radial-gradient(circle, rgba(0,240,255,0.05) 0%, transparent 65%)",
-          animation: "hero-glow-breathe 10s ease-in-out infinite",
+            "radial-gradient(circle, rgba(0,240,255,0.08) 0%, rgba(56,189,248,0.05) 50%, transparent 70%)",
+          animation: "aurora-drift 22s ease-in-out infinite",
+          willChange: "transform",
+          transform: "translateZ(0)",
+        }}
+      />
+      <div
+        className="absolute pointer-events-none -z-10 rounded-full blur-[110px]"
+        style={{
+          width: "42vw",
+          height: "42vw",
+          bottom: "-5%",
+          right: "-5%",
+          background:
+            "radial-gradient(circle, rgba(167,139,250,0.09) 0%, rgba(56,189,248,0.04) 50%, transparent 70%)",
+          animation: "aurora-drift 28s ease-in-out infinite reverse",
+          animationDelay: "-10s",
+          willChange: "transform",
+          transform: "translateZ(0)",
         }}
       />
 

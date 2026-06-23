@@ -212,10 +212,10 @@ body {
 /* ─── Hero Section Animations ────────────────────────────────────────────────── */
 
 @keyframes hero-particle-float {
-  0%   { transform: translateY(0px) translateX(0px) scale(1); opacity: 0; }
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0; }
   10%  { opacity: 1; }
   90%  { opacity: 0.7; }
-  100% { transform: translateY(-90px) translateX(15px) scale(0.5); opacity: 0; }
+  100% { transform: translateY(-100px) translateX(12px); opacity: 0; }
 }
 
 @keyframes hero-beam-scan {
@@ -226,10 +226,10 @@ body {
 }
 
 @keyframes aurora-drift {
-  0%   { transform: translateX(0%) translateY(0%) rotate(0deg) scale(1); }
-  33%  { transform: translateX(5%) translateY(-8%) rotate(8deg) scale(1.08); }
-  66%  { transform: translateX(-4%) translateY(5%) rotate(-5deg) scale(0.96); }
-  100% { transform: translateX(0%) translateY(0%) rotate(0deg) scale(1); }
+  0%   { transform: translateX(0%) translateY(0%); }
+  33%  { transform: translateX(4%) translateY(-6%); }
+  66%  { transform: translateX(-3%) translateY(4%); }
+  100% { transform: translateX(0%) translateY(0%); }
 }
 
 @keyframes data-rain-drop {
