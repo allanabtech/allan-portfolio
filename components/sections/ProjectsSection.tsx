@@ -44,31 +44,43 @@ const PROJECTS: Project[] = [
       <svg viewBox="0 0 100 60" className="w-full h-full text-accent opacity-80" fill="none">
         <style>{`
           @keyframes bot-bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-1.5px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); filter: drop-shadow(0 0 0px rgba(94, 234, 212, 0)); }
+            25% { transform: translateY(-3px) rotate(-2deg); filter: drop-shadow(0 4px 6px rgba(94, 234, 212, 0.2)); }
+            75% { transform: translateY(-3px) rotate(2deg); filter: drop-shadow(0 4px 6px rgba(94, 234, 212, 0.2)); }
           }
           @keyframes wheel-spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
           }
           @keyframes antenna-ping {
-            0% { r: 2.5; opacity: 1; }
-            100% { r: 6; opacity: 0; }
+            0% { r: 2.5; opacity: 1; stroke-width: 1.5; }
+            50% { r: 8; opacity: 0.6; stroke-width: 1; stroke: #5EEAD4; }
+            100% { r: 14; opacity: 0; stroke-width: 0; stroke: #5EEAD4; }
+          }
+          @keyframes sensor-sweep {
+            0% { stroke-dashoffset: 10; opacity: 0.3; }
+            50% { opacity: 1; stroke: #5EEAD4; filter: drop-shadow(0 0 4px #5EEAD4); }
+            100% { stroke-dashoffset: 0; opacity: 0.3; }
           }
           .group:hover .bot-chassis {
-            animation: bot-bounce 0.5s ease-in-out infinite alternate;
+            animation: bot-bounce 1s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+            transform-origin: 50px 20px;
           }
           .group:hover .bot-wheel-left {
-            animation: wheel-spin 1.5s linear infinite;
+            animation: wheel-spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             transform-origin: 40px 45px;
           }
           .group:hover .bot-wheel-right {
-            animation: wheel-spin 1.5s linear infinite;
+            animation: wheel-spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             transform-origin: 60px 45px;
           }
           .bot-antenna-pulse {
-            animation: antenna-ping 1.5s ease-out infinite;
+            animation: antenna-ping 1.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
             transform-origin: 50px 8px;
+          }
+          .group:hover .bot-sensor {
+            stroke-dasharray: 4 4;
+            animation: sensor-sweep 0.8s linear infinite;
           }
         `}</style>
         <g className="bot-chassis">
@@ -76,7 +88,7 @@ const PROJECTS: Project[] = [
           <path d="M 50 20 L 50 10" stroke="currentColor" strokeWidth="1.5" />
           <circle cx="50" cy="8" r="2.5" fill="currentColor" />
           <circle cx="50" cy="8" r="2.5" stroke="currentColor" strokeWidth="1" className="bot-antenna-pulse" />
-          <path d="M 33 28 L 67 28" stroke="currentColor" strokeWidth="1" strokeDasharray="2,2" />
+          <path d="M 33 28 L 67 28" stroke="currentColor" strokeWidth="1.5" className="bot-sensor" />
         </g>
         {/* Left Wheel */}
         <g className="bot-wheel-left">
@@ -111,32 +123,40 @@ const PROJECTS: Project[] = [
       <svg viewBox="0 0 100 60" className="w-full h-full text-[#27C93F] opacity-80" fill="none">
         <style>{`
           @keyframes core-pulse {
-            0%, 100% { opacity: 0.15; transform: scale(1); }
-            50% { opacity: 0.45; transform: scale(1.08); }
+            0%, 100% { opacity: 0.2; transform: scale(1); filter: drop-shadow(0 0 0px #27C93F); }
+            50% { opacity: 0.9; transform: scale(1.15); filter: drop-shadow(0 0 8px #27C93F); fill: #27C93F; }
           }
-          @keyframes signal-glow {
-            0%, 100% { opacity: 0.5; stroke-width: 1.5; }
-            50% { opacity: 1; stroke-width: 2.5; stroke: #27C93F; filter: drop-shadow(0 0 2px #27C93F); }
+          @keyframes flow-in {
+            0% { stroke-dashoffset: 10; opacity: 0.3; }
+            50% { opacity: 1; stroke: #27C93F; stroke-width: 2.5; filter: drop-shadow(0 0 4px #27C93F); }
+            100% { stroke-dashoffset: 0; opacity: 0.3; }
+          }
+          @keyframes box-glow {
+            0%, 100% { stroke: currentColor; filter: drop-shadow(0 0 0px transparent); }
+            50% { stroke: #27C93F; filter: drop-shadow(0 0 3px rgba(39, 201, 63, 0.4)); }
           }
           .emb-core {
-            animation: core-pulse 2s ease-in-out infinite;
+            animation: core-pulse 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             transform-origin: 50px 30px;
           }
-          .group:hover .pin-l1 { animation: signal-glow 0.8s infinite 0s; }
-          .group:hover .pin-l2 { animation: signal-glow 0.8s infinite 0.15s; }
-          .group:hover .pin-l3 { animation: signal-glow 0.8s infinite 0.3s; }
-          .group:hover .pin-r1 { animation: signal-glow 0.8s infinite 0.075s; }
-          .group:hover .pin-r2 { animation: signal-glow 0.8s infinite 0.225s; }
-          .group:hover .pin-r3 { animation: signal-glow 0.8s infinite 0.375s; }
+          .group:hover .emb-box {
+            animation: box-glow 2s ease-in-out infinite;
+          }
+          .group:hover .pin-l1 { stroke-dasharray: 4 4; animation: flow-in 0.6s linear infinite 0s; }
+          .group:hover .pin-l2 { stroke-dasharray: 4 4; animation: flow-in 0.6s linear infinite 0.2s; }
+          .group:hover .pin-l3 { stroke-dasharray: 4 4; animation: flow-in 0.6s linear infinite 0.4s; }
+          .group:hover .pin-r1 { stroke-dasharray: 4 4; animation: flow-in 0.6s linear infinite 0.1s; direction: rtl; }
+          .group:hover .pin-r2 { stroke-dasharray: 4 4; animation: flow-in 0.6s linear infinite 0.3s; direction: rtl; }
+          .group:hover .pin-r3 { stroke-dasharray: 4 4; animation: flow-in 0.6s linear infinite 0.5s; direction: rtl; }
         `}</style>
-        <rect x="25" y="15" width="50" height="30" rx="3" stroke="currentColor" strokeWidth="1.5" />
+        <rect x="25" y="15" width="50" height="30" rx="3" stroke="currentColor" strokeWidth="1.5" className="emb-box" />
         <rect x="40" y="25" width="20" height="10" rx="1" fill="currentColor" stroke="currentColor" strokeWidth="1" className="emb-core" />
-        <line x1="20" y1="20" x2="25" y2="20" stroke="currentColor" strokeWidth="1.5" className="pin-l1" />
-        <line x1="20" y1="30" x2="25" y2="30" stroke="currentColor" strokeWidth="1.5" className="pin-l2" />
-        <line x1="20" y1="40" x2="25" y2="40" stroke="currentColor" strokeWidth="1.5" className="pin-l3" />
-        <line x1="75" y1="20" x2="80" y2="20" stroke="currentColor" strokeWidth="1.5" className="pin-r1" />
-        <line x1="75" y1="30" x2="80" y2="30" stroke="currentColor" strokeWidth="1.5" className="pin-r2" />
-        <line x1="75" y1="40" x2="80" y2="40" stroke="currentColor" strokeWidth="1.5" className="pin-r3" />
+        <line x1="15" y1="20" x2="25" y2="20" stroke="currentColor" strokeWidth="1.5" className="pin-l1" />
+        <line x1="15" y1="30" x2="25" y2="30" stroke="currentColor" strokeWidth="1.5" className="pin-l2" />
+        <line x1="15" y1="40" x2="25" y2="40" stroke="currentColor" strokeWidth="1.5" className="pin-l3" />
+        <line x1="75" y1="20" x2="85" y2="20" stroke="currentColor" strokeWidth="1.5" className="pin-r1" />
+        <line x1="75" y1="30" x2="85" y2="30" stroke="currentColor" strokeWidth="1.5" className="pin-r2" />
+        <line x1="75" y1="40" x2="85" y2="40" stroke="currentColor" strokeWidth="1.5" className="pin-r3" />
       </svg>
     ),
     metrics: {
@@ -158,23 +178,41 @@ const PROJECTS: Project[] = [
       <svg viewBox="0 0 100 60" className="w-full h-full text-[#FFBD2E] opacity-80" fill="none">
         <style>{`
           @keyframes ml-cloud-drift {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-2.5px); }
+            0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 0px transparent); }
+            50% { transform: translateY(-3px) scale(1.02); filter: drop-shadow(0 4px 8px rgba(255, 189, 46, 0.15)); }
           }
           @keyframes ml-flash {
-            0%, 100% { opacity: 0.8; stroke-width: 1.5; }
-            10%, 90% { opacity: 0.3; }
-            35%, 55% { opacity: 1; stroke-width: 2.2; filter: drop-shadow(0 0 3px #FFBD2E); }
+            0%, 100% { opacity: 0; transform: scaleY(0.8) translateY(-10px); }
+            10%, 15% { opacity: 1; transform: scaleY(1.1) translateY(0); stroke-width: 2.5; stroke: #FFBD2E; filter: drop-shadow(0 0 6px #FFBD2E); }
+            20% { opacity: 0; }
+            25%, 30% { opacity: 0.8; transform: scaleY(1) translateY(0); stroke-width: 2; stroke: #FFBD2E; filter: drop-shadow(0 0 4px #FFBD2E); }
+            40% { opacity: 0; }
           }
-          .ml-cloud {
-            animation: ml-cloud-drift 4s ease-in-out infinite;
+          @keyframes data-drops {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 0.8; fill: #FFBD2E; }
+            100% { transform: translateY(15px); opacity: 0; }
+          }
+          .group:hover .ml-cloud {
+            animation: ml-cloud-drift 3s ease-in-out infinite;
+            stroke: #FFBD2E;
           }
           .group:hover .ml-lightning {
-            animation: ml-flash 1.2s ease-in-out infinite;
+            animation: ml-flash 2.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+            transform-origin: 50px 38px;
           }
+          .group:hover .data-drop {
+            animation: data-drops 1.5s ease-in infinite;
+          }
+          .drop-1 { animation-delay: 0.2s !important; }
+          .drop-2 { animation-delay: 0.7s !important; }
+          .drop-3 { animation-delay: 1.1s !important; }
         `}</style>
-        <path d="M 30 35 C 30 25, 45 20, 50 25 C 55 20, 70 25, 70 35 C 75 35, 80 40, 75 48 C 70 48, 30 48, 25 45 C 20 40, 25 35, 30 35 Z" stroke="currentColor" strokeWidth="1.5" className="ml-cloud" />
-        <path d="M 50 38 L 45 46 L 52 46 L 48 54" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="ml-lightning" />
+        <path d="M 30 35 C 30 25, 45 20, 50 25 C 55 20, 70 25, 70 35 C 75 35, 80 40, 75 48 C 70 48, 30 48, 25 45 C 20 40, 25 35, 30 35 Z" stroke="currentColor" strokeWidth="1.5" className="ml-cloud transition-colors duration-500" />
+        <path d="M 50 38 L 45 46 L 52 46 L 48 54" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="ml-lightning opacity-0" />
+        <circle cx="35" cy="45" r="1.5" fill="currentColor" className="data-drop drop-1 opacity-0" />
+        <circle cx="65" cy="45" r="1.5" fill="currentColor" className="data-drop drop-2 opacity-0" />
+        <circle cx="58" cy="48" r="1.5" fill="currentColor" className="data-drop drop-3 opacity-0" />
       </svg>
     ),
     metrics: {
@@ -196,25 +234,49 @@ const PROJECTS: Project[] = [
       <svg viewBox="0 0 100 60" className="w-full h-full text-[#FF5F56] opacity-80" fill="none">
         <style>{`
           @keyframes sweep-horizontal {
-            0% { transform: translateX(0px); }
-            100% { transform: translateX(50px); }
+            0% { transform: translateX(0px) rotate(-10deg); opacity: 0; }
+            10% { opacity: 1; }
+            45% { stroke: #FF5F56; filter: drop-shadow(0 0 6px #FF5F56); stroke-width: 2; }
+            50% { transform: translateX(35px) rotate(0deg); opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(70px) rotate(15deg); opacity: 0; }
           }
-          .pothole-sweep {
-            animation: sweep-horizontal 2s linear infinite;
+          @keyframes detect-ping {
+            0% { r: 1; opacity: 1; fill: #FF5F56; filter: drop-shadow(0 0 0px #FF5F56); }
+            50% { r: 5; opacity: 0.6; fill: #FF5F56; filter: drop-shadow(0 0 4px #FF5F56); }
+            100% { r: 8; opacity: 0; fill: #FF5F56; filter: drop-shadow(0 0 8px #FF5F56); }
           }
-          @keyframes camera-scan {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; stroke-width: 2px; }
+          @keyframes camera-focus {
+            0%, 100% { transform: scaleX(1); stroke: currentColor; }
+            50% { transform: scaleX(1.2); stroke: #FF5F56; filter: drop-shadow(0 0 2px #FF5F56); }
           }
-          .pothole-scope {
-            animation: camera-scan 1s ease-in-out infinite;
+          .group:hover .pothole-sweep {
+            animation: sweep-horizontal 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            transform-origin: 22.5px 15px;
           }
+          .group:hover .pothole-scope {
+            animation: camera-focus 2.5s ease-in-out infinite;
+            transform-origin: 22.5px 15px;
+          }
+          .group:hover .ping-1 { animation: detect-ping 2.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 1.1s; }
+          .group:hover .ping-2 { animation: detect-ping 2.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 1.9s; }
         `}</style>
-        <path d="M 15 45 C 30 45, 35 32, 45 32 C 55 32, 60 50, 70 50 C 80 50, 85 45, 90 45" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <circle cx="45" cy="32" r="3" fill="currentColor" className="animate-ping" />
-        <circle cx="70" cy="50" r="3" fill="currentColor" className="animate-ping" />
-        <line x1="10" y1="15" x2="35" y2="15" stroke="currentColor" strokeWidth="1.5" className="pothole-scope" />
-        <line x1="22.5" y1="15" x2="22.5" y2="45" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" className="pothole-sweep" />
+        <path d="M 10 45 C 25 45, 30 32, 45 32 C 60 32, 65 50, 80 50 C 90 50, 95 45, 100 45" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        
+        {/* Pothole 1 */}
+        <circle cx="45" cy="32" r="1" fill="currentColor" />
+        <circle cx="45" cy="32" r="1" className="ping-1 opacity-0" />
+        
+        {/* Pothole 2 */}
+        <circle cx="80" cy="50" r="1" fill="currentColor" />
+        <circle cx="80" cy="50" r="1" className="ping-2 opacity-0" />
+        
+        {/* Camera */}
+        <path d="M 15 15 L 30 15 L 26 10 L 19 10 Z" stroke="currentColor" strokeWidth="1.5" fill="transparent" className="pothole-scope" />
+        
+        {/* Laser Sweep */}
+        <polygon points="22.5,15 12,45 33,45" fill="rgba(255, 95, 86, 0.15)" className="pothole-sweep opacity-0" />
+        <line x1="22.5" y1="15" x2="22.5" y2="45" stroke="currentColor" strokeWidth="1" strokeDasharray="4,4" className="pothole-sweep opacity-0" />
       </svg>
     ),
     metrics: {
@@ -239,41 +301,61 @@ const PROJECTS: Project[] = [
     svgGraphic: (
       <svg viewBox="0 0 100 60" className="w-full h-full text-[#38BDF8] opacity-80" fill="none">
         <style>{`
-          @keyframes db-glow {
-            0%, 100% { stroke: #38BDF8; opacity: 0.6; }
-            50% { stroke: #00F0FF; opacity: 1; filter: drop-shadow(0 0 3px #00F0FF); }
+          @keyframes cloud-pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
+            50% { transform: scale(1.03); filter: drop-shadow(0 5px 15px rgba(56, 189, 248, 0.2)); stroke: #38BDF8; }
           }
-          @keyframes pulse-server {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.9; }
+          @keyframes data-stream-up {
+            0% { stroke-dashoffset: 12; opacity: 0.3; }
+            50% { opacity: 1; stroke: #38BDF8; filter: drop-shadow(0 0 3px #38BDF8); stroke-width: 2; }
+            100% { stroke-dashoffset: 0; opacity: 0.3; }
           }
-          @keyframes dash-flow {
-            to { stroke-dashoffset: -10; }
+          @keyframes server-activity {
+            0%, 100% { fill: transparent; stroke: currentColor; opacity: 0.5; }
+            20% { fill: rgba(56, 189, 248, 0.2); stroke: #38BDF8; opacity: 1; filter: drop-shadow(0 0 5px #38BDF8); }
+            40% { fill: transparent; stroke: currentColor; opacity: 0.5; }
           }
-          .db-cylinder {
-            animation: db-glow 2s ease-in-out infinite;
+          @keyframes file-upload {
+            0% { transform: translateY(10px) scale(0.5); opacity: 0; }
+            30% { transform: translateY(0px) scale(1); opacity: 1; fill: #38BDF8; filter: drop-shadow(0 0 4px #38BDF8); }
+            70% { transform: translateY(-15px) scale(1); opacity: 1; fill: #38BDF8; }
+            100% { transform: translateY(-25px) scale(0.5); opacity: 0; }
           }
-          .server-left {
-            animation: pulse-server 1.5s infinite alternate;
+          .group:hover .cloud-body {
+            animation: cloud-pulse 3s ease-in-out infinite;
+            transform-origin: 50px 33px;
           }
-          .server-right {
-            animation: pulse-server 1.5s infinite alternate 0.75s;
+          .group:hover .db-stream {
+            stroke-dasharray: 4 4;
+            animation: data-stream-up 1s linear infinite;
           }
-          .group:hover .flow-line-up {
-            stroke-dasharray: 3, 2;
-            animation: dash-flow 1s linear infinite;
-          }
+          .group:hover .server-left { animation: server-activity 2.5s infinite; }
+          .group:hover .server-right { animation: server-activity 2.5s infinite 1.25s; }
+          .group:hover .file-node-1 { animation: file-upload 2s cubic-bezier(0.4, 0, 0.2, 1) infinite 0s; }
+          .group:hover .file-node-2 { animation: file-upload 2s cubic-bezier(0.4, 0, 0.2, 1) infinite 1s; }
         `}</style>
-        <path d="M 28 38 C 28 28, 42 22, 50 27 C 55 20, 72 22, 72 33 C 78 33, 82 38, 78 44 C 74 44, 26 44, 22 41 C 18 37, 22 33, 28 38 Z" stroke="currentColor" strokeWidth="1.5" />
-        <ellipse cx="50" cy="53" rx="10" ry="3" stroke="currentColor" strokeWidth="1" className="db-cylinder" />
-        <line x1="40" y1="53" x2="40" y2="47" stroke="currentColor" strokeWidth="1" />
-        <line x1="60" y1="53" x2="60" y2="47" stroke="currentColor" strokeWidth="1" />
-        <ellipse cx="50" cy="47" rx="10" ry="3" stroke="currentColor" strokeWidth="1" className="db-cylinder" />
-        <path d="M 50 44 L 50 47" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2,2" className="flow-line-up" />
-        <rect x="13" y="27" width="8" height="10" rx="1" stroke="currentColor" strokeWidth="1" className="server-left" />
-        <path d="M 13 31 L 21 31" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
-        <rect x="79" y="27" width="8" height="10" rx="1" stroke="currentColor" strokeWidth="1" className="server-right" />
-        <path d="M 79 31 L 87 31" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
+        <path d="M 28 38 C 28 28, 42 22, 50 27 C 55 20, 72 22, 72 33 C 78 33, 82 38, 78 44 C 74 44, 26 44, 22 41 C 18 37, 22 33, 28 38 Z" stroke="currentColor" strokeWidth="1.5" className="cloud-body transition-colors duration-300" />
+        
+        {/* Upload Files */}
+        <rect x="35" y="40" width="4" height="5" rx="1" stroke="none" className="file-node-1 opacity-0" />
+        <rect x="61" y="42" width="4" height="5" rx="1" stroke="none" className="file-node-2 opacity-0" />
+
+        <g className="db-stack">
+          <ellipse cx="50" cy="55" rx="10" ry="3" stroke="currentColor" strokeWidth="1.5" />
+          <line x1="40" y1="55" x2="40" y2="49" stroke="currentColor" strokeWidth="1.5" />
+          <line x1="60" y1="55" x2="60" y2="49" stroke="currentColor" strokeWidth="1.5" />
+          <ellipse cx="50" cy="49" rx="10" ry="3" stroke="currentColor" strokeWidth="1.5" />
+        </g>
+        
+        <path d="M 50 44 L 50 49" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2,2" className="db-stream" />
+        
+        <rect x="13" y="27" width="8" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.5" className="server-left" />
+        <line x1="15" y1="31" x2="19" y2="31" stroke="currentColor" strokeWidth="1" />
+        <line x1="15" y1="35" x2="19" y2="35" stroke="currentColor" strokeWidth="1" />
+        
+        <rect x="79" y="27" width="8" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.5" className="server-right" />
+        <line x1="81" y1="31" x2="85" y2="31" stroke="currentColor" strokeWidth="1" />
+        <line x1="81" y1="35" x2="85" y2="35" stroke="currentColor" strokeWidth="1" />
       </svg>
     ),
     metrics: {
@@ -294,37 +376,54 @@ const PROJECTS: Project[] = [
     svgGraphic: (
       <svg viewBox="0 0 100 60" className="w-full h-full text-[#A78BFA] opacity-80" fill="none">
         <style>{`
-          @keyframes active-glow {
-            0%, 100% { stroke: currentColor; fill: transparent; }
-            25% { stroke: #A78BFA; fill: rgba(167, 139, 250, 0.15); filter: drop-shadow(0 0 3px #A78BFA); }
+          @keyframes process-glow {
+            0% { stroke: currentColor; fill: transparent; transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
+            10%, 30% { stroke: #A78BFA; fill: rgba(167, 139, 250, 0.2); transform: scale(1.1); filter: drop-shadow(0 0 8px #A78BFA); stroke-width: 1.5px; }
+            40%, 100% { stroke: currentColor; fill: transparent; transform: scale(1); filter: drop-shadow(0 0 0px transparent); stroke-width: 1.3px; }
+          }
+          @keyframes link-flow {
+            0% { stroke-dashoffset: 12; opacity: 0.3; stroke: currentColor; }
+            10%, 30% { opacity: 1; stroke: #A78BFA; stroke-width: 2px; filter: drop-shadow(0 0 4px #A78BFA); }
+            40%, 100% { stroke-dashoffset: 0; opacity: 0.3; stroke: currentColor; stroke-width: 1px; }
           }
           @keyframes rollback-flow {
-            to { stroke-dashoffset: 20; }
+            0% { stroke-dashoffset: 24; opacity: 0.2; }
+            50% { opacity: 1; stroke: #EF4444; filter: drop-shadow(0 0 5px #EF4444); stroke-width: 1.5px; }
+            100% { stroke-dashoffset: 0; opacity: 0.2; }
           }
-          .group:hover .devops-box1 { animation: active-glow 2.5s infinite 0s; }
-          .group:hover .devops-box2 { animation: active-glow 2.5s infinite 0.6s; }
-          .group:hover .devops-box3 { animation: active-glow 2.5s infinite 1.2s; }
-          .group:hover .devops-box4 { animation: active-glow 2.5s infinite 1.8s; }
+          .group:hover .devops-box1 { animation: process-glow 4s cubic-bezier(0.4, 0, 0.2, 1) infinite 0s; transform-origin: 13px 30px; }
+          .group:hover .link-1 { stroke-dasharray: 4 4; animation: link-flow 4s linear infinite 0.4s; }
+          .group:hover .devops-box2 { animation: process-glow 4s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.8s; transform-origin: 35px 30px; }
+          .group:hover .link-2 { stroke-dasharray: 4 4; animation: link-flow 4s linear infinite 1.2s; }
+          .group:hover .devops-box3 { animation: process-glow 4s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.6s; transform-origin: 57px 30px; }
+          .group:hover .link-3 { stroke-dasharray: 4 4; animation: link-flow 4s linear infinite 2.0s; }
+          .group:hover .devops-box4 { animation: process-glow 4s cubic-bezier(0.4, 0, 0.2, 1) infinite 2.4s; transform-origin: 79px 30px; }
+          
           .group:hover .rollback-path {
-            stroke-dasharray: 3, 2;
-            animation: rollback-flow 1.5s linear infinite;
+            stroke-dasharray: 4 4;
+            animation: rollback-flow 2s linear infinite 3.5s;
+            direction: rtl;
           }
         `}</style>
         {/* Pipeline flow: boxes connected by arrows */}
         <rect x="5" y="23" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.3" className="devops-box1" />
-        <text x="13" y="32" textAnchor="middle" fontSize="5" fill="currentColor" opacity="0.8">lint</text>
-        <path d="M 21 30 L 27 30" stroke="currentColor" strokeWidth="1" />
+        <text x="13" y="31.5" textAnchor="middle" fontSize="4.5" fill="currentColor" opacity="0.9" className="font-mono">lint</text>
+        <path d="M 21 30 L 27 30" stroke="currentColor" strokeWidth="1" className="link-1" />
+        
         <rect x="27" y="23" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.3" className="devops-box2" />
-        <text x="35" y="32" textAnchor="middle" fontSize="5" fill="currentColor" opacity="0.8">test</text>
-        <path d="M 43 30 L 49 30" stroke="currentColor" strokeWidth="1" />
+        <text x="35" y="31.5" textAnchor="middle" fontSize="4.5" fill="currentColor" opacity="0.9" className="font-mono">test</text>
+        <path d="M 43 30 L 49 30" stroke="currentColor" strokeWidth="1" className="link-2" />
+        
         <rect x="49" y="23" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.3" className="devops-box3" />
-        <text x="57" y="32" textAnchor="middle" fontSize="4.5" fill="currentColor" opacity="0.8">build</text>
-        <path d="M 65 30 L 71 30" stroke="currentColor" strokeWidth="1" />
+        <text x="57" y="31.5" textAnchor="middle" fontSize="4.5" fill="currentColor" opacity="0.9" className="font-mono">build</text>
+        <path d="M 65 30 L 71 30" stroke="currentColor" strokeWidth="1" className="link-3" />
+        
         <rect x="71" y="23" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.3" className="devops-box4" />
-        <text x="79" y="32" textAnchor="middle" fontSize="4.5" fill="currentColor" opacity="0.8">deploy</text>
+        <text x="79" y="31.5" textAnchor="middle" fontSize="4.5" fill="currentColor" opacity="0.9" className="font-mono">deploy</text>
+        
         {/* Rollback arrow */}
-        <path d="M 79 37 Q 79 50 57 50 Q 35 50 35 37" stroke="currentColor" strokeWidth="0.9" strokeDasharray="2,2" opacity="0.5" className="rollback-path" />
-        <text x="57" y="56" textAnchor="middle" fontSize="4" fill="currentColor" opacity="0.45">rollback</text>
+        <path d="M 79 37 Q 79 50 57 50 Q 35 50 35 37" stroke="currentColor" strokeWidth="1" strokeDasharray="2,2" opacity="0.3" className="rollback-path transition-colors duration-300" />
+        <text x="57" y="56" textAnchor="middle" fontSize="4" fill="currentColor" opacity="0.5" className="font-mono">rollback</text>
       </svg>
     ),
     metrics: {
@@ -347,36 +446,65 @@ const PROJECTS: Project[] = [
       <svg viewBox="0 0 100 60" className="w-full h-full text-[#F59E0B] opacity-85" fill="none">
         <style>{`
           @keyframes draw-flow {
-            to { stroke-dashoffset: -30; }
+            to { stroke-dashoffset: -40; }
+          }
+          @keyframes infinity-glow {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(245, 158, 11, 0.4)); stroke: currentColor; }
+            50% { filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.8)); stroke: #F59E0B; }
+          }
+          @keyframes particle-orbit {
+            0% { transform: rotate(0deg) translateX(12px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; fill: #FCD34D; filter: drop-shadow(0 0 4px #FCD34D); }
+            90% { opacity: 1; }
+            100% { transform: rotate(360deg) translateX(12px) rotate(-360deg); opacity: 0; }
           }
           @keyframes component-flash {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; fill: #F59E0B; filter: drop-shadow(0 0 2px #F59E0B); }
+            0%, 100% { opacity: 0.2; transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
+            50% { opacity: 1; fill: #F59E0B; transform: scale(1.5); filter: drop-shadow(0 0 6px #F59E0B); }
           }
-          .infinity-flow {
-            stroke-dasharray: 6, 4;
-            animation: draw-flow 1.5s linear infinite;
+          @keyframes power-line {
+            0% { stroke-dashoffset: 20; opacity: 0.1; }
+            50% { opacity: 0.8; stroke: #F59E0B; }
+            100% { stroke-dashoffset: 0; opacity: 0.1; }
+          }
+          .group:hover .infinity-flow {
+            stroke-dasharray: 8 6;
+            animation: draw-flow 1.2s linear infinite, infinity-glow 3s ease-in-out infinite;
           }
           .group:hover .led-soc1 {
-            animation: component-flash 0.8s ease-in-out infinite;
+            animation: component-flash 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            transform-origin: 30px 30px;
           }
           .group:hover .led-soc2 {
-            animation: component-flash 0.8s ease-in-out infinite 0.4s;
+            animation: component-flash 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.75s;
+            transform-origin: 70px 30px;
           }
+          .group:hover .power-track {
+            stroke-dasharray: 4 4;
+            animation: power-line 1.5s linear infinite;
+          }
+          .group:hover .orbit-1 { animation: particle-orbit 2s linear infinite; transform-origin: 30px 30px; }
+          .group:hover .orbit-2 { animation: particle-orbit 2s linear infinite 1s; transform-origin: 70px 30px; }
         `}</style>
         <path
           d="M 50 30 C 50 22, 38 16, 30 22 C 22 28, 22 32, 30 38 C 38 44, 50 38, 50 30 C 50 22, 62 16, 70 22 C 78 28, 78 32, 70 38 C 62 44, 50 38, 50 30 Z"
           stroke="currentColor"
           strokeWidth="1.8"
           fill="none"
-          className="infinity-flow"
+          className="infinity-flow transition-colors duration-500"
         />
-        <circle cx="30" cy="30" r="2" fill="currentColor" className="led-soc1" />
-        <circle cx="70" cy="30" r="2" fill="currentColor" className="led-soc2" />
-        <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3,4" opacity="0.3" />
-        <line x1="10" y1="10" x2="90" y2="10" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3,4" opacity="0.3" />
-        <rect x="8" y="7" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
-        <rect x="86" y="47" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
+        
+        {/* Orbital particles */}
+        <circle cx="30" cy="30" r="1.5" className="orbit-1 opacity-0" />
+        <circle cx="70" cy="30" r="1.5" className="orbit-2 opacity-0" />
+        
+        <circle cx="30" cy="30" r="2.5" fill="currentColor" className="led-soc1" />
+        <circle cx="70" cy="30" r="2.5" fill="currentColor" className="led-soc2" />
+        
+        <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" strokeWidth="1" className="power-track opacity-30" />
+        <line x1="10" y1="10" x2="90" y2="10" stroke="currentColor" strokeWidth="1" className="power-track opacity-30" />
+        <rect x="8" y="7" width="6" height="6" rx="1" fill="transparent" stroke="currentColor" strokeWidth="1" className="opacity-50" />
+        <rect x="86" y="47" width="6" height="6" rx="1" fill="transparent" stroke="currentColor" strokeWidth="1" className="opacity-50" />
       </svg>
     ),
     metrics: {
