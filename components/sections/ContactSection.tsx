@@ -38,8 +38,8 @@ export default function ContactSection() {
     e.stopPropagation();
     triggerViewContact();
     const link = document.createElement("a");
-    link.href = "/allanabraham_cv.pdf";
-    link.download = "allanabraham_cv.pdf";
+    link.href = "/AllanAB_Resume.pdf";
+    link.download = "AllanAB_Resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -279,8 +279,8 @@ export default function ContactSection() {
 
             <motion.a
               variants={itemVariants}
-              href="/allanabraham_cv.pdf"
-              download="allanabraham_cv.pdf"
+              href="/AllanAB_Resume.pdf"
+              download="AllanAB_Resume.pdf"
               onClick={triggerViewContact}
               className="block group"
             >
@@ -296,7 +296,7 @@ export default function ContactSection() {
                       className="flex items-center justify-between gap-1.5 bg-[#0D1017]/80 border border-glass-border py-1.5 px-2 rounded-lg w-full max-w-full select-text transition-colors hover:border-[#FF5F56]/30"
                     >
                       <span className="text-[10px] lg:text-[11px] text-muted font-mono break-all select-all leading-tight">
-                        allanabraham_cv.pdf
+                        AllanAB_Resume.pdf
                       </span>
                       <button
                         onClick={handleDownload}
